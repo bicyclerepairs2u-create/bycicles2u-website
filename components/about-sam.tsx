@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Container, Typography, Grid, Card, CardMedia } from "@mui/material"
+import { Box, Container, Typography, Card, CardMedia } from "@mui/material"
 
 export default function AboutSam() {
   return (
@@ -27,8 +27,8 @@ export default function AboutSam() {
           Meet Sam
         </Typography>
 
-        <Grid container spacing={6} alignItems="center">
-          <Grid item xs={12} md={5}>
+        <Box sx={{ display: 'grid', gap: 6, alignItems: 'center', gridTemplateColumns: { xs: '1fr', md: 'repeat(12, 1fr)' } }}>
+          <Box sx={{ gridColumn: { xs: '1 / -1', md: 'span 5' } }}>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
               <Card
                 elevation={0}
@@ -68,9 +68,9 @@ export default function AboutSam() {
                 />
               </Card>
             </Box>
-          </Grid>
+          </Box>
 
-          <Grid item xs={12} md={7}>
+          <Box sx={{ gridColumn: { xs: '1 / -1', md: 'span 7' } }}>
             <Box>
               <Typography
                 variant="h5"
@@ -129,8 +129,8 @@ export default function AboutSam() {
                 ride as much as you do.
               </Typography>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Container>
     </Box>
   )

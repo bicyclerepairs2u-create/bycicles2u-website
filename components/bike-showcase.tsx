@@ -4,7 +4,6 @@ import {
   Box,
   Container,
   Typography,
-  Grid,
   Card,
   CardMedia,
   CardContent,
@@ -126,134 +125,114 @@ export default function BikeShowcase() {
           All bikes sold on Facebook Marketplace
         </Typography>
 
-        <Grid container spacing={4} justifyContent="center">
+        <Box sx={{ display: 'grid', gap: 4, gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' } }}>
           {bikes.map((bike, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Card
-                elevation={0}
-                sx={{
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  borderRadius: "12px",
-                  overflow: "hidden",
-                  transition: "all 0.3s ease",
-                  border: "1px solid #e0e0e0",
-                  "&:hover": {
-                    transform: "translateY(-4px)",
-                    boxShadow: "0 12px 24px rgba(0, 0, 0, 0.12)",
-                    "& .bike-image": {
-                      transform: "scale(1.05)",
-                    },
-                  },
-                }}
-              >
-                <Box sx={{ overflow: "hidden", position: "relative" }}>
-                  <CardMedia
-                    component="img"
-                    image={bike.image}
-                    alt={bike.name}
-                    className="bike-image"
-                    sx={{
-                      height: 240,
-                      objectFit: "cover",
-                      transition: "transform 0.3s ease",
-                    }}
-                  />
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    sx={{
-                      position: "absolute",
-                      top: 12,
-                      left: 12,
-                    }}
-                  >
-                    {bike.tags.map((tag, tagIndex) => (
-                      <Chip
-                        key={tagIndex}
-                        label={tag}
-                        size="small"
-                        sx={{
-                          backgroundColor: "rgba(255, 255, 255, 0.95)",
-                          fontWeight: 600,
-                          fontSize: "0.75rem",
-                        }}
+            <Card key={index} elevation={0} sx={{ display: 'flex', flexDirection: 'column', borderRadius: "12px", overflow: "hidden", transition: "all 0.3s ease", border: "1px solid #e0e0e0", "&:hover": { transform: "translateY(-4px)", boxShadow: "0 12px 24px rgba(0, 0, 0, 0.12)", "& .bike-image": { transform: "scale(1.05)", }, }, }}>
+              <Box sx={{ overflow: "hidden", position: "relative" }}>
+                <CardMedia
+                  component="img"
+                  image={bike.image}
+                  alt={bike.name}
+                  className="bike-image"
+                  sx={{
+                    height: 240,
+                    objectFit: "cover",
+                    transition: "transform 0.3s ease",
+                  }}
+                />
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{
+                    position: "absolute",
+                    top: 12,
+                    left: 12,
+                  }}
+                >
+                  {bike.tags.map((tag, tagIndex) => (
+                    <Chip
+                      key={tagIndex}
+                      label={tag}
+                      size="small"
+                      sx={{
+                        backgroundColor: "rgba(255, 255, 255, 0.95)",
+                        fontWeight: 600,
+                        fontSize: "0.75rem",
+                      }}
+                    />
+                  ))}
+                </Stack>
+              </Box>
+
+              <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 600,
+                    color: "#212121",
+                    mb: 1,
+                    fontSize: "1.1rem",
+                  }}
+                >
+                  {bike.name}
+                </Typography>
+
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "#757575",
+                    mb: 2,
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {bike.description}
+                </Typography>
+
+                <Typography
+                  variant="h5"
+                  sx={{
+                    fontWeight: 700,
+                    color: "#0288d1",
+                    fontSize: "1.5rem",
+                  }}
+                >
+                  {bike.price}
+                </Typography>
+              </CardContent>
+
+              <CardActions sx={{ p: 3, pt: 0 }}>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  endIcon={
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
+                        fill="currentColor"
                       />
-                    ))}
-                  </Stack>
-                </Box>
-
-                <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      fontWeight: 600,
-                      color: "#212121",
-                      mb: 1,
-                      fontSize: "1.1rem",
-                    }}
-                  >
-                    {bike.name}
-                  </Typography>
-
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: "#757575",
-                      mb: 2,
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    {bike.description}
-                  </Typography>
-
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontWeight: 700,
-                      color: "#0288d1",
-                      fontSize: "1.5rem",
-                    }}
-                  >
-                    {bike.price}
-                  </Typography>
-                </CardContent>
-
-                <CardActions sx={{ p: 3, pt: 0 }}>
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    endIcon={
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    }
-                    href={bike.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={{
-                      backgroundColor: "#ff5722",
-                      color: "#ffffff",
-                      fontWeight: 600,
-                      py: 1.2,
-                      textTransform: "none",
-                      borderRadius: "8px",
-                      "&:hover": {
-                        backgroundColor: "#f4511e",
-                      },
-                    }}
-                  >
-                    View on Facebook Marketplace
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
+                    </svg>
+                  }
+                  href={bike.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    backgroundColor: "#ff5722",
+                    color: "#ffffff",
+                    fontWeight: 600,
+                    py: 1.2,
+                    textTransform: "none",
+                    borderRadius: "8px",
+                    "&:hover": {
+                      backgroundColor: "#f4511e",
+                    },
+                  }}
+                >
+                  View on Facebook Marketplace
+                </Button>
+              </CardActions>
+            </Card>
           ))}
-        </Grid>
+        </Box>
       </Container>
     </Box>
   )

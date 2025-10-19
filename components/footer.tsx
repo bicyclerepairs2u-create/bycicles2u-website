@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Container, Typography, Grid, Link, Divider, Stack } from "@mui/material"
+import { Box, Container, Typography, Link, Divider, Stack } from "@mui/material"
 
 export default function Footer() {
   const handleNavClick = (href: string) => {
@@ -21,9 +21,9 @@ export default function Footer() {
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={6} sx={{ mb: 6 }}>
+        <Box sx={{ display: 'grid', gap: 6, mb: 6, gridTemplateColumns: { xs: '1fr', md: 'repeat(12, 1fr)' } }}>
           {/* Column 1: Branding */}
-          <Grid item xs={12} md={4}>
+          <Box sx={{ gridColumn: { xs: '1 / -1', md: 'span 4' } }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
               <Box sx={{ fontSize: "2rem", display: "flex", alignItems: "center" }}>🚴</Box>
               <Typography
@@ -47,10 +47,10 @@ export default function Footer() {
             >
               Lightweight. Fast. Performance.
             </Typography>
-          </Grid>
+          </Box>
 
           {/* Column 2: Quick Links */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Box sx={{ gridColumn: { xs: '1 / -1', md: 'span 4' } }}>
             <Typography
               variant="h6"
               sx={{
@@ -119,10 +119,10 @@ export default function Footer() {
                 Contact
               </Link>
             </Stack>
-          </Grid>
+          </Box>
 
           {/* Column 3: Legal & Info */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Box sx={{ gridColumn: { xs: '1 / -1', md: 'span 4' } }}>
             <Typography
               variant="h6"
               sx={{
@@ -168,8 +168,8 @@ export default function Footer() {
                 Terms & Conditions
               </Link>
             </Stack>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
 
         <Divider sx={{ borderColor: "#616161", mb: 3 }} />
 

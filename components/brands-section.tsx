@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Container, Typography, Grid, Paper } from "@mui/material"
+import { Box, Container, Typography, Paper } from "@mui/material"
 
 const brands = [
   { name: "Shimano", logo: "/shimano-logo-grayscale.jpg" },
@@ -48,48 +48,25 @@ export default function BrandsSection() {
           Premium components and bikes from industry leaders
         </Typography>
 
-        <Grid container spacing={4} justifyContent="center">
+        <Box sx={{ display: 'grid', gap: 4, justifyContent: 'center', gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)', md: 'repeat(6, 1fr)' } }}>
           {brands.map((brand, index) => (
-            <Grid item xs={6} sm={4} md={2} key={index}>
-              <Paper
-                elevation={0}
+            <Paper key={index} elevation={0} sx={{ p: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Box
+                component="img"
+                src={brand.logo}
+                alt={brand.name}
                 sx={{
-                  p: 3,
-                  height: 120,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "12px",
-                  border: "1px solid #e0e0e0",
+                  maxWidth: "100%",
+                  maxHeight: "60px",
+                  objectFit: "contain",
+                  filter: "grayscale(100%)",
+                  opacity: 0.6,
                   transition: "all 0.3s ease",
-                  cursor: "pointer",
-                  "&:hover": {
-                    transform: "translateY(-4px)",
-                    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-                    "& img": {
-                      filter: "grayscale(0%)",
-                      opacity: 1,
-                    },
-                  },
                 }}
-              >
-                <Box
-                  component="img"
-                  src={brand.logo}
-                  alt={brand.name}
-                  sx={{
-                    maxWidth: "100%",
-                    maxHeight: "60px",
-                    objectFit: "contain",
-                    filter: "grayscale(100%)",
-                    opacity: 0.6,
-                    transition: "all 0.3s ease",
-                  }}
-                />
-              </Paper>
-            </Grid>
+              />
+            </Paper>
           ))}
-        </Grid>
+        </Box>
       </Container>
     </Box>
   )

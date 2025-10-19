@@ -7,7 +7,6 @@ import {
   Box,
   Container,
   Typography,
-  Grid,
   TextField,
   Button,
   Select,
@@ -65,9 +64,9 @@ export default function ContactSection() {
           Get In Touch
         </Typography>
 
-        <Grid container spacing={8} justifyContent="center">
+        <Box sx={{ display: 'grid', gap: 8, justifyContent: 'center', gridTemplateColumns: { xs: '1fr', md: 'repeat(12, 1fr)' } }}>
           {/* Contact Form */}
-          <Grid item xs={12} md={6}>
+          <Box sx={{ gridColumn: { xs: '1 / -1', md: 'span 6' } }}>
             <Paper
               elevation={0}
               sx={{
@@ -207,10 +206,10 @@ export default function ContactSection() {
                 </Stack>
               </form>
             </Paper>
-          </Grid>
+          </Box>
 
           {/* Contact Information */}
-          <Grid item xs={12} md={5}>
+          <Box sx={{ gridColumn: { xs: '1 / -1', md: 'span 5' } }}>
             <Stack spacing={4}>
               <Box>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -360,8 +359,8 @@ export default function ContactSection() {
                 </Link>
               </Box>
             </Stack>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Container>
     </Box>
   )

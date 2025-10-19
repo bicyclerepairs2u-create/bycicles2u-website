@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Container, Typography, Grid, Card, CardContent } from "@mui/material"
+import { Box, Container, Typography, Card, CardContent } from "@mui/material"
 
 const services = [
   {
@@ -67,79 +67,79 @@ export default function AboutCompany() {
           specialize in what we know best.
         </Typography>
 
-        <Grid container spacing={4} justifyContent="center">
+        <Box sx={{ display: 'grid', gap: 4, gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, justifyContent: 'center' }}>
           {services.map((service, index) => {
             return (
-              <Grid item xs={12} sm={6} md={3} key={index}>
+              <Box key={index}>
                 <Card
-                  elevation={0}
-                  sx={{
-                    height: "100%",
-                    minHeight: "320px",
-                    borderRadius: "12px",
-                    backgroundColor: "#ffffff",
-                    transition: "all 0.3s ease",
-                    cursor: "pointer",
-                    "&:hover": {
-                      transform: "translateY(-8px)",
-                      boxShadow: "0 12px 24px rgba(0, 0, 0, 0.15)",
-                    },
-                  }}
-                >
-                  <CardContent
-                    sx={{
-                      p: 4,
-                      textAlign: "center",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      height: "100%",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        width: 80,
-                        height: 80,
-                        borderRadius: "50%",
-                        backgroundColor: "rgba(2, 136, 209, 0.1)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        mb: 3,
-                        fontSize: "2.5rem",
-                      }}
-                    >
-                      {service.icon}
-                    </Box>
+                   elevation={0}
+                   sx={{
+                     height: "100%",
+                     minHeight: "320px",
+                     borderRadius: "12px",
+                     backgroundColor: "#ffffff",
+                     transition: "all 0.3s ease",
+                     cursor: "pointer",
+                     "&:hover": {
+                       transform: "translateY(-8px)",
+                       boxShadow: "0 12px 24px rgba(0, 0, 0, 0.15)",
+                     },
+                   }}
+                 >
+                   <CardContent
+                     sx={{
+                       p: 4,
+                       textAlign: "center",
+                       display: "flex",
+                       flexDirection: "column",
+                       alignItems: "center",
+                       height: "100%",
+                     }}
+                   >
+                     <Box
+                       sx={{
+                         width: 80,
+                         height: 80,
+                         borderRadius: "50%",
+                         backgroundColor: "rgba(2, 136, 209, 0.1)",
+                         display: "flex",
+                         alignItems: "center",
+                         justifyContent: "center",
+                         mb: 3,
+                         fontSize: "2.5rem",
+                       }}
+                     >
+                       {service.icon}
+                     </Box>
 
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        fontWeight: 600,
-                        color: "#212121",
-                        mb: 2,
-                        fontSize: "1.2rem",
-                      }}
-                    >
-                      {service.title}
-                    </Typography>
+                     <Typography
+                       variant="h6"
+                       sx={{
+                         fontWeight: 600,
+                         color: "#212121",
+                         mb: 2,
+                         fontSize: "1.2rem",
+                       }}
+                     >
+                       {service.title}
+                     </Typography>
 
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: "#757575",
-                        lineHeight: 1.6,
-                        fontSize: "0.95rem",
-                      }}
-                    >
-                      {service.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            )
-          })}
-        </Grid>
+                     <Typography
+                       variant="body2"
+                       sx={{
+                         color: "#757575",
+                         lineHeight: 1.6,
+                         fontSize: "0.95rem",
+                       }}
+                     >
+                       {service.description}
+                     </Typography>
+                   </CardContent>
+                 </Card>
+              </Box>
+             )
+           })}
+        </Box>
       </Container>
     </Box>
   )
