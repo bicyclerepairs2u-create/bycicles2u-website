@@ -75,8 +75,8 @@ export default function BikeShowcase() {
               lineHeight: 1.8,
             }}
           >
-            We're currently updating our inventory of premium pre-owned road and triathlon bikes. Check back soon to
-            see our curated selection of quality second-hand bikes, all thoroughly inspected and serviced to perfection.
+            This section is currently under construction as we're developing in site sales. 
+            Once done youl be able to purchase all bikes through our website.
           </Typography>
 
           <Typography
