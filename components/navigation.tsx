@@ -21,6 +21,7 @@ const navItems = [
   { label: "Testimonials", href: "#testimonials", type: "section" },
   { label: "Brands", href: "#brands", type: "section" },
   { label: "Services & Pricing", href: "#services", type: "section" },
+  { label: "Find Your Size", href: "/bike-sizing", type: "page" },
   { label: "Sell Your Bike", href: "/sell-bike", type: "page" },
   { label: "Contact", href: "#contact", type: "section" },
 ]

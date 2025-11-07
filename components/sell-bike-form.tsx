@@ -524,11 +524,18 @@ Note: Image attachment included (${image?.name})
 
           {/* Additional Info */}
           <Box sx={{ mt: 4, textAlign: "center" }}>
-            <Typography variant="body2" sx={{ color: "#757575" }}>
+            <Typography variant="body2" sx={{ color: "#757575", mb: 1 }}>
               Questions? Contact us at{" "}
               <Link href="mailto:info@bicycles2u.com.au" sx={{ color: "#0288d1" }}>
                 info@bicycles2u.com.au
               </Link>
+              {" or call "}
+              <Link href="tel:+61402880242" sx={{ color: "#0288d1" }}>
+                0402 880 242
+              </Link>
+            </Typography>
+            <Typography variant="caption" sx={{ color: "#9e9e9e" }}>
+              167/171 Bronte Rd, Queens Park NSW 2022
             </Typography>
           </Box>
         </Container>
