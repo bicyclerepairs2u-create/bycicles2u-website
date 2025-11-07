@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import {
   AppBar,
   Toolbar,
@@ -13,19 +14,21 @@ import {
 } from "@mui/material"
 
 const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "About Sam", href: "#about-sam" },
-  { label: "Our Story", href: "#our-story" },
-  { label: "Bikes", href: "#bikes" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Brands", href: "#brands" },
-  { label: "Services & Pricing", href: "#services" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "#home", type: "section" },
+  { label: "About Sam", href: "#about-sam", type: "section" },
+  { label: "Our Story", href: "#our-story", type: "section" },
+  { label: "Bikes", href: "#bikes", type: "section" },
+  { label: "Testimonials", href: "#testimonials", type: "section" },
+  { label: "Brands", href: "#brands", type: "section" },
+  { label: "Services & Pricing", href: "#services", type: "section" },
+  { label: "Sell Your Bike", href: "/sell-bike", type: "page" },
+  { label: "Contact", href: "#contact", type: "section" },
 ]
 
 export default function Navigation() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
+  const router = useRouter()
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -35,11 +38,18 @@ export default function Navigation() {
     setAnchorEl(null)
   }
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (href: string, type: string) => {
     handleMenuClose()
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+
+    if (type === "page") {
+      // Navigate to a different page
+      router.push(href)
+    } else {
+      // Scroll to section on current page
+      const element = document.querySelector(href)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" })
+      }
     }
   }
 
@@ -54,16 +64,30 @@ export default function Navigation() {
     >
       <Container maxWidth="lg">
         <Toolbar sx={{ justifyContent: "space-between", py: 1 }}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Box sx={{ fontSize: "2rem", display: "flex", alignItems: "center" }}>🚴</Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+            <Box
+              component="a"
+              href="/"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Box
+                component="img"
+                src="/b2u-logo.svg"
+                alt="Bicycles2U Logo"
+                sx={{
+                  height: { xs: "30px", md: "40px" },
+                  width: "auto",
+                  objectFit: "contain",
+                }}
+              />
+            </Box>
             <Typography
               variant="h6"
               component="a"
-              href="#home"
-              onClick={(e) => {
-                e.preventDefault()
-                handleNavClick("#home")
-              }}
+              href="/"
               sx={{
                 fontWeight: 700,
                 color: "#212121",
@@ -111,7 +135,7 @@ export default function Navigation() {
             {navItems.map((item) => (
               <MenuItem
                 key={item.label}
-                onClick={() => handleNavClick(item.href)}
+                onClick={() => handleNavClick(item.href, item.type)}
                 sx={{
                   py: 1.5,
                   px: 3,
