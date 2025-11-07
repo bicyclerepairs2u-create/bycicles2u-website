@@ -16,7 +16,6 @@ export default function Home() {
     <main>
       <Navigation />
       <HeroSection />
-      <AboutCompany />
       <BikeShowcase />
       <Testimonials />
       <BrandsSection />
