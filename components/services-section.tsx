@@ -12,7 +12,6 @@ import {
   Button,
   Alert,
   Paper,
-  Grid,
   Divider,
   Table,
   TableBody,
@@ -316,48 +315,50 @@ export default function ServicesSection() {
                   >
                     Additional Services
                   </Typography>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                      <Paper
-                        elevation={0}
-                        sx={{
-                          p: 2,
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          border: "1px solid #e0e0e0",
-                          borderRadius: "8px",
-                        }}
-                      >
-                        <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                          Pickup - Drop Off Service
-                        </Typography>
-                        <Typography variant="h6" sx={{ fontWeight: 700, color: "#0288d1" }}>
-                          $29
-                        </Typography>
-                      </Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <Paper
-                        elevation={0}
-                        sx={{
-                          p: 2,
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          border: "1px solid #e0e0e0",
-                          borderRadius: "8px",
-                        }}
-                      >
-                        <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                          On-Site Servicing Fee
-                        </Typography>
-                        <Typography variant="h6" sx={{ fontWeight: 700, color: "#0288d1" }}>
-                          $39
-                        </Typography>
-                      </Paper>
-                    </Grid>
-                  </Grid>
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+                      gap: 2,
+                    }}
+                  >
+                    <Paper
+                      elevation={0}
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        border: "1px solid #e0e0e0",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                        Pickup - Drop Off Service
+                      </Typography>
+                      <Typography variant="h6" sx={{ fontWeight: 700, color: "#0288d1" }}>
+                        $29
+                      </Typography>
+                    </Paper>
+                    <Paper
+                      elevation={0}
+                      sx={{
+                        p: 2,
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        border: "1px solid #e0e0e0",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                        On-Site Servicing Fee
+                      </Typography>
+                      <Typography variant="h6" sx={{ fontWeight: 700, color: "#0288d1" }}>
+                        $39
+                      </Typography>
+                    </Paper>
+                  </Box>
                 </Box>
 
                 <Box sx={{ mt: 5, textAlign: "center" }}>
