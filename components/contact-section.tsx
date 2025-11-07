@@ -189,7 +189,7 @@ export default function ContactSection() {
                     variant="contained"
                     size="large"
                     sx={{
-                      backgroundColor: "#ff5722",
+                      backgroundColor: "#0288d1",
                       color: "#ffffff",
                       fontWeight: 600,
                       fontSize: "1rem",
@@ -197,7 +197,7 @@ export default function ContactSection() {
                       textTransform: "none",
                       borderRadius: "8px",
                       "&:hover": {
-                        backgroundColor: "#f4511e",
+                        backgroundColor: "#0277bd",
                       },
                     }}
                   >

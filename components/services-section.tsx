@@ -280,7 +280,7 @@ export default function ServicesSection() {
                     size="large"
                     onClick={() => handleScroll("#contact")}
                     sx={{
-                      backgroundColor: "#ff5722",
+                      backgroundColor: "#0288d1",
                       color: "#ffffff",
                       fontWeight: 600,
                       fontSize: "1rem",
@@ -289,7 +289,7 @@ export default function ServicesSection() {
                       textTransform: "none",
                       borderRadius: "8px",
                       "&:hover": {
-                        backgroundColor: "#f4511e",
+                        backgroundColor: "#0277bd",
                       },
                     }}
                   >

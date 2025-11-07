@@ -131,7 +131,7 @@ export default function Testimonials() {
 									sx={{
 										mb: 2,
 										"& .MuiRating-iconFilled": {
-											color: "#ff5722",
+											color: "#0288d1",
 										},
 									}}
 								/>

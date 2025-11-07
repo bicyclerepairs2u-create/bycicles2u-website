@@ -82,8 +82,8 @@
   --color-primary: #0288d1; /* Light blue - professional and speed-focused */
   --color-primary-hover: #0277bd; /* Darker blue for hover states */
   --color-secondary: #424242; /* Charcoal for text and accents */
-  --color-accent: #ff5722; /* Vibrant orange-red for CTAs */
-  --color-accent-hover: #f4511e; /* Darker accent for hover */
+  --color-accent: #0288d1; /* Blue accent for CTAs */
+  --color-accent-hover: #0277bd; /* Darker blue for hover */
   --color-success: #4caf50; /* Light green for positive actions */
 
   --color-background: #ffffff; /* Clean white */

@@ -216,14 +216,14 @@ export default function BikeShowcase() {
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
-                    backgroundColor: "#ff5722",
+                    backgroundColor: "#0288d1",
                     color: "#ffffff",
                     fontWeight: 600,
                     py: 1.2,
                     textTransform: "none",
                     borderRadius: "8px",
                     "&:hover": {
-                      backgroundColor: "#f4511e",
+                      backgroundColor: "#0277bd",
                     },
                   }}
                 >
