@@ -463,7 +463,7 @@ ${formData.message}
                       </Typography>
                     </Box>
                     <Link
-                      href="tel:+61400000000"
+                      href="tel:+61402880242"
                       sx={{
                         fontSize: "0.95rem",
                         color: "#0288d1",
@@ -473,28 +473,39 @@ ${formData.message}
                         },
                       }}
                     >
-                      +61 4XX XXX XXX
+                      0402 880 242
                     </Link>
+                  </Box>
+
+                  <Box>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                      <i className="fi fi-rr-marker" style={{ color: "#0288d1", fontSize: "1.25rem" }}></i>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#212121" }}>
+                        Location
+                      </Typography>
+                    </Box>
+                    <Typography variant="body2" sx={{ color: "#424242" }}>
+                      167/171 Bronte Rd
+                      <br />
+                      Queens Park NSW 2022
+                    </Typography>
                   </Box>
 
                   <Box>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
                       <i className="fi fi-rr-clock" style={{ color: "#0288d1", fontSize: "1.25rem" }}></i>
                       <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#212121" }}>
-                        Business Hours
+                        Hours
                       </Typography>
                     </Box>
-                    <Stack spacing={0.5}>
-                      <Typography variant="body2" sx={{ color: "#424242" }}>
-                        Monday - Friday: 9:00 AM - 6:00 PM
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "#424242" }}>
-                        Saturday: 10:00 AM - 4:00 PM
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: "#424242" }}>
-                        Sunday: Closed
-                      </Typography>
-                    </Stack>
+                    <Typography variant="body2" sx={{ color: "#424242", lineHeight: 1.6 }}>
+                      By appointment or arrangement
+                      <br />
+                      Available most days including weekends
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: "#757575", display: "block", mt: 0.5 }}>
+                      Please contact ahead to arrange a time
+                    </Typography>
                   </Box>
 
                   <Box>
@@ -505,7 +516,7 @@ ${formData.message}
                       </Typography>
                     </Box>
                     <Link
-                      href="#"
+                      href="https://www.facebook.com/marketplace/profile/100015456158533/?ref=permalink&mibextid=6ojiHh"
                       target="_blank"
                       rel="noopener noreferrer"
                       sx={{
