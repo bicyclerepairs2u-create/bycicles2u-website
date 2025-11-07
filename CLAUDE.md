@@ -42,32 +42,42 @@ npm run lint
 
 ```
 app/
-  layout.tsx          # Root layout with Roboto font, metadata
+  layout.tsx          # Root layout with Roboto font, Flaticon CDN, metadata
   page.tsx            # Home page (single-page app structure)
   globals.css         # Tailwind v4 + CSS variables for theming
+  bike-sizing/
+    page.tsx          # Bike sizing calculator page
+  sell-bike/
+    page.tsx          # Sell your bike form page
 
 components/
-  # Page section components (all used in app/page.tsx)
-  navigation.tsx
-  hero-section.tsx
-  about-sam.tsx
-  about-company.tsx
-  bike-showcase.tsx
-  testimonials.tsx
-  brands-section.tsx
-  services-section.tsx
-  contact-section.tsx
-  footer.tsx
-  theme-provider.tsx
+  # Page section components (used in app/page.tsx)
+  navigation.tsx           # Hamburger menu navigation (all screen sizes)
+  hero-section.tsx         # Hero with background image & dark overlay
+  bike-showcase.tsx        # "Coming Soon" bikes section with FB Marketplace link
+  testimonials.tsx         # Customer reviews (5 real reviews)
+  brands-section.tsx       # Scrolling brand logos marquee
+  services-section.tsx     # Service packages table (Basic/Standard/Deluxe/Ultimate)
+  contact-section.tsx      # Dynamic contact form with conditional fields
+  footer.tsx              # 4-column footer with contact info
 
-  ui/                 # shadcn/ui components (40+ components)
+  # Standalone page components
+  bike-sizing-form.tsx    # Bike size calculator with measurements
+  sell-bike-form.tsx      # Bike listing submission form
+
+  # Archive (not currently used)
+  about-sam.tsx           # About the mechanic section (archived)
+  about-company.tsx       # Why choose us section (archived)
+  theme-provider.tsx      # Dark mode support
+
+  ui/                     # shadcn/ui components (40+ components)
     button.tsx
     card.tsx
     dialog.tsx
     # ... etc
 
 lib/
-  utils.ts            # cn() utility for className merging
+  utils.ts              # cn() utility for className merging
 
 hooks/
   use-mobile.ts
@@ -150,7 +160,60 @@ The project includes `tw-animate-css` for Tailwind-based animations.
 ## Business Context
 
 This is a website for Bicycles2U, a bicycle shop that:
-- Specializes in premium road and triathlon bikes
+- Specializes in premium road and triathlon bikes ONLY (no e-bikes)
 - Offers expert repairs and custom builds
-- Sells quality second-hand bikes
+- Sells quality second-hand bikes via Facebook Marketplace
 - Focuses on lightweight, fast bicycles for serious cyclists
+- Located at 167/171 Bronte Rd, Queens Park NSW 2022
+- Contact: 0402 880 242 | info@bicycles2u.com.au
+- Hours: By appointment or arrangement
+
+## Design System
+
+### Color Palette
+- **Primary Accent**: #0288d1 (Blue) - Used for CTAs, links, highlights
+- **Background**: #fafafa (Light gray) - Alternate section backgrounds
+- **Text**: #212121 (Dark gray) - Primary text color
+- **Secondary Text**: #757575, #424242 - Body text variations
+
+### Icons
+- **Flaticon** - Primary icon library (fi fi-rr-* classes)
+- Icons imported via CDN in app/layout.tsx
+
+### Typography
+- **Font**: Roboto (Google Fonts)
+- **Headings**: 700 weight, -1px letter-spacing
+- **Body**: 400 weight, 1.6-1.8 line-height
+
+## Site Features
+
+### Navigation
+- Hamburger menu for all screen sizes (no desktop horizontal nav)
+- Smooth scrolling to sections on home page
+- Next.js router navigation for separate pages
+
+### Pages
+1. **Home** (`/`) - Main landing page with sections:
+   - Hero with background image
+   - Bikes showcase (coming soon)
+   - Customer testimonials (5 real reviews)
+   - Brands marquee (infinite scroll)
+   - Services pricing table
+   - Contact form
+
+2. **Bike Sizing** (`/bike-sizing`) - Calculate frame size:
+   - Height & inseam calculator
+   - CM/inches toggle
+   - Road bike sizing formula (inseam × 0.665)
+   - Size chart reference table
+
+3. **Sell Your Bike** (`/sell-bike`) - Bike listing form:
+   - Image upload (required, max 5MB)
+   - Minimum price validation ($1,000)
+   - mailto: submission to info@bicycles2u.com.au
+
+### Forms
+- Contact form with dynamic fields based on inquiry type
+- Service level selection (Basic $59, Standard $119, Deluxe $159, Ultimate $299)
+- Bike details, pickup/delivery options
+- All forms use mailto: links (no backend)

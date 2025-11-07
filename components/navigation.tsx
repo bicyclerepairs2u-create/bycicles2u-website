@@ -15,8 +15,6 @@ import {
 
 const navItems = [
   { label: "Home", href: "#home", type: "section" },
-  { label: "About Sam", href: "#about-sam", type: "section" },
-  { label: "Our Story", href: "#our-story", type: "section" },
   { label: "Bikes", href: "#bikes", type: "section" },
   { label: "Testimonials", href: "#testimonials", type: "section" },
   { label: "Brands", href: "#brands", type: "section" },
@@ -46,10 +44,16 @@ export default function Navigation() {
       // Navigate to a different page
       router.push(href)
     } else {
-      // Scroll to section on current page
-      const element = document.querySelector(href)
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" })
+      // Check if we're on the home page
+      if (window.location.pathname === "/") {
+        // Scroll to section on current page
+        const element = document.querySelector(href)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" })
+        }
+      } else {
+        // Navigate to home page with hash
+        window.location.href = `/${href}`
       }
     }
   }
@@ -109,11 +113,14 @@ export default function Navigation() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             onClick={handleMenuOpen}
-            sx={{ color: "#424242" }}
+            sx={{
+              color: "#424242",
+              "&:hover": {
+                backgroundColor: "rgba(2, 136, 209, 0.08)",
+              },
+            }}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor" />
-            </svg>
+            <i className="fi fi-rr-menu-burger" style={{ fontSize: "1.5rem" }}></i>
           </IconButton>
 
           {/* Dropdown Menu */}

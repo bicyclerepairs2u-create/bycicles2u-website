@@ -4,22 +4,22 @@ import { Box, Container, Typography, Card, CardContent } from "@mui/material"
 
 const services = [
   {
-    icon: "🔧",
+    icon: "fi fi-rr-tool-box",
     title: "Expert Repairs",
     description: "Professional tune-ups and repairs for road and tri bikes",
   },
   {
-    icon: "🚴",
+    icon: "fi fi-rr-bike",
     title: "Quality Bikes",
     description: "Carefully selected second-hand performance bikes",
   },
   {
-    icon: "🛠️",
+    icon: "fi fi-rr-settings",
     title: "Custom Builds",
     description: "Bespoke builds tailored to your riding style",
   },
   {
-    icon: "⚡",
+    icon: "fi fi-rr-bolt",
     title: "Performance Focus",
     description: "Specialized in lightweight, fast bikes",
   },
@@ -106,10 +106,9 @@ export default function AboutCompany() {
                          alignItems: "center",
                          justifyContent: "center",
                          mb: 3,
-                         fontSize: "2.5rem",
                        }}
                      >
-                       {service.icon}
+                       <i className={service.icon} style={{ fontSize: "2.5rem", color: "#0288d1" }}></i>
                      </Box>
 
                      <Typography

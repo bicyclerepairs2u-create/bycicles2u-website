@@ -128,21 +128,6 @@ export default function Footer() {
               </Link>
               <Link
                 component="button"
-                onClick={() => handleNavClick("#our-story")}
-                sx={{
-                  color: "#bdbdbd",
-                  textDecoration: "none",
-                  textAlign: "left",
-                  fontSize: "0.875rem",
-                  "&:hover": {
-                    color: "#0288d1",
-                  },
-                }}
-              >
-                Our Story
-              </Link>
-              <Link
-                component="button"
                 onClick={() => handleNavClick("#bikes")}
                 sx={{
                   color: "#bdbdbd",
@@ -348,34 +333,15 @@ export default function Footer() {
           >
             © {new Date().getFullYear()} Bicycles2U. All rights reserved.
           </Typography>
-          <Box sx={{ display: "flex", gap: 3 }}>
-            <Link
-              href="#"
-              sx={{
-                color: "#9e9e9e",
-                textDecoration: "none",
-                fontSize: "0.85rem",
-                "&:hover": {
-                  color: "#0288d1",
-                },
-              }}
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="#"
-              sx={{
-                color: "#9e9e9e",
-                textDecoration: "none",
-                fontSize: "0.85rem",
-                "&:hover": {
-                  color: "#0288d1",
-                },
-              }}
-            >
-              Terms & Conditions
-            </Link>
-          </Box>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "#9e9e9e",
+              fontSize: "0.85rem",
+            }}
+          >
+            Road Bike Specialists • Queens Park, Sydney
+          </Typography>
         </Box>
       </Container>
     </Box>

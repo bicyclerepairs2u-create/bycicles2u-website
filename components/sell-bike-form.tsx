@@ -513,10 +513,7 @@ Note: Image attachment included (${image?.name})
                 </Button>
 
                 <Typography variant="caption" sx={{ color: "#757575", textAlign: "center", mt: 2 }}>
-                  By submitting this form, you agree to our{" "}
-                  <Link href="#" sx={{ color: "#0288d1" }}>
-                    terms and conditions
-                  </Link>
+                  By submitting, you acknowledge that we'll contact you to discuss your bike listing
                 </Typography>
               </Stack>
             </form>

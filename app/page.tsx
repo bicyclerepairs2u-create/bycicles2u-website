@@ -2,8 +2,6 @@
 
 import Navigation from "@/components/navigation"
 import HeroSection from "@/components/hero-section"
-import AboutSam from "@/components/about-sam"
-import AboutCompany from "@/components/about-company"
 import BikeShowcase from "@/components/bike-showcase"
 import Testimonials from "@/components/testimonials"
 import BrandsSection from "@/components/brands-section"

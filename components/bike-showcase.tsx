@@ -75,8 +75,8 @@ export default function BikeShowcase() {
               lineHeight: 1.8,
             }}
           >
-            This section is currently under construction as we're developing in site sales. 
-            Once done youl be able to purchase all bikes through our website.
+            This section is currently under construction as we're developing in-site sales.
+            Once done you'll be able to purchase all bikes through our website.
           </Typography>
 
           <Typography
@@ -91,30 +91,61 @@ export default function BikeShowcase() {
             In the meantime, all bikes are available on Facebook Marketplace
           </Typography>
 
-          <Button
-            variant="contained"
-            size="large"
-            onClick={() => handleScroll("#contact")}
-            sx={{
-              backgroundColor: "#0288d1",
-              color: "#ffffff",
-              fontWeight: 600,
-              fontSize: "1rem",
-              px: 5,
-              py: 1.5,
-              textTransform: "none",
-              borderRadius: "8px",
-              boxShadow: "0 4px 12px rgba(2, 136, 209, 0.3)",
-              "&:hover": {
-                backgroundColor: "#0277bd",
-                boxShadow: "0 6px 16px rgba(2, 136, 209, 0.4)",
-                transform: "translateY(-2px)",
-              },
-              transition: "all 0.3s ease",
-            }}
-          >
-            Contact Us About Available Bikes
-          </Button>
+          <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flexWrap: "wrap" }}>
+            <Button
+              variant="contained"
+              size="large"
+              href="https://www.facebook.com/marketplace/profile/100015456158533/?ref=permalink&mibextid=6ojiHh"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                backgroundColor: "#0288d1",
+                color: "#ffffff",
+                fontWeight: 600,
+                fontSize: "1rem",
+                px: 5,
+                py: 1.5,
+                textTransform: "none",
+                borderRadius: "8px",
+                boxShadow: "0 4px 12px rgba(2, 136, 209, 0.3)",
+                "&:hover": {
+                  backgroundColor: "#0277bd",
+                  boxShadow: "0 6px 16px rgba(2, 136, 209, 0.4)",
+                  transform: "translateY(-2px)",
+                },
+                transition: "all 0.3s ease",
+              }}
+            >
+              <i className="fi fi-brands-facebook" style={{ marginRight: "8px", fontSize: "1.2rem" }}></i>
+              View Bikes on Marketplace
+            </Button>
+
+            <Button
+              variant="outlined"
+              size="large"
+              onClick={() => handleScroll("#contact")}
+              sx={{
+                borderColor: "#0288d1",
+                color: "#0288d1",
+                fontWeight: 600,
+                fontSize: "1rem",
+                px: 5,
+                py: 1.5,
+                textTransform: "none",
+                borderRadius: "8px",
+                borderWidth: "2px",
+                "&:hover": {
+                  borderColor: "#0277bd",
+                  backgroundColor: "rgba(2, 136, 209, 0.08)",
+                  borderWidth: "2px",
+                  transform: "translateY(-2px)",
+                },
+                transition: "all 0.3s ease",
+              }}
+            >
+              Contact Us About Bikes
+            </Button>
+          </Box>
         </Box>
       </Container>
     </Box>
