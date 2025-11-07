@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Container, Typography, Paper } from "@mui/material"
+import { Box, Container, Typography } from "@mui/material"
 
 const brands = [
   { name: "Shimano", logo: "/shimano-logo-grayscale.jpg" },
@@ -8,7 +8,9 @@ const brands = [
   { name: "Specialized", logo: "/specialized-bikes-logo-grayscale.jpg" },
   { name: "Cervélo", logo: "/cervelo-bikes-logo-grayscale.jpg" },
   { name: "Canyon", logo: "/canyon-bikes-logo-grayscale.jpg" },
-  { name: "Campagnolo", logo: "/placeholder.svg?height=100&width=200" },
+  { name: "Shimano", logo: "/shimano-logo-grayscale.jpg" },
+  { name: "SRAM", logo: "/sram-logo-grayscale.jpg" },
+  { name: "Specialized", logo: "/specialized-bikes-logo-grayscale.jpg" },
 ]
 
 export default function BrandsSection() {
@@ -19,6 +21,7 @@ export default function BrandsSection() {
       sx={{
         py: { xs: 8, md: 12 },
         backgroundColor: "#ffffff",
+        overflow: "hidden",
       }}
     >
       <Container maxWidth="lg">
@@ -33,7 +36,7 @@ export default function BrandsSection() {
             letterSpacing: "-1px",
           }}
         >
-          Trusted Brands We Work With
+          Our Brands
         </Typography>
 
         <Typography
@@ -47,27 +50,114 @@ export default function BrandsSection() {
         >
           Premium components and bikes from industry leaders
         </Typography>
+      </Container>
 
-        <Box sx={{ display: 'grid', gap: 4, justifyContent: 'center', gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)', md: 'repeat(6, 1fr)' } }}>
+      {/* Scrolling Marquee Container */}
+      <Box
+        sx={{
+          position: "relative",
+          width: "100%",
+          overflow: "hidden",
+          "&::before, &::after": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            width: "150px",
+            height: "100%",
+            zIndex: 2,
+            pointerEvents: "none",
+          },
+          "&::before": {
+            left: 0,
+            background: "linear-gradient(to right, #ffffff, transparent)",
+          },
+          "&::after": {
+            right: 0,
+            background: "linear-gradient(to left, #ffffff, transparent)",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            gap: 8,
+            animation: "scroll 30s linear infinite",
+            "@keyframes scroll": {
+              "0%": {
+                transform: "translateX(0)",
+              },
+              "100%": {
+                transform: "translateX(-50%)",
+              },
+            },
+          }}
+        >
+          {/* First set of logos */}
           {brands.map((brand, index) => (
-            <Paper key={index} elevation={0} sx={{ p: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Box
+              key={`first-${index}`}
+              sx={{
+                flex: "0 0 auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "200px",
+                height: "100px",
+              }}
+            >
               <Box
                 component="img"
                 src={brand.logo}
                 alt={brand.name}
                 sx={{
-                  maxWidth: "100%",
-                  maxHeight: "60px",
+                  maxWidth: "180px",
+                  maxHeight: "80px",
                   objectFit: "contain",
                   filter: "grayscale(100%)",
                   opacity: 0.6,
                   transition: "all 0.3s ease",
+                  "&:hover": {
+                    filter: "grayscale(0%)",
+                    opacity: 1,
+                  },
                 }}
               />
-            </Paper>
+            </Box>
+          ))}
+          {/* Duplicate set for seamless loop */}
+          {brands.map((brand, index) => (
+            <Box
+              key={`second-${index}`}
+              sx={{
+                flex: "0 0 auto",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "200px",
+                height: "100px",
+              }}
+            >
+              <Box
+                component="img"
+                src={brand.logo}
+                alt={brand.name}
+                sx={{
+                  maxWidth: "180px",
+                  maxHeight: "80px",
+                  objectFit: "contain",
+                  filter: "grayscale(100%)",
+                  opacity: 0.6,
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    filter: "grayscale(0%)",
+                    opacity: 1,
+                  },
+                }}
+              />
+            </Box>
           ))}
         </Box>
-      </Container>
+      </Box>
     </Box>
   )
 }
