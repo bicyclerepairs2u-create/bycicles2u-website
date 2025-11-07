@@ -1,50 +1,46 @@
 "use client"
 
-import { Box, Container, Typography, Card, CardContent, Avatar, Rating } from "@mui/material"
+import { Box, Container, Typography, Paper } from "@mui/material"
 
 const testimonials = [
 	{
-		name: "Alex T.",
-		service: "Custom Build",
+		name: "Harry Coates",
+		timeAgo: "5 days ago",
 		rating: 5,
-		review: "Sam completely rebuilt my tri bike for Ironman. The attention to detail was incredible. Highly recommend!",
-		initials: "AT",
+		review: "Excellent service. Delivered straight to my door. Very happy and would highly recommend.",
+		initials: "HC",
 	},
 	{
-		name: "Michelle R.",
-		service: "Bike Purchase",
+		name: "Filippo Gardini",
+		timeAgo: "a week ago",
 		rating: 5,
 		review:
-			"Bought a second-hand Tarmac from Bicycles2U. Bike was in pristine condition and priced fairly. Great experience!",
-		initials: "MR",
+			"Amazing service, great guy to deal with and quick compared to the rest of others in the market. Definitely recommended.",
+		initials: "FG",
 	},
 	{
-		name: "David K.",
-		service: "Full Service",
+		name: "Christian Townsend",
+		timeAgo: "a month ago",
 		rating: 5,
-		review: "Best bike mechanic I've found. Knows road bikes inside and out. My bike has never performed better.",
-		initials: "DK",
+		review:
+			"I can't recommend Bicycles2U highly enough. Sam is an absolute expert—knowledgeable, friendly, and reasonable. He went above and beyond, coming out on a Sunday afternoon of a long weekend with a full kit of professional tools.",
+		initials: "CT",
 	},
 	{
-		name: "Emma L.",
-		service: "Custom Build",
+		name: "Gracen Luka",
+		timeAgo: "3 months ago",
 		rating: 5,
-		review: "Sam helped me build my dream custom road bike. Every component was chosen perfectly for my riding style.",
-		initials: "EL",
+		review:
+			"Made purchasing a bike for my first tri very easy. Was great to get the bike properly fitted and to top it off, some speedy pink handle bars.",
+		initials: "GL",
 	},
 	{
-		name: "Tom W.",
-		service: "Bike Repair",
+		name: "Andrea Vagge",
+		timeAgo: "3 months ago",
 		rating: 5,
-		review: "Professional, knowledgeable, and fair pricing. Won't take my bike anywhere else for servicing.",
-		initials: "TW",
-	},
-	{
-		name: "Jessica P.",
-		service: "Bike Purchase",
-		rating: 5,
-		review: "Purchased a tri bike and had Sam do a full tune-up. Incredible service and expertise!",
-		initials: "JP",
+		review:
+			"First time at Bicycles2U.. Very happy with the service they did to my MTB.. very friendly and professional, Sam managed to return my bike before the due date. I think I found who I trust to look after and maintain my beloved bike.",
+		initials: "AV",
 	},
 ]
 
@@ -54,7 +50,7 @@ export default function Testimonials() {
 			id="testimonials"
 			component="section"
 			sx={{
-				py: { xs: 8, md: 12 },
+				py: { xs: 6, md: 10 },
 				backgroundColor: "#fafafa",
 			}}
 		>
@@ -62,95 +58,102 @@ export default function Testimonials() {
 				<Typography
 					variant="h2"
 					sx={{
-						fontSize: { xs: "2rem", md: "3rem" },
+						fontSize: { xs: "2rem", md: "2.5rem" },
 						fontWeight: 700,
 						color: "#212121",
-						mb: 8,
+						mb: 2,
 						textAlign: "center",
 						letterSpacing: "-1px",
 					}}
 				>
-					What Our Customers Say
+					Customer Reviews
 				</Typography>
 
-				<Box sx={{ display: "grid", gap: 4, gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" } }}>
+				<Typography
+					variant="body1"
+					sx={{
+						fontSize: "1rem",
+						color: "#757575",
+						mb: 5,
+						textAlign: "center",
+					}}
+				>
+					See what our customers have to say
+				</Typography>
+
+				<Box
+					sx={{
+						display: "flex",
+						flexWrap: "wrap",
+						gap: 3,
+						justifyContent: "center",
+						maxWidth: "1200px",
+						mx: "auto",
+					}}
+				>
 					{testimonials.map((testimonial, index) => (
-						<Box key={index}>
-							<Card
-								elevation={0}
-								sx={{
-									height: "100%",
-									minHeight: "280px",
-									borderRadius: "12px",
-									backgroundColor: "#ffffff",
-									p: 3,
-									display: "flex",
-									flexDirection: "column",
+						<Paper
+							key={index}
+							elevation={0}
+							sx={{
+								p: 3,
+								borderRadius: "8px",
+								backgroundColor: "#ffffff",
+								border: "1px solid #e0e0e0",
+								transition: "all 0.3s ease",
+								flex: { xs: "1 1 100%", sm: "1 1 calc(50% - 12px)", md: "1 1 calc(33.333% - 16px)" },
+								maxWidth: { xs: "100%", sm: "calc(50% - 12px)", md: "380px" },
+								"&:hover": {
 									boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
-								}}
-							>
-								<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-									<Avatar
+									borderColor: "#0288d1",
+								},
+							}}
+						>
+							<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}>
+								<Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+									<Box
 										sx={{
-											width: 56,
-											height: 56,
+											width: 40,
+											height: 40,
+											borderRadius: "50%",
 											backgroundColor: "#0288d1",
+											color: "#ffffff",
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
 											fontWeight: 600,
-											fontSize: "1.2rem",
-											mr: 2,
+											fontSize: "0.9rem",
 										}}
 									>
 										{testimonial.initials}
-									</Avatar>
+									</Box>
 									<Box>
-										<Typography
-											variant="h6"
-											sx={{
-												fontWeight: 600,
-												color: "#212121",
-												fontSize: "1rem",
-											}}
-										>
+										<Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#212121", fontSize: "0.9rem" }}>
 											{testimonial.name}
 										</Typography>
-										<Typography
-											variant="body2"
-											sx={{
-												color: "#757575",
-												fontSize: "0.85rem",
-											}}
-										>
-											{testimonial.service}
+										<Typography variant="caption" sx={{ color: "#757575", fontSize: "0.75rem" }}>
+											{testimonial.timeAgo}
 										</Typography>
 									</Box>
 								</Box>
+								<Box sx={{ display: "flex", gap: 0.5 }}>
+									{[...Array(testimonial.rating)].map((_, i) => (
+										<i key={i} className="fi fi-sr-star" style={{ color: "#0288d1", fontSize: "1rem" }}></i>
+									))}
+								</Box>
+							</Box>
 
-								<Rating
-									value={testimonial.rating}
-									readOnly
-									sx={{
-										mb: 2,
-										"& .MuiRating-iconFilled": {
-											color: "#0288d1",
-										},
-									}}
-								/>
-
-								<CardContent sx={{ p: 0, flexGrow: 1 }}>
-									<Typography
-										variant="body1"
-										sx={{
-											color: "#424242",
-											lineHeight: 1.7,
-											fontSize: "0.95rem",
-											fontStyle: "italic",
-										}}
-									>
-										"{testimonial.review}"
-									</Typography>
-								</CardContent>
-							</Card>
-						</Box>
+							<Typography
+								variant="body2"
+								sx={{
+									color: "#424242",
+									lineHeight: 1.6,
+									fontSize: "0.875rem",
+								}}
+							>
+								"{testimonial.review}"
+							</Typography>
+						</Paper>
 					))}
 				</Box>
 			</Container>
