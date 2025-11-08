@@ -10,10 +10,12 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: "Bicycles2U - Premium Road & Triathlon Bikes",
+  title: "Sydney's Original Pre-Owned Bicycle Store",
   description:
     "Expert repairs, custom builds, and quality second-hand bikes for serious cyclists. Specializing in lightweight, fast road bikes and triathlon bikes.",
-    generator: 'v0.app'
+  icons: {
+    icon: '/icon.svg',
+  }
 }
 
 export default function RootLayout({
