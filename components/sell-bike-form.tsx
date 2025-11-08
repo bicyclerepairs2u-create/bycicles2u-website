@@ -139,7 +139,7 @@ Note: Image attachment included (${image?.name})
 
     // For now, we'll use mailto: which will open the user's email client
     // In production, you would send this to a backend API
-    const mailtoLink = `mailto:info@bicycles2u.com.au?subject=${encodeURIComponent(
+    const mailtoLink = `mailto:bicyclerepairs2u@gmail.com?subject=${encodeURIComponent(
       emailSubject
     )}&body=${encodeURIComponent(emailBody)}`
 
@@ -234,9 +234,6 @@ Note: Image attachment included (${image?.name})
               Submission Guidelines
             </Typography>
             <Stack spacing={1}>
-              <Typography variant="body2" sx={{ color: "#424242" }}>
-                • Minimum asking price: <strong>$1,000</strong>
-              </Typography>
               <Typography variant="body2" sx={{ color: "#424242" }}>
                 • High-quality photo of your bike is <strong>mandatory</strong>
               </Typography>
@@ -523,8 +520,8 @@ Note: Image attachment included (${image?.name})
           <Box sx={{ mt: 4, textAlign: "center" }}>
             <Typography variant="body2" sx={{ color: "#757575", mb: 1 }}>
               Questions? Contact us at{" "}
-              <Link href="mailto:info@bicycles2u.com.au" sx={{ color: "#0288d1" }}>
-                info@bicycles2u.com.au
+              <Link href="mailto:bicyclerepairs2u@gmail.com" sx={{ color: "#0288d1" }}>
+                bicyclerepairs2u@gmail.com
               </Link>
               {" or call "}
               <Link href="tel:+61402880242" sx={{ color: "#0288d1" }}>

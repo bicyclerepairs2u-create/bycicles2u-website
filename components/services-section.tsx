@@ -418,7 +418,7 @@ export default function ServicesSection() {
                 <Button
                   variant="contained"
                   size="large"
-                  href="mailto:info@bicycles2u.com.au?subject=Custom Build Inquiry"
+                  href="mailto:bicyclerepairs2u@gmail.com?subject=Custom Build Inquiry"
                   sx={{
                     backgroundColor: "#0288d1",
                     color: "#ffffff",

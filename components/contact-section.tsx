@@ -65,7 +65,7 @@ ${formData.message}
     `.trim()
 
     // Open mailto link
-    const mailtoLink = `mailto:info@bicycles2u.com.au?subject=${encodeURIComponent(
+    const mailtoLink = `mailto:bicyclerepairs2u@gmail.com?subject=${encodeURIComponent(
       emailSubject
     )}&body=${encodeURIComponent(emailBody)}`
 
@@ -441,7 +441,7 @@ ${formData.message}
                       </Typography>
                     </Box>
                     <Link
-                      href="mailto:info@bicycles2u.com.au"
+                      href="mailto:bicyclerepairs2u@gmail.com"
                       sx={{
                         fontSize: "0.95rem",
                         color: "#0288d1",
@@ -451,7 +451,7 @@ ${formData.message}
                         },
                       }}
                     >
-                      info@bicycles2u.com.au
+                      bicyclerepairs2u@gmail.com
                     </Link>
                   </Box>
 

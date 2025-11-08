@@ -67,7 +67,7 @@ export default function Footer() {
             </Typography>
             <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
               <Link
-                href="mailto:info@bicycles2u.com.au"
+                href="mailto:bicyclerepairs2u@gmail.com"
                 sx={{
                   color: "#bdbdbd",
                   "&:hover": { color: "#0288d1" },
@@ -285,7 +285,7 @@ export default function Footer() {
                 0402 880 242
               </Link>
               <Link
-                href="mailto:info@bicycles2u.com.au"
+                href="mailto:bicyclerepairs2u@gmail.com"
                 sx={{
                   color: "#bdbdbd",
                   textDecoration: "none",
@@ -295,7 +295,7 @@ export default function Footer() {
                   },
                 }}
               >
-                info@bicycles2u.com.au
+                bicyclerepairs2u@gmail.com
               </Link>
               <Typography
                 variant="body2"

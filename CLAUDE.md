@@ -165,7 +165,7 @@ This is a website for Bicycles2U, a bicycle shop that:
 - Sells quality second-hand bikes via Facebook Marketplace
 - Focuses on lightweight, fast bicycles for serious cyclists
 - Located at 167/171 Bronte Rd, Queens Park NSW 2022
-- Contact: 0402 880 242 | info@bicycles2u.com.au
+- Contact: 0402 880 242 | bicyclerepairs2u@gmail.com
 - Hours: By appointment or arrangement
 
 ## Design System
@@ -210,7 +210,7 @@ This is a website for Bicycles2U, a bicycle shop that:
 3. **Sell Your Bike** (`/sell-bike`) - Bike listing form:
    - Image upload (required, max 5MB)
    - Minimum price validation ($1,000)
-   - mailto: submission to info@bicycles2u.com.au
+   - mailto: submission to bicyclerepairs2u@gmail.com
 
 ### Forms
 - Contact form with dynamic fields based on inquiry type
