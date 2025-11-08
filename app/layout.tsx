@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Roboto } from "next/font/google"
 import "./globals.css"
+import { Analytics } from "@vercel/analytics/next"
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -29,6 +30,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css" />
       </head>
       <body>{children}</body>
+      <Analytics/>
     </html>
   )
 }
