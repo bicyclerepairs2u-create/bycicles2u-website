@@ -114,60 +114,60 @@ export default function SellBikeForm() {
       return
     }
 
-    // Prepare email content
-    const emailSubject = `Bike Sale Submission: ${formData.bikeBrand} ${formData.bikeModel}`
-    const emailBody = `
-New Bike Sale Submission
-
-Seller Information:
-- Name: ${formData.sellerName}
-- Email: ${formData.email}
-- Phone: ${formData.phone}
-
-Bike Details:
-- Brand: ${formData.bikeBrand}
-- Model: ${formData.bikeModel}
-- Year: ${formData.year}
-- Condition: ${formData.condition}
-- Asking Price: $${formData.price}
-
-Description:
-${formData.description}
-
-Note: Image attachment included (${image?.name})
-    `.trim()
-
-    // For now, we'll use mailto: which will open the user's email client
-    // In production, you would send this to a backend API
-    const mailtoLink = `mailto:bicyclerepairs2u@gmail.com?subject=${encodeURIComponent(
-      emailSubject
-    )}&body=${encodeURIComponent(emailBody)}`
-
     try {
-      // Open email client
-      window.location.href = mailtoLink
+      // Create FormData to send file and form fields
+      const formDataToSend = new FormData()
+      formDataToSend.append("sellerName", formData.sellerName)
+      formDataToSend.append("email", formData.email)
+      formDataToSend.append("phone", formData.phone)
+      formDataToSend.append("bikeBrand", formData.bikeBrand)
+      formDataToSend.append("bikeModel", formData.bikeModel)
+      formDataToSend.append("year", formData.year)
+      formDataToSend.append("condition", formData.condition)
+      formDataToSend.append("price", formData.price)
+      formDataToSend.append("description", formData.description)
 
-      setSubmitStatus("success")
+      if (image) {
+        formDataToSend.append("image", image)
+      }
 
-      // Reset form after short delay
-      setTimeout(() => {
-        setFormData({
-          sellerName: "",
-          email: "",
-          phone: "",
-          bikeBrand: "",
-          bikeModel: "",
-          year: "",
-          condition: "",
-          price: "",
-          description: "",
-        })
-        setImage(null)
-        setImagePreview("")
-        setSubmitStatus("idle")
-      }, 3000)
+      const response = await fetch("/api/sell-bike", {
+        method: "POST",
+        body: formDataToSend,
+      })
+
+      if (response.ok) {
+        setSubmitStatus("success")
+
+        // Reset form after short delay
+        setTimeout(() => {
+          setFormData({
+            sellerName: "",
+            email: "",
+            phone: "",
+            bikeBrand: "",
+            bikeModel: "",
+            year: "",
+            condition: "",
+            price: "",
+            description: "",
+          })
+          setImage(null)
+          setImagePreview("")
+          setSubmitStatus("idle")
+        }, 3000)
+      } else {
+        setSubmitStatus("error")
+        setTimeout(() => {
+          setSubmitStatus("idle")
+        }, 5000)
+      }
     } catch (error) {
+      console.error("Error submitting form:", error)
       setSubmitStatus("error")
+      setTimeout(() => {
+        setSubmitStatus("idle")
+      }, 5000)
     }
   }
 
@@ -252,7 +252,7 @@ Note: Image attachment included (${image?.name})
           {/* Success Message */}
           {submitStatus === "success" && (
             <Alert severity="success" sx={{ mb: 4, borderRadius: "8px" }}>
-              Your submission has been prepared! Please complete the email to send your bike listing.
+              Your bike listing has been submitted successfully! We'll contact you soon.
             </Alert>
           )}
 

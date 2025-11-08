@@ -142,6 +142,32 @@ export default function HeroSection() {
             >
               Book a Repair
             </Button>
+
+            <Button
+              variant="outlined"
+              size="large"
+              href="/sell-bike"
+              sx={{
+                borderColor: "#ffffff",
+                color: "#ffffff",
+                fontWeight: 600,
+                fontSize: "1rem",
+                px: 4,
+                py: 1.5,
+                textTransform: "none",
+                borderRadius: "8px",
+                borderWidth: "2px",
+                "&:hover": {
+                  borderColor: "#ffffff",
+                  backgroundColor: "rgba(255, 255, 255, 0.15)",
+                  borderWidth: "2px",
+                  transform: "translateY(-2px)",
+                },
+                transition: "all 0.3s ease",
+              }}
+            >
+              Sell my bike
+            </Button>
           </Stack>
         </Box>
       </Container>

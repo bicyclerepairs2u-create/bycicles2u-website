@@ -41,52 +41,49 @@ export default function ContactSection() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // Prepare email content
-    const emailSubject = `${formData.inquiryType} Inquiry - ${formData.name}`
-    const emailBody = `
-New Contact Form Submission
-
-Inquiry Type: ${formData.inquiryType}
-${formData.serviceLevel ? `Service Level: ${formData.serviceLevel}` : ""}
-${formData.bikeType ? `Bike Type: ${formData.bikeType}` : ""}
-${formData.bikeDetails ? `Bike Details: ${formData.bikeDetails}` : ""}
-${formData.pickupNeeded ? `Pickup/Delivery: ${formData.pickupNeeded}` : ""}
-
-Contact Information:
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-
-Message:
-${formData.message}
-    `.trim()
-
-    // Open mailto link
-    const mailtoLink = `mailto:bicyclerepairs2u@gmail.com?subject=${encodeURIComponent(
-      emailSubject
-    )}&body=${encodeURIComponent(emailBody)}`
-
-    window.location.href = mailtoLink
-    setSubmitStatus("success")
-
-    // Reset form after delay
-    setTimeout(() => {
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        inquiryType: "",
-        serviceLevel: "",
-        bikeType: "",
-        bikeDetails: "",
-        pickupNeeded: "",
-        message: "",
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       })
-      setSubmitStatus("idle")
-    }, 3000)
+
+      if (response.ok) {
+        setSubmitStatus("success")
+
+        // Reset form after delay
+        setTimeout(() => {
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            inquiryType: "",
+            serviceLevel: "",
+            bikeType: "",
+            bikeDetails: "",
+            pickupNeeded: "",
+            message: "",
+          })
+          setSubmitStatus("idle")
+        }, 3000)
+      } else {
+        setSubmitStatus("error")
+        setTimeout(() => {
+          setSubmitStatus("idle")
+        }, 5000)
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+      setSubmitStatus("error")
+      setTimeout(() => {
+        setSubmitStatus("idle")
+      }, 5000)
+    }
   }
 
   return (
