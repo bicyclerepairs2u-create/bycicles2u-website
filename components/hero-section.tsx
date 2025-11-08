@@ -68,7 +68,7 @@ export default function HeroSection() {
               textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
             }}
           >
-            Premium Road & Triathlon Bikes
+            Premium Pre-Owned Road and Triathlon Bikes
           </Typography>
 
           <Typography
@@ -82,7 +82,7 @@ export default function HeroSection() {
               textShadow: "0 1px 2px rgba(0, 0, 0, 0.3)",
             }}
           >
-            Expert repairs, custom builds, and quality second-hand bikes for serious cyclists
+            Sydney’s first and only bike store dedicated to Pre-Owned and professionally refurbished Road, Triathlon and Gravel bikes
           </Typography>
 
           <Stack

@@ -16,6 +16,7 @@ import {
   Alert,
   FormHelperText,
   Link,
+  CircularProgress,
 } from "@mui/material"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
@@ -29,13 +30,12 @@ export default function SellBikeForm() {
     bikeModel: "",
     year: "",
     condition: "",
-    price: "",
     description: "",
   })
   const [image, setImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string>("")
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
   const handleChange = (e: any) => {
     const { name, value } = e.target
@@ -88,16 +88,6 @@ export default function SellBikeForm() {
     if (!formData.condition) newErrors.condition = "Condition is required"
     if (!formData.description.trim()) newErrors.description = "Description is required"
 
-    // Price validation
-    const price = parseFloat(formData.price)
-    if (!formData.price.trim()) {
-      newErrors.price = "Price is required"
-    } else if (isNaN(price)) {
-      newErrors.price = "Please enter a valid number"
-    } else if (price < 1000) {
-      newErrors.price = "Minimum price is $1,000"
-    }
-
     // Image validation
     if (!image) {
       newErrors.image = "Bike photo is required"
@@ -114,6 +104,8 @@ export default function SellBikeForm() {
       return
     }
 
+    setSubmitStatus("loading")
+
     try {
       // Create FormData to send file and form fields
       const formDataToSend = new FormData()
@@ -124,7 +116,6 @@ export default function SellBikeForm() {
       formDataToSend.append("bikeModel", formData.bikeModel)
       formDataToSend.append("year", formData.year)
       formDataToSend.append("condition", formData.condition)
-      formDataToSend.append("price", formData.price)
       formDataToSend.append("description", formData.description)
 
       if (image) {
@@ -149,7 +140,6 @@ export default function SellBikeForm() {
             bikeModel: "",
             year: "",
             condition: "",
-            price: "",
             description: "",
           })
           setImage(null)
@@ -204,9 +194,42 @@ export default function SellBikeForm() {
                 lineHeight: 1.7,
               }}
             >
-              List your premium road or triathlon bike for sale through Bicycles2U
+              Sell, List or Trade-in your bike with Bicycles2U
             </Typography>
           </Box>
+
+          {/* RRP Disclaimer */}
+          <Paper
+            elevation={0}
+            sx={{
+              p: 3,
+              mb: 4,
+              backgroundColor: "#fff3e0",
+              border: "2px solid #ff9800",
+              borderRadius: "12px",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: 600,
+                color: "#212121",
+                mb: 2,
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              <i className="fi fi-rr-exclamation" style={{ fontSize: "1.5rem", color: "#ff9800" }}></i>
+              Important Notice
+            </Typography>
+            <Typography variant="body2" sx={{ color: "#424242", mb: 1.5 }}>
+              We only accept bikes with an <strong>original RRP (Recommended Retail Price) over $1,000</strong>.
+            </Typography>
+            <Typography variant="body2" sx={{ color: "#757575", fontStyle: "italic" }}>
+              <strong>What is RRP?</strong> RRP is the manufacturer's suggested retail price when the bike was brand new. This helps us focus on premium road and triathlon bikes that match our specialty.
+            </Typography>
+          </Paper>
 
           {/* Rules Section */}
           <Paper
@@ -380,22 +403,6 @@ export default function SellBikeForm() {
 
                 <TextField
                   fullWidth
-                  label="Asking Price (AUD)"
-                  name="price"
-                  type="number"
-                  value={formData.price}
-                  onChange={handleChange}
-                  required
-                  error={!!errors.price}
-                  helperText={errors.price || "Minimum $1,000"}
-                  InputProps={{
-                    startAdornment: <Typography sx={{ mr: 1 }}>$</Typography>,
-                  }}
-                  variant="outlined"
-                />
-
-                <TextField
-                  fullWidth
                   label="Description"
                   name="description"
                   value={formData.description}
@@ -492,6 +499,7 @@ export default function SellBikeForm() {
                   type="submit"
                   variant="contained"
                   size="large"
+                  disabled={submitStatus === "loading" || submitStatus === "success"}
                   sx={{
                     backgroundColor: "#0288d1",
                     color: "#ffffff",
@@ -504,9 +512,22 @@ export default function SellBikeForm() {
                     "&:hover": {
                       backgroundColor: "#0277bd",
                     },
+                    "&.Mui-disabled": {
+                      backgroundColor: "#90caf9",
+                      color: "#ffffff",
+                    },
                   }}
                 >
-                  Submit Bike Listing
+                  {submitStatus === "loading" && (
+                    <CircularProgress
+                      size={20}
+                      sx={{
+                        color: "#ffffff",
+                        mr: 1,
+                      }}
+                    />
+                  )}
+                  {submitStatus === "loading" ? "Submitting..." : submitStatus === "success" ? "Submitted!" : "Submit Bike Listing"}
                 </Button>
 
                 <Typography variant="caption" sx={{ color: "#757575", textAlign: "center", mt: 2 }}>

@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
     const bikeModel = formData.get("bikeModel") as string
     const year = formData.get("year") as string
     const condition = formData.get("condition") as string
-    const price = formData.get("price") as string
     const description = formData.get("description") as string
     const image = formData.get("image") as File | null
 
@@ -26,7 +25,6 @@ export async function POST(request: NextRequest) {
       !bikeModel ||
       !year ||
       !condition ||
-      !price ||
       !description
     ) {
       return NextResponse.json(
@@ -59,7 +57,6 @@ Bike Details:
 - Model: ${bikeModel}
 - Year: ${year}
 - Condition: ${condition}
-- Asking Price: $${price}
 
 Description:
 ${description}

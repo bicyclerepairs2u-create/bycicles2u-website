@@ -17,6 +17,7 @@ import {
   Stack,
   Link,
   Alert,
+  CircularProgress,
 } from "@mui/material"
 
 export default function ContactSection() {
@@ -32,7 +33,7 @@ export default function ContactSection() {
     message: "",
   })
 
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
   const handleChange = (e: any) => {
     setFormData({
@@ -43,6 +44,8 @@ export default function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    setSubmitStatus("loading")
 
     try {
       const response = await fetch("/api/contact", {
@@ -375,6 +378,7 @@ export default function ContactSection() {
                     variant="contained"
                     size="large"
                     fullWidth
+                    disabled={submitStatus === "loading" || submitStatus === "success"}
                     sx={{
                       backgroundColor: "#0288d1",
                       color: "#ffffff",
@@ -388,9 +392,22 @@ export default function ContactSection() {
                         backgroundColor: "#0277bd",
                         boxShadow: "0 6px 16px rgba(2, 136, 209, 0.4)",
                       },
+                      "&.Mui-disabled": {
+                        backgroundColor: "#90caf9",
+                        color: "#ffffff",
+                      },
                     }}
                   >
-                    Send Inquiry
+                    {submitStatus === "loading" && (
+                      <CircularProgress
+                        size={20}
+                        sx={{
+                          color: "#ffffff",
+                          mr: 1,
+                        }}
+                      />
+                    )}
+                    {submitStatus === "loading" ? "Sending..." : submitStatus === "success" ? "Sent!" : "Send Inquiry"}
                   </Button>
                 </Stack>
               </form>
