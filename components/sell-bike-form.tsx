@@ -264,7 +264,10 @@ export default function SellBikeForm() {
                 • We specialize in road bikes and triathlon bikes only
               </Typography>
               <Typography variant="body2" sx={{ color: "#424242" }}>
-                • All bikes must be in rideable condition
+                • We accept bikes in any condition
+              </Typography>
+              <Typography variant="body2" sx={{ color: "#424242" }}>
+                • We accept bikes with carbon damage 
               </Typography>
               <Typography variant="body2" sx={{ color: "#424242" }}>
                 • Provide accurate and honest descriptions
