@@ -19,7 +19,6 @@ import {
   AccordionSummary,
   AccordionDetails,
   Chip,
-  Grid,
 } from "@mui/material"
 import Link from "next/link"
 import Navigation from "@/components/navigation"
@@ -253,8 +252,8 @@ export default function FirstBikeGuide() {
               </Box>
             </Paper>
 
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
+              <Box>
                 <Card
                   elevation={0}
                   sx={{
@@ -308,9 +307,9 @@ export default function FirstBikeGuide() {
                     </List>
                   </CardContent>
                 </Card>
-              </Grid>
+              </Box>
 
-              <Grid item xs={12} md={6}>
+              <Box>
                 <Card
                   elevation={0}
                   sx={{
@@ -364,8 +363,8 @@ export default function FirstBikeGuide() {
                     </List>
                   </CardContent>
                 </Card>
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
           </Box>
 
           {/* Understanding Bike Types */}
@@ -391,9 +390,9 @@ export default function FirstBikeGuide() {
               surfaces. Here's what makes each type unique:
             </Typography>
 
-            <Grid container spacing={3}>
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
               {bikeTypes.map((type, index) => (
-                <Grid item xs={12} md={6} key={index}>
+                <Box key={index}>
                   <Card
                     elevation={0}
                     sx={{
@@ -459,9 +458,9 @@ export default function FirstBikeGuide() {
                       </List>
                     </CardContent>
                   </Card>
-                </Grid>
+                </Box>
               ))}
-            </Grid>
+            </Box>
 
             <Paper
               elevation={0}
@@ -543,18 +542,18 @@ export default function FirstBikeGuide() {
                     <Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#212121", mb: 1 }}>
                       What to Expect:
                     </Typography>
-                    <Grid container spacing={2}>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
                       {budget.whatToExpect.map((item, idx) => (
-                        <Grid item xs={12} sm={6} key={idx}>
+                        <Box key={idx}>
                           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <i className="fi fi-rr-check-circle" style={{ color: "#4caf50", fontSize: "1.2rem" }}></i>
                             <Typography variant="body2" sx={{ color: "#424242" }}>
                               {item}
                             </Typography>
                           </Box>
-                        </Grid>
+                        </Box>
                       ))}
-                    </Grid>
+                    </Box>
                   </CardContent>
                 </Card>
               ))}
@@ -615,9 +614,9 @@ export default function FirstBikeGuide() {
               </Typography>
 
               <Box sx={{ maxWidth: "900px", mx: "auto" }}>
-                <Grid container spacing={2} justifyContent="center" alignItems="stretch">
+                <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 2 }}>
                   {essentialChecks.map((check, index) => (
-                    <Grid item xs={12} md={6} key={index} sx={{ display: "flex" }}>
+                    <Box key={index} sx={{ display: "flex" }}>
                       <Box
                         sx={{
                           display: "flex",
@@ -635,9 +634,9 @@ export default function FirstBikeGuide() {
                           {check.text}
                         </Typography>
                       </Box>
-                    </Grid>
+                    </Box>
                   ))}
-                </Grid>
+                </Box>
               </Box>
             </Paper>
 

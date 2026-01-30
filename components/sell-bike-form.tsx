@@ -20,6 +20,7 @@ import {
 } from "@mui/material"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
+import ImageUpload, { type UploadedImage } from "@/components/ui/image-upload"
 
 export default function SellBikeForm() {
   const [formData, setFormData] = useState({
@@ -32,8 +33,7 @@ export default function SellBikeForm() {
     condition: "",
     description: "",
   })
-  const [image, setImage] = useState<File | null>(null)
-  const [imagePreview, setImagePreview] = useState<string>("")
+  const [images, setImages] = useState<UploadedImage[]>([])
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
@@ -49,30 +49,11 @@ export default function SellBikeForm() {
     }
   }
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      // Check file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        setErrors({ ...errors, image: "Image size must be less than 5MB" })
-        return
-      }
-
-      // Check file type
-      if (!file.type.startsWith("image/")) {
-        setErrors({ ...errors, image: "Please upload an image file" })
-        return
-      }
-
-      setImage(file)
+  const handleImagesChange = (newImages: UploadedImage[]) => {
+    setImages(newImages)
+    // Clear image error when images are added
+    if (newImages.length > 0 && errors.image) {
       setErrors({ ...errors, image: "" })
-
-      // Create preview
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string)
-      }
-      reader.readAsDataURL(file)
     }
   }
 
@@ -89,8 +70,8 @@ export default function SellBikeForm() {
     if (!formData.description.trim()) newErrors.description = "Description is required"
 
     // Image validation
-    if (!image) {
-      newErrors.image = "Bike photo is required"
+    if (images.length === 0) {
+      newErrors.image = "At least one bike photo is required"
     }
 
     setErrors(newErrors)
@@ -118,9 +99,10 @@ export default function SellBikeForm() {
       formDataToSend.append("condition", formData.condition)
       formDataToSend.append("description", formData.description)
 
-      if (image) {
-        formDataToSend.append("image", image)
-      }
+      // Append all images
+      images.forEach((image, index) => {
+        formDataToSend.append(`image_${index}`, image.file)
+      })
 
       const response = await fetch("/api/sell-bike", {
         method: "POST",
@@ -142,8 +124,7 @@ export default function SellBikeForm() {
             condition: "",
             description: "",
           })
-          setImage(null)
-          setImagePreview("")
+          setImages([])
           setSubmitStatus("idle")
         }, 3000)
       } else {
@@ -422,80 +403,16 @@ export default function SellBikeForm() {
                 />
 
                 {/* Image Upload */}
-                <Typography variant="h6" sx={{ fontWeight: 600, color: "#212121", mt: 2, mb: 1 }}>
-                  Bike Photo *
-                </Typography>
-
-                <Box>
-                  <Button
-                    variant="outlined"
-                    component="label"
-                    sx={{
-                      borderColor: errors.image ? "#d32f2f" : "#0288d1",
-                      color: errors.image ? "#d32f2f" : "#0288d1",
-                      fontWeight: 600,
-                      textTransform: "none",
-                      borderWidth: "2px",
-                      "&:hover": {
-                        borderWidth: "2px",
-                        borderColor: errors.image ? "#d32f2f" : "#0277bd",
-                      },
-                    }}
-                  >
-                    <i className="fi fi-rr-camera" style={{ marginRight: "8px" }}></i>
-                    {image ? "Change Photo" : "Upload Photo"}
-                    <input
-                      type="file"
-                      hidden
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      required
-                    />
-                  </Button>
-                  {errors.image && (
-                    <FormHelperText error sx={{ ml: 2 }}>
-                      {errors.image}
-                    </FormHelperText>
-                  )}
-                  {!errors.image && (
-                    <FormHelperText sx={{ ml: 2 }}>
-                      Maximum file size: 5MB. Accepted formats: JPG, PNG
-                    </FormHelperText>
-                  )}
-                </Box>
-
-                {/* Image Preview */}
-                {imagePreview && (
-                  <Box
-                    sx={{
-                      mt: 2,
-                      position: "relative",
-                      borderRadius: "8px",
-                      overflow: "hidden",
-                      maxWidth: "400px",
-                    }}
-                  >
-                    <img
-                      src={imagePreview}
-                      alt="Bike preview"
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        display: "block",
-                      }}
-                    />
-                    <Typography
-                      variant="caption"
-                      sx={{
-                        display: "block",
-                        mt: 1,
-                        color: "#757575",
-                      }}
-                    >
-                      {image?.name}
-                    </Typography>
-                  </Box>
-                )}
+                <ImageUpload
+                  images={images}
+                  onChange={handleImagesChange}
+                  maxImages={5}
+                  maxSizeMB={5}
+                  error={errors.image}
+                  required
+                  label="Bike Photos"
+                  helperText="Upload or take photos of your bike. Multiple angles recommended (5 photos max, 5MB each)."
+                />
 
                 {/* Submit Button */}
                 <Button

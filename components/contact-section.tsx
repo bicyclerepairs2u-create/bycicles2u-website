@@ -19,6 +19,7 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material"
+import ImageUpload, { type UploadedImage } from "@/components/ui/image-upload"
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -33,6 +34,8 @@ export default function ContactSection() {
     message: "",
   })
 
+  const [images, setImages] = useState<UploadedImage[]>([])
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
   const handleChange = (e: any) => {
@@ -42,18 +45,47 @@ export default function ContactSection() {
     })
   }
 
+  const handleImagesChange = (newImages: UploadedImage[]) => {
+    setImages(newImages)
+    // Clear image error when images are added
+    if (newImages.length > 0 && errors.image) {
+      setErrors({ ...errors, image: "" })
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    // Validate photos for service and repair inquiries
+    const requiresPhotos = formData.inquiryType === "Bike Service" || formData.inquiryType === "Custom Build"
+    if (requiresPhotos && images.length === 0) {
+      setErrors({ image: "At least one photo is required for service and custom build inquiries" })
+      return
+    }
 
     setSubmitStatus("loading")
 
     try {
+      // Create FormData to send file and form fields
+      const formDataToSend = new FormData()
+      formDataToSend.append("name", formData.name)
+      formDataToSend.append("email", formData.email)
+      formDataToSend.append("phone", formData.phone)
+      formDataToSend.append("inquiryType", formData.inquiryType)
+      formDataToSend.append("serviceLevel", formData.serviceLevel)
+      formDataToSend.append("bikeType", formData.bikeType)
+      formDataToSend.append("bikeDetails", formData.bikeDetails)
+      formDataToSend.append("pickupNeeded", formData.pickupNeeded)
+      formDataToSend.append("message", formData.message)
+
+      // Append all images
+      images.forEach((image, index) => {
+        formDataToSend.append(`image_${index}`, image.file)
+      })
+
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       })
 
       if (response.ok) {
@@ -72,6 +104,7 @@ export default function ContactSection() {
             pickupNeeded: "",
             message: "",
           })
+          setImages([])
           setSubmitStatus("idle")
         }, 3000)
       } else {
@@ -371,6 +404,26 @@ export default function ContactSection() {
                         },
                       },
                     }}
+                  />
+
+                  {/* Photo Upload */}
+                  <ImageUpload
+                    images={images}
+                    onChange={handleImagesChange}
+                    maxImages={5}
+                    maxSizeMB={5}
+                    error={errors.image}
+                    required={formData.inquiryType === "Bike Service" || formData.inquiryType === "Custom Build"}
+                    label={
+                      formData.inquiryType === "Bike Service" || formData.inquiryType === "Custom Build"
+                        ? "Bike Photos"
+                        : "Photos (Optional)"
+                    }
+                    helperText={
+                      formData.inquiryType === "Bike Service" || formData.inquiryType === "Custom Build"
+                        ? "Photos of your bike are required for service and custom build requests (5 photos max, 5MB each)."
+                        : "Upload or take photos to help us understand your needs better (5 photos max, 5MB each)."
+                    }
                   />
 
                   <Button
