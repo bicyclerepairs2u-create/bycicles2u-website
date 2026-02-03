@@ -254,7 +254,7 @@ export default function FirstBikeGuide() {
             </Paper>
 
             <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <Card
                   elevation={0}
                   sx={{
@@ -310,7 +310,7 @@ export default function FirstBikeGuide() {
                 </Card>
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <Card
                   elevation={0}
                   sx={{
@@ -393,7 +393,7 @@ export default function FirstBikeGuide() {
 
             <Grid container spacing={3}>
               {bikeTypes.map((type, index) => (
-                <Grid item xs={12} md={6} key={index}>
+                <Grid size={{ xs: 12, md: 6 }} key={index}>
                   <Card
                     elevation={0}
                     sx={{
@@ -545,7 +545,7 @@ export default function FirstBikeGuide() {
                     </Typography>
                     <Grid container spacing={2}>
                       {budget.whatToExpect.map((item, idx) => (
-                        <Grid item xs={12} sm={6} key={idx}>
+                        <Grid size={{ xs: 12, sm: 6 }} key={idx}>
                           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                             <i className="fi fi-rr-check-circle" style={{ color: "#4caf50", fontSize: "1.2rem" }}></i>
                             <Typography variant="body2" sx={{ color: "#424242" }}>
@@ -617,7 +617,7 @@ export default function FirstBikeGuide() {
               <Box sx={{ maxWidth: "900px", mx: "auto" }}>
                 <Grid container spacing={2} justifyContent="center" alignItems="stretch">
                   {essentialChecks.map((check, index) => (
-                    <Grid item xs={12} md={6} key={index} sx={{ display: "flex" }}>
+                    <Grid size={{ xs: 12, md: 6 }} key={index} sx={{ display: "flex" }}>
                       <Box
                         sx={{
                           display: "flex",
