@@ -118,8 +118,11 @@ export default function Navigation() {
               onClick={openCart}
               sx={{
                 color: "#424242",
+                transition: "color 0.2s ease, transform 0.2s ease",
                 "&:hover": {
-                  backgroundColor: "rgba(2, 136, 209, 0.08)",
+                  backgroundColor: "transparent",
+                  color: "#0288d1",
+                  transform: "scale(1.1)",
                 },
               }}
             >
@@ -147,8 +150,11 @@ export default function Navigation() {
               onClick={handleMenuOpen}
               sx={{
                 color: "#424242",
+                transition: "color 0.2s ease, transform 0.2s ease",
                 "&:hover": {
-                  backgroundColor: "rgba(2, 136, 209, 0.08)",
+                  backgroundColor: "transparent",
+                  color: "#0288d1",
+                  transform: "scale(1.1)",
                 },
               }}
             >

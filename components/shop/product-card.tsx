@@ -27,7 +27,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link href={`/shop/${product.handle}`}>
-      <Card className="group overflow-hidden transition-all hover:shadow-lg">
+      <Card className="group overflow-hidden rounded-none border-0 py-0 shadow-sm transition-all hover:shadow-lg">
         <div className="relative aspect-square overflow-hidden bg-gray-100">
           {product.featuredImage ? (
             <Image
@@ -44,30 +44,31 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
           {!product.availableForSale && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-              <span className="rounded bg-white px-3 py-1 text-sm font-medium text-gray-900">
+              <span className="bg-white px-3 py-1 text-sm font-medium text-gray-900">
                 Sold Out
               </span>
             </div>
           )}
         </div>
-        <CardContent className="p-4">
-          <div className="mb-2">
+        <CardContent className="px-6 py-6">
+          <div className="mb-3">
             {product.vendor && (
               <p className="text-xs uppercase tracking-wide text-gray-500">{product.vendor}</p>
             )}
             <h3 className="line-clamp-2 font-medium text-gray-900">{product.title}</h3>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-3">
             <p className="text-lg font-semibold text-[#0288d1]">{formatPrice(price)}</p>
             {product.availableForSale && firstVariant && (
               <Button
-                size="sm"
+                size="lg"
                 variant="outline"
                 onClick={handleAddToCart}
                 disabled={isLoading}
-                className="opacity-0 transition-opacity group-hover:opacity-100"
+                className="rounded-none px-4 py-2 opacity-0 transition-all group-hover:opacity-100"
               >
-                <ShoppingCart className="h-4 w-4" />
+                <ShoppingCart className="h-5 w-5" />
+                <span className="ml-2 hidden group-hover:inline">Add to Cart</span>
               </Button>
             )}
           </div>
