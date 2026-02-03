@@ -124,6 +124,17 @@
   --color-brand-charcoal: #424242;
   --color-brand-success: #4caf50;
 
+  /* Shop accent - Competition Red */
+  --color-shop-accent: #ff1744;
+  --color-shop-accent-dark: #d50032;
+  --color-shop-accent-glow: rgba(255, 23, 68, 0.3);
+
+  /* Dark Carbon theme colors */
+  --color-carbon-950: #0a0a0a;
+  --color-carbon-900: #171717;
+  --color-carbon-800: #262626;
+  --color-carbon-700: #404040;
+
   /* Background alternatives */
   --color-background-alt: #fafafa;
   --color-surface: #ffffff;
