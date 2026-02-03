@@ -52,7 +52,7 @@ const mockProduct = {
     groupset: 'SRAM Red eTap AXS',
     wheels: 'Reserve 63/80',
   },
-  image: '/placeholder-bike.jpg', // We'll use a placeholder
+  image: '/IMG_6287.jpeg',
 }
 
 export default function StylesPage() {
@@ -143,22 +143,13 @@ export default function StylesPage() {
 
                 {/* Image area */}
                 <div className="relative aspect-[4/3] bg-neutral-800 overflow-hidden">
+                  <Image
+                    src={mockProduct.image}
+                    alt={mockProduct.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent z-10" />
-                  {/* Placeholder pattern */}
-                  <div className="absolute inset-0 opacity-20">
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: `repeating-linear-gradient(
-                        -45deg,
-                        transparent,
-                        transparent 10px,
-                        rgba(255,255,255,0.03) 10px,
-                        rgba(255,255,255,0.03) 20px
-                      )`
-                    }} />
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-neutral-600 text-sm">Product Image</span>
-                  </div>
 
                   {/* Hover overlay with specs */}
                   <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity z-20 flex flex-col justify-end p-4">
@@ -233,9 +224,12 @@ export default function StylesPage() {
                 <div key={i} className="group">
                   {/* Clean image area */}
                   <div className="relative aspect-square bg-neutral-100 mb-6 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-neutral-400 text-sm">Product Image</span>
-                    </div>
+                    <Image
+                      src={mockProduct.image}
+                      alt={mockProduct.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
                     {/* Subtle hover effect */}
                     <div
                       className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -304,9 +298,12 @@ export default function StylesPage() {
 
                 {/* Image with dynamic overlay */}
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
-                    <span className="text-neutral-600 text-sm">Product Image</span>
-                  </div>
+                  <Image
+                    src={mockProduct.image}
+                    alt={mockProduct.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
 
                   {/* Dynamic gradient overlay */}
                   <div
@@ -383,9 +380,12 @@ export default function StylesPage() {
               >
                 {/* Image area */}
                 <div className="relative aspect-[4/3] bg-neutral-900 overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-neutral-700 text-sm">Product Image</span>
-                  </div>
+                  <Image
+                    src={mockProduct.image}
+                    alt={mockProduct.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
 
                   {/* Bottom gradient */}
                   <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-neutral-950 to-transparent" />
