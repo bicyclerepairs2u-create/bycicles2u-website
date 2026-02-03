@@ -11,10 +11,13 @@ import {
   MenuItem,
   Box,
   Container,
+  Badge,
 } from "@mui/material"
+import { useCart } from "@/components/providers/cart-provider"
 
 const navItems = [
   { label: "Home", href: "#home", type: "section" },
+  { label: "Shop", href: "/shop", type: "page" },
   { label: "Bikes", href: "#bikes", type: "section" },
   { label: "Testimonials", href: "#testimonials", type: "section" },
   { label: "Brands", href: "#brands", type: "section" },
@@ -28,6 +31,7 @@ export default function Navigation() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const router = useRouter()
+  const { cart, openCart } = useCart()
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -105,23 +109,52 @@ export default function Navigation() {
             </Typography>
           </Box>
 
-          {/* Hamburger Menu Button */}
-          <IconButton
-            color="inherit"
-            aria-label="open menu"
-            aria-controls={open ? "navigation-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleMenuOpen}
-            sx={{
-              color: "#424242",
-              "&:hover": {
-                backgroundColor: "rgba(2, 136, 209, 0.08)",
-              },
-            }}
-          >
-            <i className="fi fi-rr-menu-burger" style={{ fontSize: "1.5rem" }}></i>
-          </IconButton>
+          {/* Navigation Buttons */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+            {/* Cart Button */}
+            <IconButton
+              color="inherit"
+              aria-label="open cart"
+              onClick={openCart}
+              sx={{
+                color: "#424242",
+                "&:hover": {
+                  backgroundColor: "rgba(2, 136, 209, 0.08)",
+                },
+              }}
+            >
+              <Badge
+                badgeContent={cart?.totalQuantity || 0}
+                color="primary"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    backgroundColor: "#0288d1",
+                    color: "#fff",
+                  },
+                }}
+              >
+                <i className="fi fi-rr-shopping-cart" style={{ fontSize: "1.25rem" }}></i>
+              </Badge>
+            </IconButton>
+
+            {/* Hamburger Menu Button */}
+            <IconButton
+              color="inherit"
+              aria-label="open menu"
+              aria-controls={open ? "navigation-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleMenuOpen}
+              sx={{
+                color: "#424242",
+                "&:hover": {
+                  backgroundColor: "rgba(2, 136, 209, 0.08)",
+                },
+              }}
+            >
+              <i className="fi fi-rr-menu-burger" style={{ fontSize: "1.5rem" }}></i>
+            </IconButton>
+          </Box>
 
           {/* Dropdown Menu */}
           <Menu

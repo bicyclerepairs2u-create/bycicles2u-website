@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { Roboto } from "next/font/google"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
+import { CartProvider } from "@/components/providers/cart-provider"
+import { CartDrawer } from "@/components/shop/cart-drawer"
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -29,7 +31,12 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css" />
       </head>
-      <body>{children}</body>
+      <body>
+        <CartProvider>
+          {children}
+          <CartDrawer />
+        </CartProvider>
+      </body>
       <Analytics/>
     </html>
   )
