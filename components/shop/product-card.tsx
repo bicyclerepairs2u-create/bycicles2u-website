@@ -4,7 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ShopifyProduct, formatPrice, getFirstVariant } from '@/lib/shopify'
 import { useCart } from '@/components/providers/cart-provider'
-import { ShoppingCart, Weight, Zap } from 'lucide-react'
+import { useCompare } from '@/components/providers/compare-provider'
+import { ShoppingCart, Weight, Zap, Scale, Check } from 'lucide-react'
 
 interface ProductCardProps {
   product: ShopifyProduct
@@ -12,8 +13,10 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const { addItem, isLoading } = useCart()
+  const { addToCompare, removeFromCompare, isInCompare, canAddMore } = useCompare()
   const firstVariant = getFirstVariant(product)
   const price = product.priceRange.minVariantPrice
+  const inCompare = isInCompare(product.id)
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault()
@@ -23,10 +26,20 @@ export function ProductCard({ product }: ProductCardProps) {
     }
   }
 
+  const handleToggleCompare = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (inCompare) {
+      removeFromCompare(product.id)
+    } else if (canAddMore) {
+      addToCompare(product)
+    }
+  }
+
   return (
     <Link href={`/shop/${product.handle}`}>
       <div
-        className="group relative bg-neutral-900 overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,23,68,0.15)]"
+        className="group relative bg-[var(--theme-bg-secondary)] overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_var(--theme-accent-glow)]"
         style={{
           clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)',
         }}
@@ -35,8 +48,16 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="absolute top-0 right-0 w-24 h-1 bg-[#ff1744] z-20" />
         <div className="absolute top-0 right-0 w-1 h-16 bg-[#ff1744] z-20" />
 
+        {/* Compare indicator badge */}
+        {inCompare && (
+          <div className="absolute top-2 left-2 z-30 flex items-center gap-1 px-2 py-1 bg-[#ff1744] text-black text-[10px] font-bold uppercase tracking-wider">
+            <Check className="w-3 h-3" />
+            Comparing
+          </div>
+        )}
+
         {/* Image area */}
-        <div className="relative aspect-[4/3] bg-neutral-800 overflow-hidden">
+        <div className="relative aspect-[4/3] bg-[var(--theme-bg-tertiary)] overflow-hidden">
           {product.featuredImage ? (
             <Image
               src={product.featuredImage.url}
@@ -46,13 +67,13 @@ export function ProductCard({ product }: ProductCardProps) {
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           ) : (
-            <div className="flex h-full items-center justify-center bg-neutral-800">
-              <span className="text-neutral-600 text-sm">No image</span>
+            <div className="flex h-full items-center justify-center bg-[var(--theme-bg-tertiary)]">
+              <span className="text-[var(--theme-text-muted)] text-sm">No image</span>
             </div>
           )}
 
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--theme-bg-secondary)] via-transparent to-transparent z-10" />
 
           {/* Sold out overlay */}
           {!product.availableForSale && (
@@ -83,23 +104,40 @@ export function ProductCard({ product }: ProductCardProps) {
           <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-1 text-[#ff1744]">
             {product.vendor || 'Bicycles2U'}
           </p>
-          <h3 className="text-lg font-bold text-white mb-3 leading-tight line-clamp-2">
+          <h3 className="text-lg font-bold text-[var(--theme-text-primary)] mb-3 leading-tight line-clamp-2">
             {product.title}
           </h3>
           <div className="flex items-center justify-between">
             <span className="text-xl font-bold text-[#ff1744]">
               {formatPrice(price)}
             </span>
-            {product.availableForSale && firstVariant && (
+            <div className="flex items-center gap-2">
+              {/* Compare button */}
               <button
-                onClick={handleAddToCart}
-                disabled={isLoading}
-                className="p-2.5 bg-[#ff1744] text-black transition-all duration-200 hover:bg-[#d50032] disabled:opacity-50"
-                aria-label="Add to cart"
+                onClick={handleToggleCompare}
+                disabled={!inCompare && !canAddMore}
+                className={`p-2.5 transition-all duration-200 ${
+                  inCompare
+                    ? 'bg-[#ff1744] text-black hover:bg-[#d50032]'
+                    : 'border border-[var(--theme-border-hover)] text-[var(--theme-text-muted)] hover:border-[#ff1744] hover:text-[#ff1744]'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
+                aria-label={inCompare ? 'Remove from compare' : 'Add to compare'}
+                title={inCompare ? 'Remove from compare' : canAddMore ? 'Add to compare' : 'Compare limit reached (4)'}
               >
-                <ShoppingCart className="w-4 h-4" />
+                <Scale className="w-4 h-4" />
               </button>
-            )}
+              {/* Cart button */}
+              {product.availableForSale && firstVariant && (
+                <button
+                  onClick={handleAddToCart}
+                  disabled={isLoading}
+                  className="p-2.5 bg-[#ff1744] text-black transition-all duration-200 hover:bg-[#d50032] disabled:opacity-50"
+                  aria-label="Add to cart"
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

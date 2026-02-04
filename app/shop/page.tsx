@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { getProducts, isShopifyConfigured } from '@/lib/shopify'
 import { ProductGrid } from '@/components/shop'
+import { CompareBar } from '@/components/shop/compare-bar'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
 
@@ -12,9 +13,9 @@ export const metadata = {
 async function ProductList() {
   if (!isShopifyConfigured()) {
     return (
-      <div className="rounded-lg border border-neutral-800 bg-neutral-900 p-8 text-center">
-        <h3 className="mb-2 text-lg font-semibold text-white">Shop Coming Soon</h3>
-        <p className="text-neutral-400">
+      <div className="border border-[var(--theme-border)] bg-[var(--theme-bg-secondary)] p-8 text-center">
+        <h3 className="mb-2 text-lg font-semibold text-[var(--theme-text-primary)]">Shop Coming Soon</h3>
+        <p className="text-[var(--theme-text-muted)]">
           Our online shop is being set up. In the meantime, check out our bikes on{' '}
           <a
             href="https://www.facebook.com/marketplace/profile/61551793451820"
@@ -39,12 +40,12 @@ function ProductListSkeleton() {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="animate-pulse bg-neutral-900">
-          <div className="aspect-[4/3] bg-neutral-800" />
+        <div key={i} className="animate-pulse bg-[var(--theme-bg-secondary)]">
+          <div className="aspect-[4/3] bg-[var(--theme-bg-tertiary)]" />
           <div className="p-5 space-y-3">
-            <div className="h-3 w-1/4 rounded bg-neutral-800" />
-            <div className="h-5 w-2/3 rounded bg-neutral-800" />
-            <div className="h-6 w-1/3 rounded bg-neutral-800" />
+            <div className="h-3 w-1/4 rounded bg-[var(--theme-bg-tertiary)]" />
+            <div className="h-5 w-2/3 rounded bg-[var(--theme-bg-tertiary)]" />
+            <div className="h-6 w-1/3 rounded bg-[var(--theme-bg-tertiary)]" />
           </div>
         </div>
       ))}
@@ -54,19 +55,19 @@ function ProductListSkeleton() {
 
 export default function ShopPage() {
   return (
-    <main className="bg-[#0a0a0a]">
+    <main className="bg-[var(--theme-bg-primary)]">
       <Navigation />
 
       {/* Hero Header - Full-width with diagonal accent */}
       <div
-        className="relative flex items-center pt-24 pb-12 md:pt-32 md:pb-16"
+        className="relative flex items-center pt-24 pb-12 md:pt-32 md:pb-16 bg-[var(--theme-bg-primary)]"
         style={{
-          background: 'linear-gradient(135deg, #0a0a0a 0%, rgba(255, 23, 68, 0.08) 100%)'
+          background: 'linear-gradient(135deg, var(--theme-bg-primary) 0%, var(--theme-accent-glow) 100%)'
         }}
       >
         {/* Diagonal line pattern */}
         <div
-          className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none"
+          className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none dark:opacity-10"
           style={{
             backgroundImage: `repeating-linear-gradient(
               -45deg,
@@ -79,10 +80,10 @@ export default function ShopPage() {
         />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white">
+          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-[var(--theme-text-primary)]">
             Shop
           </h1>
-          <p className="mt-3 text-lg text-neutral-400 max-w-xl">
+          <p className="mt-3 text-lg text-[var(--theme-text-muted)] max-w-xl">
             Premium road & triathlon machines built for speed.
           </p>
           <div className="flex items-center gap-3 mt-6">
@@ -109,6 +110,7 @@ export default function ShopPage() {
       </div>
 
       <Footer />
+      <CompareBar />
     </main>
   )
 }
