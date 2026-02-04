@@ -14,24 +14,59 @@ export default function Footer() {
     <Box
       component="footer"
       sx={{
-        backgroundColor: "#212121",
-        color: "#fafafa",
-        pt: 6,
-        pb: 3,
+        backgroundColor: "var(--theme-bg-primary)",
+        color: "var(--theme-text-primary)",
+        pt: 8,
+        pb: 4,
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <Container maxWidth="lg">
+      {/* Top accent line */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "2px",
+          background: "linear-gradient(90deg, #ff1744 0%, transparent 50%, #ff1744 100%)",
+          opacity: 0.5,
+        }}
+      />
+
+      {/* Background pattern */}
+      <Box
+        sx={{
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+          width: "40%",
+          height: "100%",
+          backgroundImage: `repeating-linear-gradient(
+            -45deg,
+            #ff1744,
+            #ff1744 1px,
+            transparent 1px,
+            transparent 60px
+          )`,
+          opacity: 0.02,
+          zIndex: 0,
+        }}
+      />
+
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
         <Box
           sx={{
             display: "grid",
             gap: { xs: 4, md: 6 },
-            mb: 4,
+            mb: 6,
             gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "2fr 1fr 1fr 1.5fr" },
           }}
         >
           {/* Column 1: Branding & Description */}
           <Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 3 }}>
               <Box
                 component="img"
                 src="/b2u-logo.svg"
@@ -43,57 +78,63 @@ export default function Footer() {
                 }}
               />
               <Typography
-                variant="h6"
                 sx={{
-                  fontWeight: 700,
-                  fontSize: "1.3rem",
+                  fontWeight: 900,
+                  fontSize: "1.25rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.02em",
                 }}
               >
                 Bicycles2U
               </Typography>
             </Box>
             <Typography
-              variant="body2"
               sx={{
-                color: "#bdbdbd",
-                fontSize: "0.9rem",
-                lineHeight: 1.6,
-                mb: 2,
+                color: "var(--theme-text-muted)",
+                fontSize: "0.875rem",
+                lineHeight: 1.7,
+                mb: 3,
               }}
             >
-              Road Bike ONLY Specialists
+              <Box component="span" sx={{ color: "#ff1744", fontWeight: 600 }}>Road Bike ONLY Specialists</Box>
               <br />
               Premium service, repairs & custom builds for serious cyclists.
             </Typography>
-            <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+            <Box sx={{ display: "flex", gap: 3 }}>
               <Link
                 href="mailto:bicyclerepairs2u@gmail.com"
                 sx={{
-                  color: "#bdbdbd",
-                  "&:hover": { color: "#0288d1" },
+                  color: "var(--theme-text-muted)",
+                  transition: "all 0.2s ease",
+                  "&:hover": { color: "#ff1744", transform: "translateY(-2px)" },
+                  display: "inline-block",
                 }}
               >
-                <i className="fi fi-rr-envelope" style={{ fontSize: "1.3rem" }}></i>
+                <i className="fi fi-rr-envelope" style={{ fontSize: "1.25rem" }}></i>
               </Link>
               <Link
                 href="tel:+61402880242"
                 sx={{
-                  color: "#bdbdbd",
-                  "&:hover": { color: "#0288d1" },
+                  color: "var(--theme-text-muted)",
+                  transition: "all 0.2s ease",
+                  "&:hover": { color: "#ff1744", transform: "translateY(-2px)" },
+                  display: "inline-block",
                 }}
               >
-                <i className="fi fi-rr-phone-call" style={{ fontSize: "1.3rem" }}></i>
+                <i className="fi fi-rr-phone-call" style={{ fontSize: "1.25rem" }}></i>
               </Link>
               <Link
                 href="https://www.facebook.com/marketplace/profile/100015456158533/?ref=permalink&mibextid=6ojiHh"
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
-                  color: "#bdbdbd",
-                  "&:hover": { color: "#0288d1" },
+                  color: "var(--theme-text-muted)",
+                  transition: "all 0.2s ease",
+                  "&:hover": { color: "#ff1744", transform: "translateY(-2px)" },
+                  display: "inline-block",
                 }}
               >
-                <i className="fi fi-brands-facebook" style={{ fontSize: "1.3rem" }}></i>
+                <i className="fi fi-brands-facebook" style={{ fontSize: "1.25rem" }}></i>
               </Link>
             </Box>
           </Box>
@@ -101,168 +142,113 @@ export default function Footer() {
           {/* Column 2: Quick Links */}
           <Box>
             <Typography
-              variant="subtitle1"
               sx={{
-                fontWeight: 600,
-                mb: 2,
-                fontSize: "1rem",
+                fontWeight: 700,
+                mb: 3,
+                fontSize: "0.75rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                color: "var(--theme-text-primary)",
               }}
             >
               Quick Links
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-              <Link
-                component="button"
-                onClick={() => handleNavClick("#home")}
-                sx={{
-                  color: "#bdbdbd",
-                  textDecoration: "none",
-                  textAlign: "left",
-                  fontSize: "0.875rem",
-                  "&:hover": {
-                    color: "#0288d1",
-                  },
-                }}
-              >
-                Home
-              </Link>
-              <Link
-                component="button"
-                onClick={() => handleNavClick("#bikes")}
-                sx={{
-                  color: "#bdbdbd",
-                  textDecoration: "none",
-                  textAlign: "left",
-                  fontSize: "0.875rem",
-                  "&:hover": {
-                    color: "#0288d1",
-                  },
-                }}
-              >
-                Bikes
-              </Link>
-              <Link
-                component="button"
-                onClick={() => handleNavClick("#testimonials")}
-                sx={{
-                  color: "#bdbdbd",
-                  textDecoration: "none",
-                  textAlign: "left",
-                  fontSize: "0.875rem",
-                  "&:hover": {
-                    color: "#0288d1",
-                  },
-                }}
-              >
-                Reviews
-              </Link>
-              <Link
-                href="/bike-sizing"
-                sx={{
-                  color: "#bdbdbd",
-                  textDecoration: "none",
-                  fontSize: "0.875rem",
-                  "&:hover": {
-                    color: "#0288d1",
-                  },
-                }}
-              >
-                Find Your Size
-              </Link>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              {[
+                { label: "Home", href: "#home", type: "scroll" },
+                { label: "Bikes", href: "#bikes", type: "scroll" },
+                { label: "Reviews", href: "#testimonials", type: "scroll" },
+                { label: "Find Your Size", href: "/bike-sizing", type: "link" },
+              ].map((item) => (
+                <Link
+                  key={item.label}
+                  {...(item.type === "scroll" ? { component: "button", onClick: () => handleNavClick(item.href) } : { href: item.href })}
+                  sx={{
+                    color: "var(--theme-text-muted)",
+                    textDecoration: "none",
+                    textAlign: "left",
+                    fontSize: "0.875rem",
+                    transition: "all 0.2s ease",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.5,
+                    "&:hover": {
+                      color: "#ff1744",
+                      paddingLeft: "8px",
+                    },
+                  }}
+                >
+                  <Box sx={{ width: "4px", height: "4px", backgroundColor: "#ff1744", opacity: 0.5 }} />
+                  {item.label}
+                </Link>
+              ))}
             </Box>
           </Box>
 
           {/* Column 3: Services */}
           <Box>
             <Typography
-              variant="subtitle1"
               sx={{
-                fontWeight: 600,
-                mb: 2,
-                fontSize: "1rem",
+                fontWeight: 700,
+                mb: 3,
+                fontSize: "0.75rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                color: "var(--theme-text-primary)",
               }}
             >
               Services
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-              <Link
-                component="button"
-                onClick={() => handleNavClick("#services")}
-                sx={{
-                  color: "#bdbdbd",
-                  textDecoration: "none",
-                  textAlign: "left",
-                  fontSize: "0.875rem",
-                  "&:hover": {
-                    color: "#0288d1",
-                  },
-                }}
-              >
-                Bike Service
-              </Link>
-              <Link
-                href="/sell-bike"
-                sx={{
-                  color: "#bdbdbd",
-                  textDecoration: "none",
-                  fontSize: "0.875rem",
-                  "&:hover": {
-                    color: "#0288d1",
-                  },
-                }}
-              >
-                Sell Your Bike
-              </Link>
-              <Link
-                component="button"
-                onClick={() => handleNavClick("#brands")}
-                sx={{
-                  color: "#bdbdbd",
-                  textDecoration: "none",
-                  textAlign: "left",
-                  fontSize: "0.875rem",
-                  "&:hover": {
-                    color: "#0288d1",
-                  },
-                }}
-              >
-                Brands
-              </Link>
-              <Link
-                component="button"
-                onClick={() => handleNavClick("#contact")}
-                sx={{
-                  color: "#bdbdbd",
-                  textDecoration: "none",
-                  textAlign: "left",
-                  fontSize: "0.875rem",
-                  "&:hover": {
-                    color: "#0288d1",
-                  },
-                }}
-              >
-                Contact Us
-              </Link>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              {[
+                { label: "Bike Service", href: "#services", type: "scroll" },
+                { label: "Sell Your Bike", href: "/sell-bike", type: "link" },
+                { label: "Brands", href: "#brands", type: "scroll" },
+                { label: "Contact Us", href: "#contact", type: "scroll" },
+              ].map((item) => (
+                <Link
+                  key={item.label}
+                  {...(item.type === "scroll" ? { component: "button", onClick: () => handleNavClick(item.href) } : { href: item.href })}
+                  sx={{
+                    color: "var(--theme-text-muted)",
+                    textDecoration: "none",
+                    textAlign: "left",
+                    fontSize: "0.875rem",
+                    transition: "all 0.2s ease",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.5,
+                    "&:hover": {
+                      color: "#ff1744",
+                      paddingLeft: "8px",
+                    },
+                  }}
+                >
+                  <Box sx={{ width: "4px", height: "4px", backgroundColor: "#ff1744", opacity: 0.5 }} />
+                  {item.label}
+                </Link>
+              ))}
             </Box>
           </Box>
 
           {/* Column 4: Contact Info */}
           <Box>
             <Typography
-              variant="subtitle1"
               sx={{
-                fontWeight: 600,
-                mb: 2,
-                fontSize: "1rem",
+                fontWeight: 700,
+                mb: 3,
+                fontSize: "0.75rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                color: "var(--theme-text-primary)",
               }}
             >
               Contact
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <Typography
-                variant="body2"
                 sx={{
-                  color: "#bdbdbd",
+                  color: "var(--theme-text-muted)",
                   fontSize: "0.875rem",
                   lineHeight: 1.6,
                 }}
@@ -274,11 +260,12 @@ export default function Footer() {
               <Link
                 href="tel:+61402880242"
                 sx={{
-                  color: "#bdbdbd",
+                  color: "var(--theme-text-muted)",
                   textDecoration: "none",
                   fontSize: "0.875rem",
+                  transition: "color 0.2s ease",
                   "&:hover": {
-                    color: "#0288d1",
+                    color: "#ff1744",
                   },
                 }}
               >
@@ -287,33 +274,46 @@ export default function Footer() {
               <Link
                 href="mailto:bicyclerepairs2u@gmail.com"
                 sx={{
-                  color: "#bdbdbd",
+                  color: "var(--theme-text-muted)",
                   textDecoration: "none",
                   fontSize: "0.875rem",
+                  transition: "color 0.2s ease",
                   "&:hover": {
-                    color: "#0288d1",
+                    color: "#ff1744",
                   },
                 }}
               >
                 bicyclerepairs2u@gmail.com
               </Link>
-              <Typography
-                variant="body2"
+              <Box
                 sx={{
-                  color: "#ffb74d",
-                  fontSize: "0.8rem",
-                  fontWeight: 500,
-                  mt: 1,
+                  mt: 2,
+                  p: 2,
+                  backgroundColor: "rgba(255, 23, 68, 0.08)",
+                  border: "1px solid rgba(255, 23, 68, 0.2)",
                 }}
               >
-                <i className="fi fi-rr-info" style={{ marginRight: "4px" }}></i>
-                Road bikes only - No e-bikes
-              </Typography>
+                <Typography
+                  sx={{
+                    color: "#ff1744",
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                  }}
+                >
+                  <i className="fi fi-rr-info" style={{ fontSize: "0.875rem" }}></i>
+                  Road bikes only - No e-bikes
+                </Typography>
+              </Box>
             </Box>
           </Box>
         </Box>
 
-        <Divider sx={{ borderColor: "#424242", mb: 3 }} />
+        <Divider sx={{ borderColor: "var(--theme-border)", mb: 4 }} />
 
         <Box
           sx={{
@@ -325,22 +325,27 @@ export default function Footer() {
           }}
         >
           <Typography
-            variant="body2"
             sx={{
-              color: "#9e9e9e",
-              fontSize: "0.85rem",
+              color: "var(--theme-text-muted)",
+              fontSize: "0.75rem",
+              letterSpacing: "0.05em",
             }}
           >
             © {new Date().getFullYear()} Bicycles2U. All rights reserved.
           </Typography>
           <Typography
-            variant="body2"
             sx={{
-              color: "#9e9e9e",
-              fontSize: "0.85rem",
+              color: "var(--theme-text-muted)",
+              fontSize: "0.75rem",
+              letterSpacing: "0.05em",
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
             }}
           >
-            Road Bike Specialists • Queens Park, Sydney
+            <Box component="span" sx={{ color: "#ff1744" }}>Road Bike Specialists</Box>
+            <Box component="span">•</Box>
+            Queens Park, Sydney
           </Typography>
         </Box>
       </Container>

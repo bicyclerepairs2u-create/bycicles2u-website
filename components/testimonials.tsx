@@ -50,36 +50,67 @@ export default function Testimonials() {
 			id="testimonials"
 			component="section"
 			sx={{
-				py: { xs: 6, md: 10 },
-				backgroundColor: "#fafafa",
+				py: { xs: 10, md: 14 },
+				backgroundColor: "var(--theme-bg-secondary)",
+				position: "relative",
+				overflow: "hidden",
 			}}
 		>
-			<Container maxWidth="lg">
-				<Typography
-					variant="h2"
-					sx={{
-						fontSize: { xs: "2rem", md: "2.5rem" },
-						fontWeight: 700,
-						color: "#212121",
-						mb: 2,
-						textAlign: "center",
-						letterSpacing: "-1px",
-					}}
-				>
-					Customer Reviews
-				</Typography>
+			{/* Subtle Background Gradient */}
+			<Box
+				sx={{
+					position: "absolute",
+					top: 0,
+					left: 0,
+					width: "100%",
+					height: "100%",
+					background: "radial-gradient(ellipse at bottom left, var(--theme-accent-glow) 0%, transparent 50%)",
+					zIndex: 0,
+				}}
+			/>
 
-				<Typography
-					variant="body1"
-					sx={{
-						fontSize: "1rem",
-						color: "#757575",
-						mb: 5,
-						textAlign: "center",
-					}}
-				>
-					See what our customers have to say
-				</Typography>
+			<Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+				{/* Section Header */}
+				<Box sx={{ textAlign: "center", mb: 6 }}>
+					<Typography
+						sx={{
+							fontSize: "0.625rem",
+							fontWeight: 600,
+							letterSpacing: "0.2em",
+							textTransform: "uppercase",
+							color: "#ff1744",
+							mb: 2,
+						}}
+					>
+						Testimonials
+					</Typography>
+
+					<Typography
+						variant="h2"
+						sx={{
+							fontSize: { xs: "2rem", md: "3rem" },
+							fontWeight: 900,
+							color: "var(--theme-text-primary)",
+							mb: 2,
+							letterSpacing: "-0.04em",
+							textTransform: "uppercase",
+						}}
+					>
+						Customer Reviews
+					</Typography>
+
+					<Typography
+						variant="body1"
+						sx={{
+							fontSize: "1rem",
+							color: "var(--theme-text-muted)",
+							maxWidth: "500px",
+							mx: "auto",
+						}}
+					>
+						Trusted by serious cyclists across Sydney
+					</Typography>
+				</Box>
 
 				<Box
 					sx={{
@@ -96,65 +127,130 @@ export default function Testimonials() {
 							key={index}
 							elevation={0}
 							sx={{
-								p: 3,
-								borderRadius: "8px",
-								backgroundColor: "#ffffff",
-								border: "1px solid #e0e0e0",
+								p: 0,
+								borderRadius: 0,
+								backgroundColor: "var(--theme-bg-primary)",
+								border: "1px solid var(--theme-border)",
 								transition: "all 0.3s ease",
 								flex: { xs: "1 1 100%", sm: "1 1 calc(50% - 12px)", md: "1 1 calc(33.333% - 16px)" },
 								maxWidth: { xs: "100%", sm: "calc(50% - 12px)", md: "380px" },
+								position: "relative",
+								overflow: "hidden",
+								clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%)",
+								animation: `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`,
+								opacity: 0,
+								"@keyframes fadeInUp": {
+									"0%": { opacity: 0, transform: "translateY(20px)" },
+									"100%": { opacity: 1, transform: "translateY(0)" },
+								},
 								"&:hover": {
-									boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
-									borderColor: "#0288d1",
+									boxShadow: "0 0 30px var(--theme-accent-glow)",
+									borderColor: "#ff1744",
+									transform: "translateY(-4px)",
 								},
 							}}
 						>
-							<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}>
-								<Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-									<Box
-										sx={{
-											width: 40,
-											height: 40,
-											borderRadius: "50%",
-											backgroundColor: "#0288d1",
-											color: "#ffffff",
-											display: "flex",
-											alignItems: "center",
-											justifyContent: "center",
-											fontWeight: 600,
-											fontSize: "0.9rem",
-										}}
-									>
-										{testimonial.initials}
-									</Box>
-									<Box>
-										<Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#212121", fontSize: "0.9rem" }}>
-											{testimonial.name}
-										</Typography>
-										<Typography variant="caption" sx={{ color: "#757575", fontSize: "0.75rem" }}>
-											{testimonial.timeAgo}
-										</Typography>
-									</Box>
-								</Box>
-								<Box sx={{ display: "flex", gap: 0.5 }}>
-									{[...Array(testimonial.rating)].map((_, i) => (
-										<i key={i} className="fi fi-sr-star" style={{ color: "#0288d1", fontSize: "1rem" }}></i>
-									))}
-								</Box>
-							</Box>
-
-							<Typography
-								variant="body2"
+							{/* Top accent line */}
+							<Box
 								sx={{
-									color: "#424242",
-									lineHeight: 1.6,
-									fontSize: "0.875rem",
+									position: "absolute",
+									top: 0,
+									left: 0,
+									width: "100%",
+									height: "2px",
+									background: "linear-gradient(90deg, #ff1744 0%, transparent 60%)",
 								}}
-							>
-								"{testimonial.review}"
-							</Typography>
+							/>
+
+							<Box sx={{ p: 3 }}>
+								<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 3 }}>
+									<Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+										<Box
+											sx={{
+												width: 44,
+												height: 44,
+												backgroundColor: "#ff1744",
+												color: "#000000",
+												display: "flex",
+												alignItems: "center",
+												justifyContent: "center",
+												fontWeight: 700,
+												fontSize: "0.875rem",
+												clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%)",
+											}}
+										>
+											{testimonial.initials}
+										</Box>
+										<Box>
+											<Typography
+												variant="subtitle2"
+												sx={{
+													fontWeight: 700,
+													color: "var(--theme-text-primary)",
+													fontSize: "0.875rem",
+													textTransform: "uppercase",
+													letterSpacing: "0.02em",
+												}}
+											>
+												{testimonial.name}
+											</Typography>
+											<Typography variant="caption" sx={{ color: "var(--theme-text-muted)", fontSize: "0.75rem" }}>
+												{testimonial.timeAgo}
+											</Typography>
+										</Box>
+									</Box>
+									<Box sx={{ display: "flex", gap: 0.25 }}>
+										{[...Array(testimonial.rating)].map((_, i) => (
+											<i key={i} className="fi fi-sr-star" style={{ color: "#ff1744", fontSize: "0.875rem" }}></i>
+										))}
+									</Box>
+								</Box>
+
+								<Typography
+									variant="body2"
+									sx={{
+										color: "var(--theme-text-secondary)",
+										lineHeight: 1.7,
+										fontSize: "0.875rem",
+										fontStyle: "italic",
+									}}
+								>
+									"{testimonial.review}"
+								</Typography>
+							</Box>
 						</Paper>
 					))}
+				</Box>
+
+				{/* Bottom accent */}
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "center",
+						mt: 6,
+					}}
+				>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							gap: 2,
+						}}
+					>
+						<Box sx={{ width: "40px", height: "1px", backgroundColor: "#ff1744", opacity: 0.5 }} />
+						<Typography
+							sx={{
+								fontSize: "0.625rem",
+								fontWeight: 600,
+								letterSpacing: "0.2em",
+								textTransform: "uppercase",
+								color: "var(--theme-text-muted)",
+							}}
+						>
+							5 Star Rated
+						</Typography>
+						<Box sx={{ width: "40px", height: "1px", backgroundColor: "#ff1744", opacity: 0.5 }} />
+					</Box>
 				</Box>
 			</Container>
 		</Box>

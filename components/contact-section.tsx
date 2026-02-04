@@ -89,47 +89,119 @@ export default function ContactSection() {
     }
   }
 
+  // Common input styles for theme
+  const darkInputStyles = {
+    "& .MuiOutlinedInput-root": {
+      backgroundColor: "var(--theme-bg-secondary)",
+      color: "var(--theme-text-secondary)",
+      "& fieldset": {
+        borderColor: "var(--theme-border)",
+      },
+      "&:hover fieldset": {
+        borderColor: "#ff1744",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#ff1744",
+      },
+    },
+    "& .MuiInputLabel-root": {
+      color: "var(--theme-text-muted)",
+      "&.Mui-focused": {
+        color: "#ff1744",
+      },
+    },
+    "& .MuiSelect-icon": {
+      color: "var(--theme-text-muted)",
+    },
+  }
+
   return (
     <Box
       id="contact"
       component="section"
       sx={{
-        py: { xs: 8, md: 12 },
-        backgroundColor: "#fafafa",
+        py: { xs: 10, md: 14 },
+        backgroundColor: "var(--theme-bg-primary)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <Container maxWidth="xl" sx={{ maxWidth: "1400px !important" }}>
-        <Typography
-          variant="h2"
-          sx={{
-            fontSize: { xs: "2rem", md: "2.5rem" },
-            fontWeight: 700,
-            color: "#212121",
-            mb: 2,
-            textAlign: "center",
-            letterSpacing: "-1px",
-          }}
-        >
-          Book a Service or Get In Touch
-        </Typography>
+      {/* Background Pattern */}
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "30%",
+          height: "100%",
+          backgroundImage: `repeating-linear-gradient(
+            -45deg,
+            #ff1744,
+            #ff1744 1px,
+            transparent 1px,
+            transparent 50px
+          )`,
+          opacity: 0.03,
+          zIndex: 0,
+        }}
+      />
 
-        <Typography
-          variant="body1"
-          sx={{
-            fontSize: "1rem",
-            color: "#757575",
-            mb: 6,
-            textAlign: "center",
-          }}
-        >
-          Fill out the form below and we'll get back to you within 24 hours
-        </Typography>
+      <Container maxWidth="xl" sx={{ maxWidth: "1400px !important", position: "relative", zIndex: 1 }}>
+        {/* Section Header */}
+        <Box sx={{ textAlign: "center", mb: 6 }}>
+          <Typography
+            sx={{
+              fontSize: "0.625rem",
+              fontWeight: 600,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "#ff1744",
+              mb: 2,
+            }}
+          >
+            Get In Touch
+          </Typography>
+
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: "2rem", md: "3rem" },
+              fontWeight: 900,
+              color: "var(--theme-text-primary)",
+              mb: 2,
+              letterSpacing: "-0.04em",
+              textTransform: "uppercase",
+            }}
+          >
+            Book a Service
+          </Typography>
+
+          <Typography
+            sx={{
+              fontSize: "1rem",
+              color: "var(--theme-text-muted)",
+              maxWidth: "500px",
+              mx: "auto",
+            }}
+          >
+            Fill out the form below and we'll get back to you within 24 hours
+          </Typography>
+        </Box>
 
         <Box sx={{ display: 'grid', gap: 6, justifyContent: 'center', gridTemplateColumns: { xs: '1fr', md: 'repeat(12, 1fr)' } }}>
           {/* Contact Form */}
           <Box sx={{ gridColumn: { xs: '1 / -1', md: 'span 7' } }}>
             {submitStatus === "success" && (
-              <Alert severity="success" sx={{ mb: 3, borderRadius: "8px" }}>
+              <Alert
+                severity="success"
+                sx={{
+                  mb: 3,
+                  borderRadius: 0,
+                  backgroundColor: "rgba(76, 175, 80, 0.1)",
+                  border: "1px solid #4caf50",
+                  color: "#4caf50",
+                }}
+              >
                 Your message has been sent! We'll get back to you soon.
               </Alert>
             )}
@@ -137,59 +209,113 @@ export default function ContactSection() {
             <Paper
               elevation={0}
               sx={{
-                p: { xs: 3, md: 4 },
-                borderRadius: "12px",
-                backgroundColor: "#ffffff",
-                border: "1px solid #e0e0e0",
+                p: { xs: 3, md: 5 },
+                borderRadius: 0,
+                backgroundColor: "var(--theme-bg-secondary)",
+                border: "1px solid var(--theme-border)",
+                position: "relative",
+                clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%)",
               }}
             >
+              {/* Corner accent */}
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  width: "60px",
+                  height: "2px",
+                  backgroundColor: "#ff1744",
+                }}
+              />
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  width: "2px",
+                  height: "40px",
+                  backgroundColor: "#ff1744",
+                }}
+              />
+
               <form onSubmit={handleSubmit}>
                 <Stack spacing={3}>
                   {/* What do you need? */}
                   <Box>
-                    <Typography variant="h6" sx={{ fontWeight: 600, color: "#212121", mb: 2 }}>
+                    <Typography
+                      sx={{
+                        fontWeight: 700,
+                        color: "var(--theme-text-primary)",
+                        mb: 2,
+                        fontSize: "0.875rem",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.05em",
+                      }}
+                    >
                       What can we help you with?
                     </Typography>
-                    <FormControl fullWidth required>
+                    <FormControl fullWidth required sx={darkInputStyles}>
                       <InputLabel>Select Inquiry Type</InputLabel>
                       <Select
                         name="inquiryType"
                         value={formData.inquiryType}
                         onChange={handleChange}
                         label="Select Inquiry Type"
-                        sx={{
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#0288d1",
-                          },
-                          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#0288d1",
+                        MenuProps={{
+                          PaperProps: {
+                            sx: {
+                              backgroundColor: "var(--theme-bg-secondary)",
+                              border: "1px solid var(--theme-border)",
+                              "& .MuiMenuItem-root": {
+                                color: "var(--theme-text-secondary)",
+                                "&:hover": {
+                                  backgroundColor: "rgba(255, 23, 68, 0.1)",
+                                },
+                                "&.Mui-selected": {
+                                  backgroundColor: "rgba(255, 23, 68, 0.15)",
+                                  "&:hover": {
+                                    backgroundColor: "rgba(255, 23, 68, 0.2)",
+                                  },
+                                },
+                              },
+                            },
                           },
                         }}
                       >
-                        <MenuItem value="Bike Service">🔧 Bike Service / Repair</MenuItem>
-                        <MenuItem value="Custom Build">🛠️ Custom Build</MenuItem>
-                        <MenuItem value="Bike Purchase">🚴 Buy a Bike</MenuItem>
-                        <MenuItem value="Sell Bike">💰 Sell My Bike</MenuItem>
-                        <MenuItem value="General Inquiry">💬 General Question</MenuItem>
+                        <MenuItem value="Bike Service">Bike Service / Repair</MenuItem>
+                        <MenuItem value="Custom Build">Custom Build</MenuItem>
+                        <MenuItem value="Bike Purchase">Buy a Bike</MenuItem>
+                        <MenuItem value="Sell Bike">Sell My Bike</MenuItem>
+                        <MenuItem value="General Inquiry">General Question</MenuItem>
                       </Select>
                     </FormControl>
                   </Box>
 
                   {/* Service Level (show only for Bike Service) */}
                   {formData.inquiryType === "Bike Service" && (
-                    <FormControl fullWidth>
+                    <FormControl fullWidth sx={darkInputStyles}>
                       <InputLabel>Preferred Service Level</InputLabel>
                       <Select
                         name="serviceLevel"
                         value={formData.serviceLevel}
                         onChange={handleChange}
                         label="Preferred Service Level"
-                        sx={{
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#0288d1",
-                          },
-                          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#0288d1",
+                        MenuProps={{
+                          PaperProps: {
+                            sx: {
+                              backgroundColor: "var(--theme-bg-secondary)",
+                              border: "1px solid var(--theme-border)",
+                              "& .MuiMenuItem-root": {
+                                color: "var(--theme-text-secondary)",
+                                "&:hover": {
+                                  backgroundColor: "rgba(255, 23, 68, 0.1)",
+                                },
+                                "&.Mui-selected": {
+                                  backgroundColor: "rgba(255, 23, 68, 0.15)",
+                                },
+                              },
+                            },
                           },
                         }}
                       >
@@ -205,19 +331,28 @@ export default function ContactSection() {
                   {/* Bike Details (show for Service and Custom Build) */}
                   {(formData.inquiryType === "Bike Service" || formData.inquiryType === "Custom Build") && (
                     <>
-                      <FormControl fullWidth>
+                      <FormControl fullWidth sx={darkInputStyles}>
                         <InputLabel>Bike Type</InputLabel>
                         <Select
                           name="bikeType"
                           value={formData.bikeType}
                           onChange={handleChange}
                           label="Bike Type"
-                          sx={{
-                            "&:hover .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "#0288d1",
-                            },
-                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                              borderColor: "#0288d1",
+                          MenuProps={{
+                            PaperProps: {
+                              sx: {
+                                backgroundColor: "var(--theme-bg-secondary)",
+                                border: "1px solid var(--theme-border)",
+                                "& .MuiMenuItem-root": {
+                                  color: "var(--theme-text-secondary)",
+                                  "&:hover": {
+                                    backgroundColor: "rgba(255, 23, 68, 0.1)",
+                                  },
+                                  "&.Mui-selected": {
+                                    backgroundColor: "rgba(255, 23, 68, 0.15)",
+                                  },
+                                },
+                              },
                             },
                           }}
                         >
@@ -238,35 +373,35 @@ export default function ContactSection() {
                         rows={2}
                         placeholder="e.g., Specialized Tarmac SL7, 2021, Shimano Ultegra"
                         variant="outlined"
-                        sx={{
-                          "& .MuiOutlinedInput-root": {
-                            "&:hover fieldset": {
-                              borderColor: "#0288d1",
-                            },
-                            "&.Mui-focused fieldset": {
-                              borderColor: "#0288d1",
-                            },
-                          },
-                        }}
+                        sx={darkInputStyles}
                       />
                     </>
                   )}
 
                   {/* Pickup/Delivery Option (show for Service) */}
                   {formData.inquiryType === "Bike Service" && (
-                    <FormControl fullWidth>
+                    <FormControl fullWidth sx={darkInputStyles}>
                       <InputLabel>Pickup & Delivery</InputLabel>
                       <Select
                         name="pickupNeeded"
                         value={formData.pickupNeeded}
                         onChange={handleChange}
                         label="Pickup & Delivery"
-                        sx={{
-                          "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#0288d1",
-                          },
-                          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#0288d1",
+                        MenuProps={{
+                          PaperProps: {
+                            sx: {
+                              backgroundColor: "var(--theme-bg-secondary)",
+                              border: "1px solid var(--theme-border)",
+                              "& .MuiMenuItem-root": {
+                                color: "var(--theme-text-secondary)",
+                                "&:hover": {
+                                  backgroundColor: "rgba(255, 23, 68, 0.1)",
+                                },
+                                "&.Mui-selected": {
+                                  backgroundColor: "rgba(255, 23, 68, 0.15)",
+                                },
+                              },
+                            },
                           },
                         }}
                       >
@@ -279,7 +414,16 @@ export default function ContactSection() {
 
                   {/* Contact Details */}
                   <Box>
-                    <Typography variant="h6" sx={{ fontWeight: 600, color: "#212121", mb: 2 }}>
+                    <Typography
+                      sx={{
+                        fontWeight: 700,
+                        color: "var(--theme-text-primary)",
+                        mb: 2,
+                        fontSize: "0.875rem",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.05em",
+                      }}
+                    >
                       Your Contact Details
                     </Typography>
                     <Stack spacing={2}>
@@ -291,16 +435,7 @@ export default function ContactSection() {
                         onChange={handleChange}
                         required
                         variant="outlined"
-                        sx={{
-                          "& .MuiOutlinedInput-root": {
-                            "&:hover fieldset": {
-                              borderColor: "#0288d1",
-                            },
-                            "&.Mui-focused fieldset": {
-                              borderColor: "#0288d1",
-                            },
-                          },
-                        }}
+                        sx={darkInputStyles}
                       />
 
                       <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2 }}>
@@ -313,16 +448,7 @@ export default function ContactSection() {
                           onChange={handleChange}
                           required
                           variant="outlined"
-                          sx={{
-                            "& .MuiOutlinedInput-root": {
-                              "&:hover fieldset": {
-                                borderColor: "#0288d1",
-                              },
-                              "&.Mui-focused fieldset": {
-                                borderColor: "#0288d1",
-                              },
-                            },
-                          }}
+                          sx={darkInputStyles}
                         />
 
                         <TextField
@@ -334,16 +460,7 @@ export default function ContactSection() {
                           onChange={handleChange}
                           required
                           variant="outlined"
-                          sx={{
-                            "& .MuiOutlinedInput-root": {
-                              "&:hover fieldset": {
-                                borderColor: "#0288d1",
-                              },
-                              "&.Mui-focused fieldset": {
-                                borderColor: "#0288d1",
-                              },
-                            },
-                          }}
+                          sx={darkInputStyles}
                         />
                       </Box>
                     </Stack>
@@ -361,16 +478,7 @@ export default function ContactSection() {
                     rows={4}
                     placeholder="Tell us more about what you need..."
                     variant="outlined"
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "&:hover fieldset": {
-                          borderColor: "#0288d1",
-                        },
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#0288d1",
-                        },
-                      },
-                    }}
+                    sx={darkInputStyles}
                   />
 
                   <Button
@@ -380,29 +488,32 @@ export default function ContactSection() {
                     fullWidth
                     disabled={submitStatus === "loading" || submitStatus === "success"}
                     sx={{
-                      backgroundColor: "#0288d1",
-                      color: "#ffffff",
-                      fontWeight: 600,
-                      fontSize: "1.05rem",
-                      py: 1.8,
-                      textTransform: "none",
-                      borderRadius: "8px",
-                      boxShadow: "0 4px 12px rgba(2, 136, 209, 0.3)",
+                      backgroundColor: "#ff1744",
+                      color: "#000000",
+                      fontWeight: 700,
+                      fontSize: "0.875rem",
+                      py: 2,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
+                      borderRadius: 0,
+                      boxShadow: "0 4px 20px rgba(255, 23, 68, 0.3)",
                       "&:hover": {
-                        backgroundColor: "#0277bd",
-                        boxShadow: "0 6px 16px rgba(2, 136, 209, 0.4)",
+                        backgroundColor: "#d50032",
+                        boxShadow: "0 6px 30px rgba(255, 23, 68, 0.4)",
+                        transform: "translateY(-2px)",
                       },
                       "&.Mui-disabled": {
-                        backgroundColor: "#90caf9",
-                        color: "#ffffff",
+                        backgroundColor: "rgba(255, 23, 68, 0.5)",
+                        color: "#000000",
                       },
+                      transition: "all 0.3s ease",
                     }}
                   >
                     {submitStatus === "loading" && (
                       <CircularProgress
                         size={20}
                         sx={{
-                          color: "#ffffff",
+                          color: "#000000",
                           mr: 1,
                         }}
                       />
@@ -422,16 +533,26 @@ export default function ContactSection() {
                 elevation={0}
                 sx={{
                   p: 3,
-                  borderRadius: "12px",
-                  backgroundColor: "#e3f2fd",
-                  border: "1px solid #0288d1",
+                  borderRadius: 0,
+                  backgroundColor: "rgba(255, 23, 68, 0.08)",
+                  border: "1px solid rgba(255, 23, 68, 0.3)",
                 }}
               >
-                <Typography variant="h6" sx={{ fontWeight: 600, color: "#212121", mb: 2 }}>
-                  <i className="fi fi-rr-info" style={{ marginRight: "8px" }}></i>
+                <Typography
+                  sx={{
+                    fontWeight: 700,
+                    color: "var(--theme-text-primary)",
+                    mb: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  <i className="fi fi-rr-info" style={{ color: "#ff1744" }}></i>
                   Quick Response
                 </Typography>
-                <Typography variant="body2" sx={{ color: "#424242", lineHeight: 1.7 }}>
+                <Typography sx={{ color: "var(--theme-text-muted)", lineHeight: 1.7, fontSize: "0.875rem" }}>
                   We typically respond within 24 hours. For urgent service requests, please call us directly.
                 </Typography>
               </Paper>
@@ -440,28 +561,42 @@ export default function ContactSection() {
               <Paper
                 elevation={0}
                 sx={{
-                  p: 3,
-                  borderRadius: "12px",
-                  backgroundColor: "#ffffff",
-                  border: "1px solid #e0e0e0",
+                  p: 4,
+                  borderRadius: 0,
+                  backgroundColor: "var(--theme-bg-secondary)",
+                  border: "1px solid var(--theme-border)",
+                  position: "relative",
                 }}
               >
-                <Stack spacing={3}>
+                {/* Corner accent */}
+                <Box
+                  sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    width: "40px",
+                    height: "2px",
+                    backgroundColor: "#ff1744",
+                  }}
+                />
+
+                <Stack spacing={4}>
                   <Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                      <i className="fi fi-rr-envelope" style={{ color: "#0288d1", fontSize: "1.25rem" }}></i>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#212121" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
+                      <i className="fi fi-rr-envelope" style={{ color: "#ff1744", fontSize: "1.1rem" }}></i>
+                      <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         Email
                       </Typography>
                     </Box>
                     <Link
                       href="mailto:bicyclerepairs2u@gmail.com"
                       sx={{
-                        fontSize: "0.95rem",
-                        color: "#0288d1",
+                        fontSize: "0.9rem",
+                        color: "var(--theme-text-secondary)",
                         textDecoration: "none",
+                        transition: "color 0.2s ease",
                         "&:hover": {
-                          textDecoration: "underline",
+                          color: "#ff1744",
                         },
                       }}
                     >
@@ -470,20 +605,21 @@ export default function ContactSection() {
                   </Box>
 
                   <Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                      <i className="fi fi-rr-phone-call" style={{ color: "#0288d1", fontSize: "1.25rem" }}></i>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#212121" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
+                      <i className="fi fi-rr-phone-call" style={{ color: "#ff1744", fontSize: "1.1rem" }}></i>
+                      <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         Phone
                       </Typography>
                     </Box>
                     <Link
                       href="tel:+61402880242"
                       sx={{
-                        fontSize: "0.95rem",
-                        color: "#0288d1",
+                        fontSize: "0.9rem",
+                        color: "var(--theme-text-secondary)",
                         textDecoration: "none",
+                        transition: "color 0.2s ease",
                         "&:hover": {
-                          textDecoration: "underline",
+                          color: "#ff1744",
                         },
                       }}
                     >
@@ -492,13 +628,13 @@ export default function ContactSection() {
                   </Box>
 
                   <Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                      <i className="fi fi-rr-marker" style={{ color: "#0288d1", fontSize: "1.25rem" }}></i>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#212121" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
+                      <i className="fi fi-rr-marker" style={{ color: "#ff1744", fontSize: "1.1rem" }}></i>
+                      <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         Location
                       </Typography>
                     </Box>
-                    <Typography variant="body2" sx={{ color: "#424242" }}>
+                    <Typography sx={{ color: "var(--theme-text-muted)", fontSize: "0.9rem", lineHeight: 1.6 }}>
                       167/171 Bronte Rd
                       <br />
                       Queens Park NSW 2022
@@ -506,26 +642,26 @@ export default function ContactSection() {
                   </Box>
 
                   <Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                      <i className="fi fi-rr-clock" style={{ color: "#0288d1", fontSize: "1.25rem" }}></i>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#212121" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
+                      <i className="fi fi-rr-clock" style={{ color: "#ff1744", fontSize: "1.1rem" }}></i>
+                      <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         Hours
                       </Typography>
                     </Box>
-                    <Typography variant="body2" sx={{ color: "#424242", lineHeight: 1.6 }}>
+                    <Typography sx={{ color: "var(--theme-text-muted)", lineHeight: 1.6, fontSize: "0.9rem" }}>
                       By appointment or arrangement
                       <br />
                       Available most days including weekends
                     </Typography>
-                    <Typography variant="caption" sx={{ color: "#757575", display: "block", mt: 0.5 }}>
+                    <Typography sx={{ color: "var(--theme-text-muted)", display: "block", mt: 0.5, fontSize: "0.75rem" }}>
                       Please contact ahead to arrange a time
                     </Typography>
                   </Box>
 
                   <Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                      <i className="fi fi-brands-facebook" style={{ color: "#0288d1", fontSize: "1.25rem" }}></i>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#212121" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
+                      <i className="fi fi-brands-facebook" style={{ color: "#ff1744", fontSize: "1.1rem" }}></i>
+                      <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         Facebook
                       </Typography>
                     </Box>
@@ -534,11 +670,12 @@ export default function ContactSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       sx={{
-                        fontSize: "0.95rem",
-                        color: "#0288d1",
+                        fontSize: "0.9rem",
+                        color: "var(--theme-text-secondary)",
                         textDecoration: "none",
+                        transition: "color 0.2s ease",
                         "&:hover": {
-                          textDecoration: "underline",
+                          color: "#ff1744",
                         },
                       }}
                     >
@@ -552,29 +689,44 @@ export default function ContactSection() {
               <Paper
                 elevation={0}
                 sx={{
-                  p: 3,
-                  borderRadius: "12px",
-                  backgroundColor: "#ffffff",
-                  border: "1px solid #e0e0e0",
+                  p: 4,
+                  borderRadius: 0,
+                  backgroundColor: "var(--theme-bg-secondary)",
+                  border: "1px solid var(--theme-border)",
                 }}
               >
-                <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#212121", mb: 2 }}>
-                  <i className="fi fi-rr-tool-box" style={{ marginRight: "8px", color: "#0288d1" }}></i>
+                <Typography
+                  sx={{
+                    fontWeight: 700,
+                    color: "var(--theme-text-primary)",
+                    mb: 3,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.5,
+                    fontSize: "0.875rem",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  <i className="fi fi-rr-tool-box" style={{ color: "#ff1744" }}></i>
                   Our Services
                 </Typography>
-                <Stack spacing={1}>
-                  <Typography variant="body2" sx={{ color: "#424242" }}>
-                    • Bike Service & Repairs
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "#424242" }}>
-                    • Custom Builds
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "#424242" }}>
-                    • Bike Sales (Pre-Owned)
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "#424242" }}>
-                    • Pickup & Delivery
-                  </Typography>
+                <Stack spacing={2}>
+                  {["Bike Service & Repairs", "Custom Builds", "Bike Sales (Pre-Owned)", "Pickup & Delivery"].map((service) => (
+                    <Box
+                      key={service}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 2,
+                      }}
+                    >
+                      <Box sx={{ width: "4px", height: "4px", backgroundColor: "#ff1744" }} />
+                      <Typography sx={{ color: "var(--theme-text-muted)", fontSize: "0.875rem" }}>
+                        {service}
+                      </Typography>
+                    </Box>
+                  ))}
                 </Stack>
               </Paper>
             </Stack>

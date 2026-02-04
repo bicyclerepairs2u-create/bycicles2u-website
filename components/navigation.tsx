@@ -6,7 +6,6 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  IconButton,
   Menu,
   MenuItem,
   Box,
@@ -14,6 +13,7 @@ import {
   Badge,
 } from "@mui/material"
 import { useCart } from "@/components/providers/cart-provider"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 const navItems = [
   { label: "Home", href: "#home", type: "section" },
@@ -67,9 +67,10 @@ export default function Navigation() {
     <AppBar
       position="fixed"
       sx={{
-        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        backgroundColor: "var(--theme-nav-bg)",
         backdropFilter: "blur(10px)",
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+        boxShadow: "0 2px 20px rgba(0, 0, 0, 0.1)",
+        borderBottom: "1px solid var(--theme-nav-border)",
       }}
     >
       <Container maxWidth="lg">
@@ -99,11 +100,16 @@ export default function Navigation() {
               component="a"
               href="/"
               sx={{
-                fontWeight: 700,
-                color: "#212121",
+                fontWeight: 900,
+                color: "var(--theme-text-primary)",
                 textDecoration: "none",
                 fontSize: { xs: "1.25rem", md: "1.5rem" },
-                letterSpacing: "-0.5px",
+                letterSpacing: "-0.02em",
+                textTransform: "uppercase",
+                transition: "color 0.2s ease",
+                "&:hover": {
+                  color: "#ff1744",
+                },
               }}
             >
               Bicycles2U
@@ -111,19 +117,30 @@ export default function Navigation() {
           </Box>
 
           {/* Navigation Buttons */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            {/* Theme Toggle */}
+            <ThemeToggle />
+
             {/* Cart Button */}
-            <IconButton
-              color="inherit"
+            <Box
+              component="button"
               aria-label="open cart"
               onClick={openCart}
               sx={{
-                color: "#424242",
-                transition: "color 0.2s ease, transform 0.2s ease",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 40,
+                height: 40,
+                color: "var(--theme-text-secondary)",
+                backgroundColor: "transparent",
+                border: "1px solid transparent",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
                 "&:hover": {
-                  backgroundColor: "transparent",
-                  color: "#0288d1",
-                  transform: "scale(1.1)",
+                  backgroundColor: "rgba(255, 23, 68, 0.1)",
+                  borderColor: "rgba(255, 23, 68, 0.3)",
+                  color: "#ff1744",
                 },
               }}
             >
@@ -132,35 +149,47 @@ export default function Navigation() {
                 color="primary"
                 sx={{
                   "& .MuiBadge-badge": {
-                    backgroundColor: "#0288d1",
-                    color: "#fff",
+                    backgroundColor: "#ff1744",
+                    color: "#000",
+                    fontWeight: 700,
+                    fontSize: "0.7rem",
+                    minWidth: 18,
+                    height: 18,
                   },
                 }}
               >
-                <i className="fi fi-rr-shopping-cart" style={{ fontSize: "1.25rem" }}></i>
+                <i className="fi fi-rr-shopping-cart" style={{ fontSize: "1.25rem", display: "flex" }}></i>
               </Badge>
-            </IconButton>
+            </Box>
 
             {/* Hamburger Menu Button */}
-            <IconButton
-              color="inherit"
+            <Box
+              component="button"
               aria-label="open menu"
               aria-controls={open ? "navigation-menu" : undefined}
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
               onClick={handleMenuOpen}
               sx={{
-                color: "#424242",
-                transition: "color 0.2s ease, transform 0.2s ease",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 40,
+                height: 40,
+                color: "var(--theme-text-secondary)",
+                backgroundColor: "transparent",
+                border: "1px solid transparent",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
                 "&:hover": {
-                  backgroundColor: "transparent",
-                  color: "#0288d1",
-                  transform: "scale(1.1)",
+                  backgroundColor: "rgba(255, 23, 68, 0.1)",
+                  borderColor: "rgba(255, 23, 68, 0.3)",
+                  color: "#ff1744",
                 },
               }}
             >
-              <i className="fi fi-rr-menu-burger" style={{ fontSize: "1.5rem" }}></i>
-            </IconButton>
+              <i className="fi fi-rr-menu-burger" style={{ fontSize: "1.5rem", display: "flex" }}></i>
+            </Box>
           </Box>
 
           {/* Dropdown Menu */}
@@ -174,24 +203,36 @@ export default function Navigation() {
             }}
             sx={{
               "& .MuiPaper-root": {
-                minWidth: 200,
+                minWidth: 220,
                 mt: 1,
-                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+                backgroundColor: "var(--theme-bg-card)",
+                border: "1px solid var(--theme-border)",
+                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
               },
             }}
           >
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <MenuItem
                 key={item.label}
                 onClick={() => handleNavClick(item.href, item.type)}
                 sx={{
                   py: 1.5,
                   px: 3,
-                  fontWeight: 500,
-                  color: "#424242",
+                  fontWeight: 600,
+                  fontSize: "0.875rem",
+                  color: "var(--theme-text-secondary)",
+                  borderLeft: "2px solid transparent",
+                  transition: "all 0.2s ease",
+                  animation: `fadeIn 0.3s ease ${index * 0.05}s forwards`,
+                  opacity: 0,
+                  "@keyframes fadeIn": {
+                    "0%": { opacity: 0, transform: "translateX(-10px)" },
+                    "100%": { opacity: 1, transform: "translateX(0)" },
+                  },
                   "&:hover": {
-                    color: "#0288d1",
-                    backgroundColor: "rgba(2, 136, 209, 0.08)",
+                    color: "#ff1744",
+                    backgroundColor: "rgba(255, 23, 68, 0.08)",
+                    borderLeftColor: "#ff1744",
                   },
                 }}
               >

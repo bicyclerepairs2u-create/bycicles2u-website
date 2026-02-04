@@ -37,6 +37,36 @@ export default function SellBikeForm() {
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
 
+  // Theme-aware input styles
+  const inputStyles = {
+    "& .MuiOutlinedInput-root": {
+      backgroundColor: "var(--theme-bg-primary)",
+      color: "var(--theme-text-secondary)",
+      borderRadius: 0,
+      "& fieldset": {
+        borderColor: "var(--theme-border)",
+      },
+      "&:hover fieldset": {
+        borderColor: "#ff1744",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#ff1744",
+      },
+    },
+    "& .MuiInputLabel-root": {
+      color: "var(--theme-text-muted)",
+      "&.Mui-focused": {
+        color: "#ff1744",
+      },
+    },
+    "& .MuiFormHelperText-root": {
+      color: "var(--theme-text-muted)",
+    },
+    "& .MuiSelect-icon": {
+      color: "var(--theme-text-muted)",
+    },
+  }
+
   const handleChange = (e: any) => {
     const { name, value } = e.target
     setFormData({
@@ -167,7 +197,7 @@ export default function SellBikeForm() {
       <Box
         sx={{
           minHeight: "100vh",
-          backgroundColor: "#fafafa",
+          backgroundColor: "var(--theme-bg-primary)",
           pt: { xs: 10, md: 12 },
           pb: 8,
         }}
@@ -179,7 +209,7 @@ export default function SellBikeForm() {
               sx={{
                 fontSize: { xs: "2.5rem", md: "3.5rem" },
                 fontWeight: 700,
-                color: "#212121",
+                color: "var(--theme-text-primary)",
                 mb: 2,
                 letterSpacing: "-1px",
               }}
@@ -190,7 +220,7 @@ export default function SellBikeForm() {
               variant="body1"
               sx={{
                 fontSize: "1.1rem",
-                color: "#757575",
+                color: "var(--theme-text-muted)",
                 lineHeight: 1.7,
               }}
             >
@@ -204,16 +234,16 @@ export default function SellBikeForm() {
             sx={{
               p: 3,
               mb: 4,
-              backgroundColor: "#fff3e0",
+              backgroundColor: "rgba(255, 152, 0, 0.1)",
               border: "2px solid #ff9800",
-              borderRadius: "12px",
+              borderRadius: 0,
             }}
           >
             <Typography
               variant="h6"
               sx={{
                 fontWeight: 600,
-                color: "#212121",
+                color: "var(--theme-text-primary)",
                 mb: 2,
                 display: "flex",
                 alignItems: "center",
@@ -223,10 +253,10 @@ export default function SellBikeForm() {
               <i className="fi fi-rr-exclamation" style={{ fontSize: "1.5rem", color: "#ff9800" }}></i>
               Important Notice
             </Typography>
-            <Typography variant="body2" sx={{ color: "#424242", mb: 1.5 }}>
+            <Typography variant="body2" sx={{ color: "var(--theme-text-secondary)", mb: 1.5 }}>
               We only accept bikes with an <strong>original RRP (Recommended Retail Price) over $1,000</strong>.
             </Typography>
-            <Typography variant="body2" sx={{ color: "#757575", fontStyle: "italic" }}>
+            <Typography variant="body2" sx={{ color: "var(--theme-text-muted)", fontStyle: "italic" }}>
               <strong>What is RRP?</strong> RRP is the manufacturer's suggested retail price when the bike was brand new. This helps us focus on premium road and triathlon bikes that match our specialty.
             </Typography>
           </Paper>
@@ -237,39 +267,39 @@ export default function SellBikeForm() {
             sx={{
               p: 3,
               mb: 4,
-              backgroundColor: "#e3f2fd",
-              border: "1px solid #0288d1",
-              borderRadius: "12px",
+              backgroundColor: "rgba(255, 23, 68, 0.08)",
+              border: "1px solid rgba(255, 23, 68, 0.3)",
+              borderRadius: 0,
             }}
           >
             <Typography
               variant="h6"
               sx={{
                 fontWeight: 600,
-                color: "#212121",
+                color: "var(--theme-text-primary)",
                 mb: 2,
                 display: "flex",
                 alignItems: "center",
                 gap: 1,
               }}
             >
-              <i className="fi fi-rr-info" style={{ fontSize: "1.5rem", color: "#0288d1" }}></i>
+              <i className="fi fi-rr-info" style={{ fontSize: "1.5rem", color: "#ff1744" }}></i>
               Submission Guidelines
             </Typography>
             <Stack spacing={1}>
-              <Typography variant="body2" sx={{ color: "#424242" }}>
+              <Typography variant="body2" sx={{ color: "var(--theme-text-secondary)" }}>
                 • High-quality photo of your bike is <strong>mandatory</strong>
               </Typography>
-              <Typography variant="body2" sx={{ color: "#424242" }}>
+              <Typography variant="body2" sx={{ color: "var(--theme-text-secondary)" }}>
                 • We specialize in road bikes and triathlon bikes only
               </Typography>
-              <Typography variant="body2" sx={{ color: "#424242" }}>
+              <Typography variant="body2" sx={{ color: "var(--theme-text-secondary)" }}>
                 • We accept bikes in any condition
               </Typography>
-              <Typography variant="body2" sx={{ color: "#424242" }}>
-                • We accept bikes with carbon damage 
+              <Typography variant="body2" sx={{ color: "var(--theme-text-secondary)" }}>
+                • We accept bikes with carbon damage
               </Typography>
-              <Typography variant="body2" sx={{ color: "#424242" }}>
+              <Typography variant="body2" sx={{ color: "var(--theme-text-secondary)" }}>
                 • Provide accurate and honest descriptions
               </Typography>
             </Stack>
@@ -277,14 +307,14 @@ export default function SellBikeForm() {
 
           {/* Success Message */}
           {submitStatus === "success" && (
-            <Alert severity="success" sx={{ mb: 4, borderRadius: "8px" }}>
+            <Alert severity="success" sx={{ mb: 4, borderRadius: 0, backgroundColor: "rgba(76, 175, 80, 0.1)", border: "1px solid #4caf50", color: "#4caf50" }}>
               Your bike listing has been submitted successfully! We'll contact you soon.
             </Alert>
           )}
 
           {/* Error Message */}
           {submitStatus === "error" && (
-            <Alert severity="error" sx={{ mb: 4, borderRadius: "8px" }}>
+            <Alert severity="error" sx={{ mb: 4, borderRadius: 0, backgroundColor: "rgba(244, 67, 54, 0.1)", border: "1px solid #f44336", color: "#f44336" }}>
               There was an error processing your submission. Please try again.
             </Alert>
           )}
@@ -294,15 +324,15 @@ export default function SellBikeForm() {
             elevation={0}
             sx={{
               p: { xs: 3, md: 5 },
-              borderRadius: "12px",
-              backgroundColor: "#ffffff",
-              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+              borderRadius: 0,
+              backgroundColor: "var(--theme-bg-secondary)",
+              border: "1px solid var(--theme-border)",
             }}
           >
             <form onSubmit={handleSubmit}>
               <Stack spacing={3}>
                 {/* Seller Information */}
-                <Typography variant="h6" sx={{ fontWeight: 600, color: "#212121", mb: 1 }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, color: "var(--theme-text-primary)", mb: 1 }}>
                   Your Information
                 </Typography>
 
@@ -316,6 +346,7 @@ export default function SellBikeForm() {
                   error={!!errors.sellerName}
                   helperText={errors.sellerName}
                   variant="outlined"
+                  sx={inputStyles}
                 />
 
                 <TextField
@@ -329,6 +360,7 @@ export default function SellBikeForm() {
                   error={!!errors.email}
                   helperText={errors.email}
                   variant="outlined"
+                  sx={inputStyles}
                 />
 
                 <TextField
@@ -342,10 +374,11 @@ export default function SellBikeForm() {
                   error={!!errors.phone}
                   helperText={errors.phone}
                   variant="outlined"
+                  sx={inputStyles}
                 />
 
                 {/* Bike Information */}
-                <Typography variant="h6" sx={{ fontWeight: 600, color: "#212121", mt: 2, mb: 1 }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, color: "var(--theme-text-primary)", mt: 2, mb: 1 }}>
                   Bike Details
                 </Typography>
 
@@ -360,6 +393,7 @@ export default function SellBikeForm() {
                   helperText={errors.bikeBrand}
                   placeholder="e.g., Specialized, Trek, Cervélo"
                   variant="outlined"
+                  sx={inputStyles}
                 />
 
                 <TextField
@@ -373,6 +407,7 @@ export default function SellBikeForm() {
                   helperText={errors.bikeModel}
                   placeholder="e.g., Tarmac SL7, Émonda SLR"
                   variant="outlined"
+                  sx={inputStyles}
                 />
 
                 <TextField
@@ -386,15 +421,36 @@ export default function SellBikeForm() {
                   helperText={errors.year}
                   placeholder="e.g., 2021"
                   variant="outlined"
+                  sx={inputStyles}
                 />
 
-                <FormControl fullWidth required error={!!errors.condition}>
+                <FormControl fullWidth required error={!!errors.condition} sx={inputStyles}>
                   <InputLabel>Condition</InputLabel>
                   <Select
                     name="condition"
                     value={formData.condition}
                     onChange={handleChange}
                     label="Condition"
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          backgroundColor: "var(--theme-bg-secondary)",
+                          border: "1px solid var(--theme-border)",
+                          "& .MuiMenuItem-root": {
+                            color: "var(--theme-text-secondary)",
+                            "&:hover": {
+                              backgroundColor: "rgba(255, 23, 68, 0.1)",
+                            },
+                            "&.Mui-selected": {
+                              backgroundColor: "rgba(255, 23, 68, 0.15)",
+                              "&:hover": {
+                                backgroundColor: "rgba(255, 23, 68, 0.2)",
+                              },
+                            },
+                          },
+                        },
+                      },
+                    }}
                   >
                     <MenuItem value="Excellent">Excellent - Like new, minimal use</MenuItem>
                     <MenuItem value="Very Good">Very Good - Well maintained, light wear</MenuItem>
@@ -419,10 +475,11 @@ export default function SellBikeForm() {
                     "Include details about components, upgrades, maintenance history, and reason for selling"
                   }
                   variant="outlined"
+                  sx={inputStyles}
                 />
 
                 {/* Image Upload */}
-                <Typography variant="h6" sx={{ fontWeight: 600, color: "#212121", mt: 2, mb: 1 }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, color: "var(--theme-text-primary)", mt: 2, mb: 1 }}>
                   Bike Photo *
                 </Typography>
 
@@ -431,14 +488,16 @@ export default function SellBikeForm() {
                     variant="outlined"
                     component="label"
                     sx={{
-                      borderColor: errors.image ? "#d32f2f" : "#0288d1",
-                      color: errors.image ? "#d32f2f" : "#0288d1",
+                      borderColor: errors.image ? "#d32f2f" : "#ff1744",
+                      color: errors.image ? "#d32f2f" : "#ff1744",
                       fontWeight: 600,
                       textTransform: "none",
                       borderWidth: "2px",
+                      borderRadius: 0,
                       "&:hover": {
                         borderWidth: "2px",
-                        borderColor: errors.image ? "#d32f2f" : "#0277bd",
+                        borderColor: errors.image ? "#d32f2f" : "#d50032",
+                        backgroundColor: "rgba(255, 23, 68, 0.05)",
                       },
                     }}
                   >
@@ -470,9 +529,10 @@ export default function SellBikeForm() {
                     sx={{
                       mt: 2,
                       position: "relative",
-                      borderRadius: "8px",
+                      borderRadius: 0,
                       overflow: "hidden",
                       maxWidth: "400px",
+                      border: "1px solid var(--theme-border)",
                     }}
                   >
                     <img
@@ -489,7 +549,7 @@ export default function SellBikeForm() {
                       sx={{
                         display: "block",
                         mt: 1,
-                        color: "#757575",
+                        color: "var(--theme-text-muted)",
                       }}
                     >
                       {image?.name}
@@ -504,20 +564,23 @@ export default function SellBikeForm() {
                   size="large"
                   disabled={submitStatus === "loading" || submitStatus === "success"}
                   sx={{
-                    backgroundColor: "#0288d1",
-                    color: "#ffffff",
-                    fontWeight: 600,
-                    fontSize: "1rem",
+                    backgroundColor: "#ff1744",
+                    color: "#000000",
+                    fontWeight: 700,
+                    fontSize: "0.875rem",
                     py: 1.5,
                     mt: 2,
-                    textTransform: "none",
-                    borderRadius: "8px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    borderRadius: 0,
+                    boxShadow: "0 4px 20px rgba(255, 23, 68, 0.3)",
                     "&:hover": {
-                      backgroundColor: "#0277bd",
+                      backgroundColor: "#d50032",
+                      boxShadow: "0 6px 30px rgba(255, 23, 68, 0.4)",
                     },
                     "&.Mui-disabled": {
-                      backgroundColor: "#90caf9",
-                      color: "#ffffff",
+                      backgroundColor: "rgba(255, 23, 68, 0.5)",
+                      color: "#000000",
                     },
                   }}
                 >
@@ -533,7 +596,7 @@ export default function SellBikeForm() {
                   {submitStatus === "loading" ? "Submitting..." : submitStatus === "success" ? "Submitted!" : "Submit Bike Listing"}
                 </Button>
 
-                <Typography variant="caption" sx={{ color: "#757575", textAlign: "center", mt: 2 }}>
+                <Typography variant="caption" sx={{ color: "var(--theme-text-muted)", textAlign: "center", mt: 2 }}>
                   By submitting, you acknowledge that we'll contact you to discuss your bike listing
                 </Typography>
               </Stack>
@@ -542,17 +605,17 @@ export default function SellBikeForm() {
 
           {/* Additional Info */}
           <Box sx={{ mt: 4, textAlign: "center" }}>
-            <Typography variant="body2" sx={{ color: "#757575", mb: 1 }}>
+            <Typography variant="body2" sx={{ color: "var(--theme-text-muted)", mb: 1 }}>
               Questions? Contact us at{" "}
-              <Link href="mailto:bicyclerepairs2u@gmail.com" sx={{ color: "#0288d1" }}>
+              <Link href="mailto:bicyclerepairs2u@gmail.com" sx={{ color: "#ff1744" }}>
                 bicyclerepairs2u@gmail.com
               </Link>
               {" or call "}
-              <Link href="tel:+61402880242" sx={{ color: "#0288d1" }}>
+              <Link href="tel:+61402880242" sx={{ color: "#ff1744" }}>
                 0402 880 242
               </Link>
             </Typography>
-            <Typography variant="caption" sx={{ color: "#9e9e9e" }}>
+            <Typography variant="caption" sx={{ color: "var(--theme-text-muted)" }}>
               167/171 Bronte Rd, Queens Park NSW 2022
             </Typography>
           </Box>

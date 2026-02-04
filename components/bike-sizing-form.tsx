@@ -138,39 +138,99 @@ export default function BikeSizingForm() {
     { height: "193+", inseam: "91+", frameSize: "60+", size: "XXL" },
   ]
 
+  // Theme-aware input styles
+  const darkInputStyles = {
+    "& .MuiOutlinedInput-root": {
+      backgroundColor: "var(--theme-bg-secondary)",
+      color: "var(--theme-text-secondary)",
+      "& fieldset": {
+        borderColor: "var(--theme-border)",
+      },
+      "&:hover fieldset": {
+        borderColor: "#ff1744",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#ff1744",
+      },
+    },
+    "& .MuiInputLabel-root": {
+      color: "var(--theme-text-muted)",
+      "&.Mui-focused": {
+        color: "#ff1744",
+      },
+    },
+    "& .MuiFormHelperText-root": {
+      color: "var(--theme-text-muted)",
+    },
+  }
+
   return (
     <>
       <Navigation />
       <Box
         sx={{
           minHeight: "100vh",
-          backgroundColor: "#fafafa",
-          pt: { xs: 10, md: 12 },
-          pb: 8,
+          backgroundColor: "var(--theme-bg-primary)",
+          pt: { xs: 12, md: 14 },
+          pb: 10,
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        <Container maxWidth="lg">
+        {/* Background Pattern */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            width: "40%",
+            height: "100%",
+            backgroundImage: `repeating-linear-gradient(
+              -45deg,
+              #ff1744,
+              #ff1744 1px,
+              transparent 1px,
+              transparent 50px
+            )`,
+            opacity: 0.03,
+            zIndex: 0,
+          }}
+        />
+
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
           {/* Header */}
           <Box sx={{ mb: 6, textAlign: "center" }}>
             <Typography
-              variant="h2"
               sx={{
-                fontSize: { xs: "2.5rem", md: "3.5rem" },
-                fontWeight: 700,
-                color: "#212121",
+                fontSize: "0.625rem",
+                fontWeight: 600,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "#ff1744",
                 mb: 2,
-                letterSpacing: "-1px",
               }}
             >
-              Find Your Bike Size
+              Bike Fit Calculator
             </Typography>
             <Typography
-              variant="body1"
+              variant="h2"
               sx={{
-                fontSize: "1.1rem",
-                color: "#757575",
+                fontSize: { xs: "2rem", md: "3rem" },
+                fontWeight: 900,
+                color: "var(--theme-text-primary)",
+                mb: 2,
+                letterSpacing: "-0.04em",
+                textTransform: "uppercase",
+              }}
+            >
+              Find Your Size
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "1rem",
+                color: "var(--theme-text-muted)",
                 lineHeight: 1.7,
-                maxWidth: "700px",
+                maxWidth: "600px",
                 mx: "auto",
               }}
             >
@@ -190,14 +250,20 @@ export default function BikeSizingForm() {
               elevation={0}
               sx={{
                 p: { xs: 3, md: 4 },
-                borderRadius: "12px",
-                backgroundColor: "#ffffff",
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+                borderRadius: 0,
+                backgroundColor: "var(--theme-bg-secondary)",
+                border: "1px solid var(--theme-border)",
                 height: "fit-content",
+                position: "relative",
+                clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)",
               }}
             >
-              <Box sx={{ mb: 3, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <Typography variant="h6" sx={{ fontWeight: 600, color: "#212121" }}>
+              {/* Corner accent */}
+              <Box sx={{ position: "absolute", top: 0, right: 0, width: "60px", height: "2px", backgroundColor: "#ff1744" }} />
+              <Box sx={{ position: "absolute", top: 0, right: 0, width: "2px", height: "40px", backgroundColor: "#ff1744" }} />
+
+              <Box sx={{ mb: 3, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 2 }}>
+                <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                   Enter Your Measurements
                 </Typography>
                 <ToggleButtonGroup
@@ -207,18 +273,25 @@ export default function BikeSizingForm() {
                   size="small"
                   sx={{
                     "& .MuiToggleButton-root": {
-                      textTransform: "none",
-                      fontWeight: 600,
+                      textTransform: "uppercase",
+                      fontWeight: 700,
                       px: 2,
+                      py: 0.5,
+                      fontSize: "0.75rem",
+                      letterSpacing: "0.05em",
+                      color: "var(--theme-text-muted)",
+                      borderColor: "var(--theme-border)",
+                      borderRadius: 0,
                     },
                     "& .Mui-selected": {
-                      backgroundColor: "#0288d1 !important",
-                      color: "#ffffff !important",
+                      backgroundColor: "#ff1744 !important",
+                      color: "#000000 !important",
+                      borderColor: "#ff1744 !important",
                     },
                   }}
                 >
-                  <ToggleButton value="cm">cm</ToggleButton>
-                  <ToggleButton value="inches">inches</ToggleButton>
+                  <ToggleButton value="cm">CM</ToggleButton>
+                  <ToggleButton value="inches">IN</ToggleButton>
                 </ToggleButtonGroup>
               </Box>
 
@@ -233,16 +306,7 @@ export default function BikeSizingForm() {
                   required
                   variant="outlined"
                   inputProps={{ step: "0.1", min: "0" }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      "&:hover fieldset": {
-                        borderColor: "#0288d1",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#0288d1",
-                      },
-                    },
-                  }}
+                  sx={darkInputStyles}
                 />
 
                 <TextField
@@ -256,16 +320,7 @@ export default function BikeSizingForm() {
                   variant="outlined"
                   inputProps={{ step: "0.1", min: "0" }}
                   helperText="Measure from your crotch to the floor while standing barefoot"
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      "&:hover fieldset": {
-                        borderColor: "#0288d1",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#0288d1",
-                      },
-                    },
-                  }}
+                  sx={darkInputStyles}
                 />
 
                 <TextField
@@ -278,16 +333,7 @@ export default function BikeSizingForm() {
                   variant="outlined"
                   inputProps={{ step: "0.1", min: "0" }}
                   helperText="From shoulder to wrist (optional)"
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      "&:hover fieldset": {
-                        borderColor: "#0288d1",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#0288d1",
-                      },
-                    },
-                  }}
+                  sx={darkInputStyles}
                 />
 
                 <TextField
@@ -300,16 +346,7 @@ export default function BikeSizingForm() {
                   variant="outlined"
                   inputProps={{ step: "0.1", min: "0" }}
                   helperText="From hip to shoulder (optional)"
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      "&:hover fieldset": {
-                        borderColor: "#0288d1",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#0288d1",
-                      },
-                    },
-                  }}
+                  sx={darkInputStyles}
                 />
 
                 <Button
@@ -319,21 +356,25 @@ export default function BikeSizingForm() {
                   onClick={calculateSize}
                   disabled={!formData.height || !formData.inseam}
                   sx={{
-                    backgroundColor: "#0288d1",
-                    color: "#ffffff",
-                    fontWeight: 600,
-                    fontSize: "1rem",
+                    backgroundColor: "#ff1744",
+                    color: "#000000",
+                    fontWeight: 700,
+                    fontSize: "0.875rem",
                     py: 1.5,
                     mt: 2,
-                    textTransform: "none",
-                    borderRadius: "8px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.05em",
+                    borderRadius: 0,
+                    boxShadow: "0 4px 20px rgba(255, 23, 68, 0.3)",
                     "&:hover": {
-                      backgroundColor: "#0277bd",
+                      backgroundColor: "#d50032",
+                      boxShadow: "0 6px 30px rgba(255, 23, 68, 0.4)",
                     },
                     "&:disabled": {
-                      backgroundColor: "#e0e0e0",
-                      color: "#9e9e9e",
+                      backgroundColor: "var(--theme-border-hover)",
+                      color: "var(--theme-text-muted)",
                     },
+                    transition: "all 0.3s ease",
                   }}
                 >
                   Calculate My Size
@@ -345,60 +386,42 @@ export default function BikeSizingForm() {
                 <Accordion
                   elevation={0}
                   sx={{
-                    border: "1px solid #e0e0e0",
-                    borderRadius: "8px !important",
+                    backgroundColor: "var(--theme-bg-primary)",
+                    border: "1px solid var(--theme-border)",
+                    borderRadius: "0 !important",
                     "&:before": { display: "none" },
                   }}
                 >
                   <AccordionSummary
-                    expandIcon={<i className="fi fi-rr-angle-down" style={{ fontSize: "1.2rem" }}></i>}
+                    expandIcon={<i className="fi fi-rr-angle-down" style={{ fontSize: "1rem", color: "var(--theme-text-muted)" }}></i>}
                     sx={{
                       "& .MuiAccordionSummary-content": {
                         display: "flex",
                         alignItems: "center",
-                        gap: 1,
+                        gap: 1.5,
                       },
                     }}
                   >
-                    <i className="fi fi-rr-info" style={{ color: "#0288d1", fontSize: "1.2rem" }}></i>
-                    <Typography sx={{ fontWeight: 600, color: "#212121" }}>How to Measure</Typography>
+                    <i className="fi fi-rr-info" style={{ color: "#ff1744", fontSize: "1rem" }}></i>
+                    <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>How to Measure</Typography>
                   </AccordionSummary>
-                  <AccordionDetails>
-                    <Stack spacing={2}>
-                      <Box>
-                        <Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#212121", mb: 0.5 }}>
-                          Height:
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: "#424242", lineHeight: 1.6 }}>
-                          Stand barefoot against a wall. Mark the top of your head and measure from the floor to the
-                          mark.
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#212121", mb: 0.5 }}>
-                          Inseam (Most Important):
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: "#424242", lineHeight: 1.6 }}>
-                          Stand barefoot with your back against a wall. Place a book between your legs (spine up) and
-                          pull it up snugly. Measure from the top of the book spine to the floor.
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#212121", mb: 0.5 }}>
-                          Arm Length:
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: "#424242", lineHeight: 1.6 }}>
-                          Measure from the bony point at the top of your shoulder to the wrist bone.
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#212121", mb: 0.5 }}>
-                          Torso Length:
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: "#424242", lineHeight: 1.6 }}>
-                          Measure from the top of your hip bone to the bony point at the top of your shoulder.
-                        </Typography>
-                      </Box>
+                  <AccordionDetails sx={{ borderTop: "1px solid var(--theme-border)" }}>
+                    <Stack spacing={3}>
+                      {[
+                        { title: "Height:", desc: "Stand barefoot against a wall. Mark the top of your head and measure from the floor to the mark." },
+                        { title: "Inseam (Most Important):", desc: "Stand barefoot with your back against a wall. Place a book between your legs (spine up) and pull it up snugly. Measure from the top of the book spine to the floor." },
+                        { title: "Arm Length:", desc: "Measure from the bony point at the top of your shoulder to the wrist bone." },
+                        { title: "Torso Length:", desc: "Measure from the top of your hip bone to the bony point at the top of your shoulder." },
+                      ].map((item) => (
+                        <Box key={item.title}>
+                          <Typography sx={{ fontWeight: 700, color: "var(--theme-text-secondary)", mb: 0.5, fontSize: "0.875rem" }}>
+                            {item.title}
+                          </Typography>
+                          <Typography sx={{ color: "var(--theme-text-muted)", lineHeight: 1.6, fontSize: "0.875rem" }}>
+                            {item.desc}
+                          </Typography>
+                        </Box>
+                      ))}
                     </Stack>
                   </AccordionDetails>
                 </Accordion>
@@ -414,49 +437,50 @@ export default function BikeSizingForm() {
                   elevation={0}
                   sx={{
                     p: { xs: 3, md: 4 },
-                    borderRadius: "12px",
-                    backgroundColor: "#e3f2fd",
-                    border: "2px solid #0288d1",
+                    borderRadius: 0,
+                    backgroundColor: "rgba(255, 23, 68, 0.08)",
+                    border: "2px solid #ff1744",
                     mb: 4,
                   }}
                 >
                   <Box sx={{ textAlign: "center", mb: 3 }}>
                     <i
                       className="fi fi-rr-check-circle"
-                      style={{ color: "#0288d1", fontSize: "3rem", marginBottom: "16px", display: "block" }}
+                      style={{ color: "#ff1744", fontSize: "2.5rem", marginBottom: "16px", display: "block" }}
                     ></i>
-                    <Typography variant="h5" sx={{ fontWeight: 700, color: "#212121", mb: 1 }}>
+                    <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", mb: 1, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                       Your Recommended Frame Size
                     </Typography>
                     <Typography
-                      variant="h3"
                       sx={{
-                        fontWeight: 800,
-                        color: "#0288d1",
-                        fontSize: { xs: "2.5rem", md: "3rem" },
+                        fontWeight: 900,
+                        color: "#ff1744",
+                        fontSize: { xs: "3rem", md: "4rem" },
+                        letterSpacing: "-0.02em",
                       }}
                     >
                       {result.frameSize} cm
                     </Typography>
-                    <Typography variant="h6" sx={{ color: "#424242", mt: 1 }}>
+                    <Typography sx={{ color: "var(--theme-text-muted)", mt: 1, fontSize: "1rem" }}>
                       ({result.sizeRange})
                     </Typography>
                   </Box>
 
-                  <Divider sx={{ my: 3 }} />
+                  <Divider sx={{ my: 3, borderColor: "rgba(255, 23, 68, 0.3)" }} />
 
                   <Alert
                     severity="info"
-                    icon={<i className="fi fi-rr-bulb" style={{ fontSize: "1.5rem" }}></i>}
+                    icon={<i className="fi fi-rr-bulb" style={{ fontSize: "1.25rem" }}></i>}
                     sx={{
-                      backgroundColor: "transparent",
-                      border: "1px solid #0288d1",
+                      backgroundColor: "rgba(255, 23, 68, 0.1)",
+                      border: "1px solid rgba(255, 23, 68, 0.3)",
+                      borderRadius: 0,
                       "& .MuiAlert-icon": {
-                        color: "#0288d1",
+                        color: "#ff1744",
                       },
                     }}
                   >
-                    <Typography variant="body2" sx={{ color: "#212121", lineHeight: 1.7 }}>
+                    <Typography sx={{ color: "var(--theme-text-secondary)", lineHeight: 1.7, fontSize: "0.875rem" }}>
                       {result.fitNotes}
                     </Typography>
                   </Alert>
@@ -467,26 +491,22 @@ export default function BikeSizingForm() {
                       size="large"
                       href="#contact"
                       sx={{
-                        backgroundColor: "#0288d1",
-                        color: "#ffffff",
-                        fontWeight: 600,
-                        fontSize: "1rem",
+                        backgroundColor: "#ff1744",
+                        color: "#000000",
+                        fontWeight: 700,
+                        fontSize: "0.875rem",
                         px: 4,
                         py: 1.5,
-                        textTransform: "none",
-                        borderRadius: "8px",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.05em",
+                        borderRadius: 0,
                         "&:hover": {
-                          backgroundColor: "#0277bd",
+                          backgroundColor: "#d50032",
                         },
                       }}
                       onClick={(e) => {
                         e.preventDefault()
-                        const element = document.querySelector("#contact")
-                        if (element) {
-                          element.scrollIntoView({ behavior: "smooth" })
-                        } else {
-                          window.location.href = "/#contact"
-                        }
+                        window.location.href = "/#contact"
                       }}
                     >
                       Contact Us About Your Fit
@@ -500,13 +520,13 @@ export default function BikeSizingForm() {
                 elevation={0}
                 sx={{
                   p: { xs: 2, md: 3 },
-                  borderRadius: "12px",
-                  backgroundColor: "#ffffff",
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+                  borderRadius: 0,
+                  backgroundColor: "var(--theme-bg-secondary)",
+                  border: "1px solid var(--theme-border)",
                 }}
               >
-                <Typography variant="h6" sx={{ fontWeight: 600, color: "#212121", mb: 2 }}>
-                  <i className="fi fi-rr-chart-histogram" style={{ marginRight: "8px", color: "#0288d1" }}></i>
+                <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", mb: 3, display: "flex", alignItems: "center", gap: 1.5, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  <i className="fi fi-rr-chart-histogram" style={{ color: "#ff1744" }}></i>
                   Standard Road Bike Size Chart
                 </Typography>
 
@@ -514,10 +534,11 @@ export default function BikeSizingForm() {
                   <Table size="small">
                     <TableHead>
                       <TableRow>
-                        <TableCell sx={{ fontWeight: 600, backgroundColor: "#fafafa" }}>Height (cm)</TableCell>
-                        <TableCell sx={{ fontWeight: 600, backgroundColor: "#fafafa" }}>Inseam (cm)</TableCell>
-                        <TableCell sx={{ fontWeight: 600, backgroundColor: "#fafafa" }}>Frame Size (cm)</TableCell>
-                        <TableCell sx={{ fontWeight: 600, backgroundColor: "#fafafa" }}>Size</TableCell>
+                        {["Height (cm)", "Inseam (cm)", "Frame Size (cm)", "Size"].map((header) => (
+                          <TableCell key={header} sx={{ fontWeight: 700, backgroundColor: "var(--theme-bg-primary)", color: "var(--theme-text-secondary)", borderColor: "var(--theme-border)", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                            {header}
+                          </TableCell>
+                        ))}
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -526,14 +547,17 @@ export default function BikeSizingForm() {
                           key={index}
                           sx={{
                             "&:nth-of-type(even)": {
-                              backgroundColor: "#fafafa",
+                              backgroundColor: "var(--theme-bg-primary)",
+                            },
+                            "&:hover": {
+                              backgroundColor: "rgba(255, 23, 68, 0.05)",
                             },
                           }}
                         >
-                          <TableCell>{row.height}</TableCell>
-                          <TableCell>{row.inseam}</TableCell>
-                          <TableCell sx={{ fontWeight: 600, color: "#0288d1" }}>{row.frameSize}</TableCell>
-                          <TableCell>{row.size}</TableCell>
+                          <TableCell sx={{ color: "var(--theme-text-muted)", borderColor: "var(--theme-border)", fontSize: "0.875rem" }}>{row.height}</TableCell>
+                          <TableCell sx={{ color: "var(--theme-text-muted)", borderColor: "var(--theme-border)", fontSize: "0.875rem" }}>{row.inseam}</TableCell>
+                          <TableCell sx={{ fontWeight: 700, color: "#ff1744", borderColor: "var(--theme-border)", fontSize: "0.875rem" }}>{row.frameSize}</TableCell>
+                          <TableCell sx={{ color: "var(--theme-text-secondary)", borderColor: "var(--theme-border)", fontSize: "0.875rem" }}>{row.size}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -541,13 +565,13 @@ export default function BikeSizingForm() {
                 </TableContainer>
 
                 <Typography
-                  variant="caption"
                   sx={{
                     display: "block",
-                    mt: 2,
+                    mt: 3,
                     fontStyle: "italic",
-                    color: "#757575",
+                    color: "var(--theme-text-muted)",
                     textAlign: "center",
+                    fontSize: "0.75rem",
                   }}
                 >
                   * This is a general guide. Frame geometry varies between brands and models.
@@ -559,32 +583,30 @@ export default function BikeSizingForm() {
                 elevation={0}
                 sx={{
                   p: 3,
-                  borderRadius: "12px",
-                  backgroundColor: "#fff3e0",
-                  border: "1px solid #ffb74d",
+                  borderRadius: 0,
+                  backgroundColor: "rgba(255, 23, 68, 0.08)",
+                  border: "1px solid rgba(255, 23, 68, 0.2)",
                   mt: 3,
                 }}
               >
-                <Typography variant="subtitle1" sx={{ fontWeight: 600, color: "#212121", mb: 2 }}>
-                  <i className="fi fi-rr-exclamation" style={{ marginRight: "8px", color: "#f57c00" }}></i>
+                <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", mb: 2, display: "flex", alignItems: "center", gap: 1.5, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  <i className="fi fi-rr-exclamation" style={{ color: "#ff1744" }}></i>
                   Important Notes
                 </Typography>
-                <Stack spacing={1}>
-                  <Typography variant="body2" sx={{ color: "#424242", lineHeight: 1.6 }}>
-                    • This calculator provides a starting point. Professional bike fitting is recommended for optimal
-                    comfort and performance.
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "#424242", lineHeight: 1.6 }}>
-                    • Different bike geometries (race vs endurance) may require different sizes even with the same
-                    measurements.
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "#424242", lineHeight: 1.6 }}>
-                    • If you're between sizes, consider your riding style: smaller for racing/aggressive, larger for
-                    comfort/endurance.
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "#424242", lineHeight: 1.6 }}>
-                    • Contact us for personalized sizing advice based on the specific bike you're interested in.
-                  </Typography>
+                <Stack spacing={2}>
+                  {[
+                    "This calculator provides a starting point. Professional bike fitting is recommended for optimal comfort and performance.",
+                    "Different bike geometries (race vs endurance) may require different sizes even with the same measurements.",
+                    "If you're between sizes, consider your riding style: smaller for racing/aggressive, larger for comfort/endurance.",
+                    "Contact us for personalized sizing advice based on the specific bike you're interested in.",
+                  ].map((note, index) => (
+                    <Box key={index} sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
+                      <Box sx={{ width: "4px", height: "4px", backgroundColor: "#ff1744", mt: 1.5, flexShrink: 0 }} />
+                      <Typography sx={{ color: "var(--theme-text-muted)", lineHeight: 1.6, fontSize: "0.875rem" }}>
+                        {note}
+                      </Typography>
+                    </Box>
+                  ))}
                 </Stack>
               </Paper>
             </Box>
