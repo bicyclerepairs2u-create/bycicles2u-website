@@ -86,7 +86,7 @@ function CompareRow({ label, icon, items, getValue }: CompareRowProps) {
           {items.map((product) => (
             <div
               key={product.id}
-              className="flex-1 p-3 text-sm text-[var(--theme-text-secondary)] border-l border-[var(--theme-border)] flex items-center"
+              className="flex-1 max-w-[280px] p-3 text-sm text-[var(--theme-text-secondary)] border-l border-[var(--theme-border)] flex items-center"
             >
               {getValue(product)}
             </div>
@@ -108,7 +108,7 @@ export function CompareDrawer() {
       >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <SheetHeader className="px-6 py-4 border-b border-[var(--theme-border)] bg-[var(--theme-bg-secondary)]">
+          <SheetHeader className="pl-6 pr-14 py-4 border-b border-[var(--theme-border)] bg-[var(--theme-bg-secondary)]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <SheetTitle className="text-xl font-bold uppercase tracking-tight text-[var(--theme-text-primary)]">
@@ -153,7 +153,7 @@ export function CompareDrawer() {
                     {compareItems.map((product) => (
                       <div
                         key={product.id}
-                        className="flex-1 p-4 border-l border-[var(--theme-border)]"
+                        className="flex-1 max-w-[280px] p-4 border-l border-[var(--theme-border)]"
                       >
                         <div className="relative">
                           <button
@@ -163,14 +163,14 @@ export function CompareDrawer() {
                           >
                             <X size={16} />
                           </button>
-                          <div className="relative aspect-[4/3] mb-3 bg-[var(--theme-bg-secondary)] overflow-hidden">
+                          <div className="relative aspect-[4/3] max-h-[160px] mb-3 bg-[var(--theme-bg-secondary)] overflow-hidden">
                             {product.featuredImage ? (
                               <Image
                                 src={product.featuredImage.url}
                                 alt={product.featuredImage.altText || product.title}
                                 fill
                                 className="object-cover"
-                                sizes="200px"
+                                sizes="(max-width: 768px) 150px, 250px"
                               />
                             ) : (
                               <div className="flex h-full items-center justify-center">
@@ -274,7 +274,7 @@ export function CompareDrawer() {
                       {compareItems.map((product) => (
                         <div
                           key={product.id}
-                          className="flex-1 p-3 border-l border-[var(--theme-border)]"
+                          className="flex-1 max-w-[280px] p-3 border-l border-[var(--theme-border)]"
                         >
                           <div className="flex flex-wrap gap-1">
                             {product.tags.slice(0, 5).map((tag) => (
