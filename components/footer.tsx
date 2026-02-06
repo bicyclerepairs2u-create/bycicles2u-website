@@ -323,15 +323,31 @@ export default function Footer() {
             gap: 2,
           }}
         >
-          <Typography
-            sx={{
-              color: "var(--theme-text-muted)",
-              fontSize: "0.75rem",
-              letterSpacing: "0.05em",
-            }}
-          >
-            © {new Date().getFullYear()} Bicycles2U. All rights reserved.
-          </Typography>
+          <Box sx={{ display: "flex", gap: 2, alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
+            <Typography
+              sx={{
+                color: "var(--theme-text-muted)",
+                fontSize: "0.75rem",
+                letterSpacing: "0.05em",
+              }}
+            >
+              © {new Date().getFullYear()} Bicycles2U. All rights reserved.
+            </Typography>
+            <Link
+              href="/tos"
+              sx={{
+                color: "var(--theme-text-muted)",
+                textDecoration: "none",
+                fontSize: "0.75rem",
+                letterSpacing: "0.05em",
+                "&:hover": {
+                  color: "#00d4ff",
+                },
+              }}
+            >
+              Terms of Service
+            </Link>
+          </Box>
           <Typography
             sx={{
               color: "var(--theme-text-muted)",
