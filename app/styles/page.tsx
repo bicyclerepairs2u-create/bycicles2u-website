@@ -1901,6 +1901,410 @@ export default function StylesPage() {
 
 
         {/* ================================================================== */}
+        {/* STYLE J: REFINED PERFORMANCE - Claude's Recommended Design */}
+        {/* ================================================================== */}
+        <section>
+          <div className="mb-8">
+            <h2 className="text-xl font-bold mb-2 flex items-center gap-3">
+              <span
+                className="w-8 h-8 rounded flex items-center justify-center text-sm font-bold"
+                style={{ background: 'linear-gradient(135deg, #B87333 0%, #CD853F 100%)', color: '#fff' }}
+              >
+                J
+              </span>
+              Refined Performance — Full Site Preview
+              <span className="ml-2 px-2 py-0.5 text-[10px] uppercase tracking-wider rounded" style={{ backgroundColor: '#B87333', color: '#fff' }}>
+                Recommended
+              </span>
+            </h2>
+            <p className="text-neutral-400 text-sm">
+              Premium yet approachable. Warm sophistication that builds trust. Perfect balance of performance appeal and craftsmanship feel for serious cyclists.
+            </p>
+            <div className="flex gap-3 mt-3">
+              <div className="flex items-center gap-2">
+                <span className="w-4 h-4 rounded" style={{ backgroundColor: '#1A1A1A' }} />
+                <span className="text-xs text-neutral-500">Warm Charcoal #1A1A1A</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-4 h-4 rounded" style={{ backgroundColor: '#FDFBF7', border: '1px solid #ddd' }} />
+                <span className="text-xs text-neutral-500">Warm White #FDFBF7</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-4 h-4 rounded" style={{ backgroundColor: '#B87333' }} />
+                <span className="text-xs text-neutral-500">Copper #B87333</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Mock Website Container */}
+          <div className="rounded-lg overflow-hidden" style={{ backgroundColor: '#FDFBF7', border: '1px solid #E8E4DD' }}>
+
+            {/* Top Announcement Bar */}
+            <div className="text-center py-2 text-xs" style={{ backgroundColor: '#1A1A1A', color: '#999' }}>
+              <span style={{ color: '#B87333' }}>★</span>
+              {' '}Trusted by Sydney&apos;s serious cyclists since establishment{' '}
+              <span style={{ color: '#B87333' }}>★</span>
+            </div>
+
+            {/* Navigation Bar */}
+            <nav className="flex items-center justify-between px-12 py-5" style={{ backgroundColor: '#FDFBF7', borderBottom: '1px solid #E8E4DD' }}>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#1A1A1A' }}>
+                    <span className="text-xs font-semibold" style={{ color: '#B87333' }}>B2U</span>
+                  </div>
+                  <div>
+                    <span className="text-lg font-semibold" style={{ color: '#1A1A1A' }}>Bicycles2U</span>
+                    <span className="block text-[10px] tracking-wide" style={{ color: '#999' }}>Performance Specialists</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center gap-10">
+                {['Collection', 'Services', 'About', 'Contact'].map((item, idx) => (
+                  <span
+                    key={item}
+                    className="text-sm cursor-pointer transition-colors relative pb-1"
+                    style={{ color: idx === 0 ? '#1A1A1A' : '#666' }}
+                  >
+                    {item}
+                    {idx === 0 && <div className="absolute bottom-0 left-0 right-0 h-0.5" style={{ backgroundColor: '#B87333' }} />}
+                  </span>
+                ))}
+                <button
+                  className="px-6 py-2.5 text-sm font-medium transition-all rounded-sm"
+                  style={{ backgroundColor: '#B87333', color: '#fff' }}
+                >
+                  Book Service
+                </button>
+              </div>
+            </nav>
+
+            {/* Hero Section - Warm & Inviting */}
+            <div className="relative overflow-hidden" style={{ backgroundColor: '#1A1A1A' }}>
+              {/* Subtle warm gradient */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: 'radial-gradient(ellipse at 80% 50%, rgba(184, 115, 51, 0.15) 0%, transparent 60%)'
+                }}
+              />
+
+              <div className="relative z-10 grid grid-cols-12 min-h-[520px]">
+                <div className="col-span-5 flex items-center px-12 py-16">
+                  <div>
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-8 h-[1px]" style={{ backgroundColor: '#B87333' }} />
+                      <span className="text-xs uppercase tracking-[0.25em]" style={{ color: '#B87333' }}>Queens Park, Sydney</span>
+                    </div>
+                    <h1 className="text-5xl font-light leading-[1.15] mb-6" style={{ color: '#FDFBF7', letterSpacing: '-0.02em' }}>
+                      Precision Machines.
+                      <br />
+                      <span className="font-medium" style={{ color: '#B87333' }}>Expert Care.</span>
+                    </h1>
+                    <p className="text-base mb-8 leading-relaxed" style={{ color: '#999' }}>
+                      Curated road and triathlon bicycles, meticulously inspected and serviced. Where serious cyclists find their next ride.
+                    </p>
+                    <div className="flex gap-4 mb-10">
+                      <button
+                        className="px-8 py-4 text-sm font-medium tracking-wide transition-all rounded-sm"
+                        style={{ backgroundColor: '#B87333', color: '#fff' }}
+                      >
+                        Browse Collection
+                      </button>
+                      <button
+                        className="px-8 py-4 text-sm font-medium tracking-wide transition-all rounded-sm border"
+                        style={{ borderColor: '#444', color: '#FDFBF7', backgroundColor: 'transparent' }}
+                      >
+                        Our Services
+                      </button>
+                    </div>
+
+                    {/* Trust indicators */}
+                    <div className="flex items-center gap-6 pt-6" style={{ borderTop: '1px solid #333' }}>
+                      {[
+                        { value: '500+', label: 'Bikes Sold' },
+                        { value: '15+', label: 'Years Experience' },
+                        { value: '100%', label: 'Satisfaction' },
+                      ].map((stat, i) => (
+                        <div key={i}>
+                          <span className="text-xl font-light" style={{ color: '#B87333' }}>{stat.value}</span>
+                          <p className="text-[10px] uppercase tracking-wider mt-1" style={{ color: '#666' }}>{stat.label}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-span-7 relative">
+                  <Image src={mockProduct.image} alt="Featured Bike" fill className="object-cover" />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, #1A1A1A 0%, transparent 30%)' }} />
+                </div>
+              </div>
+            </div>
+
+            {/* Value Props - Warm Cards */}
+            <div className="px-12 py-6" style={{ backgroundColor: '#FDFBF7', borderBottom: '1px solid #E8E4DD' }}>
+              <div className="grid grid-cols-4 gap-6">
+                {[
+                  { title: 'Expert Selection', desc: 'Hand-picked premium bikes only' },
+                  { title: 'Fully Inspected', desc: 'Every bike serviced before sale' },
+                  { title: 'Professional Service', desc: 'Factory-trained mechanics' },
+                  { title: 'Personal Approach', desc: 'By appointment for your convenience' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4 py-4">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(184, 115, 51, 0.1)' }}>
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#B87333' }} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium mb-1" style={{ color: '#1A1A1A' }}>{item.title}</p>
+                      <p className="text-xs" style={{ color: '#888' }}>{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Products Section */}
+            <div className="px-12 py-20" style={{ backgroundColor: '#FDFBF7' }}>
+              <div className="flex items-end justify-between mb-12">
+                <div>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-6 h-[1px]" style={{ backgroundColor: '#B87333' }} />
+                    <span className="text-xs uppercase tracking-[0.25em]" style={{ color: '#B87333' }}>The Collection</span>
+                  </div>
+                  <h2 className="text-3xl font-light" style={{ color: '#1A1A1A', letterSpacing: '-0.01em' }}>
+                    Currently Available
+                  </h2>
+                </div>
+                <button className="text-sm flex items-center gap-2 group font-medium" style={{ color: '#B87333' }}>
+                  View All <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-4 gap-8">
+                {[
+                  { name: 'Cervélo P5 Disc', brand: 'Cervélo', price: '$8,499', condition: 'Excellent', year: '2023' },
+                  { name: 'S-Works Tarmac SL8', brand: 'Specialized', price: '$12,500', condition: 'Like New', year: '2024' },
+                  { name: 'SystemSix Hi-MOD', brand: 'Cannondale', price: '$9,200', condition: 'Very Good', year: '2022' },
+                  { name: 'Aeroad CFR', brand: 'Canyon', price: '$7,999', condition: 'Excellent', year: '2023' },
+                ].map((bike, i) => (
+                  <div key={i} className="group">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-5" style={{ backgroundColor: '#F5F3EE' }}>
+                      <Image src={mockProduct.image} alt={bike.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <div className="absolute top-4 left-4 flex gap-2">
+                        <span className="px-2 py-1 text-[10px] uppercase tracking-wide rounded-sm" style={{ backgroundColor: '#1A1A1A', color: '#FDFBF7' }}>
+                          {bike.year}
+                        </span>
+                        <span className="px-2 py-1 text-[10px] uppercase tracking-wide rounded-sm" style={{ backgroundColor: '#B87333', color: '#fff' }}>
+                          {bike.condition}
+                        </span>
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button className="w-full py-2.5 text-sm font-medium rounded-sm" style={{ backgroundColor: '#B87333', color: '#fff' }}>
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+                    <p className="text-[10px] uppercase tracking-[0.2em] mb-1" style={{ color: '#B87333' }}>{bike.brand}</p>
+                    <h3 className="text-base font-medium mb-2" style={{ color: '#1A1A1A' }}>{bike.name}</h3>
+                    <span className="text-lg font-medium" style={{ color: '#1A1A1A' }}>{bike.price}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Services Section - Warm Background */}
+            <div className="px-12 py-20" style={{ backgroundColor: '#1A1A1A' }}>
+              <div className="text-center mb-12">
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <div className="w-6 h-[1px]" style={{ backgroundColor: '#B87333' }} />
+                  <span className="text-xs uppercase tracking-[0.25em]" style={{ color: '#B87333' }}>Services</span>
+                  <div className="w-6 h-[1px]" style={{ backgroundColor: '#B87333' }} />
+                </div>
+                <h2 className="text-3xl font-light" style={{ color: '#FDFBF7', letterSpacing: '-0.01em' }}>
+                  Expert Care for Your Machine
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-4 gap-6">
+                {[
+                  { name: 'Essential Tune', price: '$59', features: ['Safety inspection', 'Brake & gear adjustment', 'Tyre check & inflation'], time: '1-2 hours' },
+                  { name: 'Performance Service', price: '$119', features: ['Full drivetrain clean', 'Wheel truing', 'Cable inspection'], time: '2-3 hours' },
+                  { name: 'Complete Overhaul', price: '$159', features: ['Deep component clean', 'Bearing inspection', 'Full tune & test'], time: '4-6 hours', featured: true },
+                  { name: 'Race Prep / Build', price: '$299+', features: ['Frame-up service', 'All new consumables', 'Position optimization'], time: '1-2 days' },
+                ].map((service, i) => (
+                  <div
+                    key={i}
+                    className="p-8 rounded-sm relative"
+                    style={{
+                      backgroundColor: service.featured ? '#B87333' : '#242424',
+                      border: service.featured ? 'none' : '1px solid #333'
+                    }}
+                  >
+                    {service.featured && (
+                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 text-[10px] uppercase tracking-wider rounded-sm" style={{ backgroundColor: '#1A1A1A', color: '#B87333' }}>
+                        Most Popular
+                      </span>
+                    )}
+                    <p className="text-[10px] uppercase tracking-wider mb-3" style={{ color: service.featured ? 'rgba(255,255,255,0.6)' : '#666' }}>
+                      {service.time}
+                    </p>
+                    <h3 className="text-lg font-medium mb-2" style={{ color: service.featured ? '#fff' : '#FDFBF7' }}>
+                      {service.name}
+                    </h3>
+                    <p className="text-3xl font-light mb-4" style={{ color: service.featured ? '#fff' : '#B87333' }}>
+                      {service.price}
+                    </p>
+                    <ul className="space-y-2 mb-6">
+                      {service.features.map((f, j) => (
+                        <li key={j} className="flex items-center gap-2 text-sm" style={{ color: service.featured ? 'rgba(255,255,255,0.8)' : '#888' }}>
+                          <Check className="w-3.5 h-3.5" style={{ color: service.featured ? '#fff' : '#B87333' }} />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      className="w-full py-3 text-sm font-medium tracking-wide rounded-sm transition-colors"
+                      style={{
+                        backgroundColor: service.featured ? '#1A1A1A' : 'transparent',
+                        color: service.featured ? '#B87333' : '#FDFBF7',
+                        border: service.featured ? 'none' : '1px solid #444'
+                      }}
+                    >
+                      Book Now
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Testimonial */}
+            <div className="px-12 py-16" style={{ backgroundColor: '#F5F3EE' }}>
+              <div className="max-w-3xl mx-auto text-center">
+                <div className="text-4xl mb-6" style={{ color: '#B87333' }}>&ldquo;</div>
+                <p className="text-xl font-light italic leading-relaxed mb-6" style={{ color: '#1A1A1A' }}>
+                  Finally found someone who understands what serious cyclists need. The attention to detail on my P5 service was exceptional. Won&apos;t go anywhere else now.
+                </p>
+                <div className="flex items-center justify-center gap-3">
+                  <div className="w-10 h-10 rounded-full" style={{ backgroundColor: '#B87333' }} />
+                  <div className="text-left">
+                    <p className="text-sm font-medium" style={{ color: '#1A1A1A' }}>Michael R.</p>
+                    <p className="text-xs" style={{ color: '#888' }}>Triathlete, Bondi</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* About / Why Us Section */}
+            <div className="grid grid-cols-2" style={{ backgroundColor: '#FDFBF7' }}>
+              <div className="relative aspect-[4/3]">
+                <Image src={mockProduct.image} alt="Workshop" fill className="object-cover" />
+              </div>
+              <div className="flex items-center px-16 py-16">
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-6 h-[1px]" style={{ backgroundColor: '#B87333' }} />
+                    <span className="text-xs uppercase tracking-[0.25em]" style={{ color: '#B87333' }}>Why Us</span>
+                  </div>
+                  <h2 className="text-3xl font-light mb-6" style={{ color: '#1A1A1A', letterSpacing: '-0.01em' }}>
+                    Built on Trust & Expertise
+                  </h2>
+                  <p className="text-base mb-8 leading-relaxed" style={{ color: '#666' }}>
+                    We&apos;re not a big box retailer. We&apos;re cyclists who specialize exclusively in premium road and triathlon machines. Every bike we sell is hand-selected, thoroughly inspected, and professionally serviced.
+                  </p>
+                  <ul className="space-y-4 mb-8">
+                    {[
+                      'Road & triathlon specialists — it&apos;s all we do',
+                      'Every bike inspected & serviced before sale',
+                      'Honest advice from experienced cyclists',
+                      'Appointment-based for personalized service',
+                    ].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{ backgroundColor: '#B87333' }}>
+                          <Check className="w-3 h-3 text-white" />
+                        </div>
+                        <span className="text-sm" style={{ color: '#444' }}>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <button className="px-8 py-3.5 text-sm font-medium rounded-sm" style={{ backgroundColor: '#1A1A1A', color: '#FDFBF7' }}>
+                    Learn More About Us
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Section */}
+            <div className="px-12 py-16" style={{ backgroundColor: '#B87333' }}>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-2xl font-light mb-2" style={{ color: '#fff' }}>Ready to find your next machine?</h2>
+                  <p className="text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>Book an appointment or browse our current collection.</p>
+                </div>
+                <div className="flex gap-4">
+                  <button className="px-8 py-3.5 text-sm font-medium rounded-sm" style={{ backgroundColor: '#1A1A1A', color: '#FDFBF7' }}>
+                    Book Appointment
+                  </button>
+                  <button className="px-8 py-3.5 text-sm font-medium rounded-sm border" style={{ borderColor: '#fff', color: '#fff', backgroundColor: 'transparent' }}>
+                    View Collection
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <footer className="px-12 py-16" style={{ backgroundColor: '#1A1A1A' }}>
+              <div className="grid grid-cols-12 gap-8 mb-12">
+                <div className="col-span-4">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#242424' }}>
+                      <span className="text-xs font-semibold" style={{ color: '#B87333' }}>B2U</span>
+                    </div>
+                    <div>
+                      <span className="text-base font-semibold" style={{ color: '#FDFBF7' }}>Bicycles2U</span>
+                      <span className="block text-[10px] tracking-wide" style={{ color: '#666' }}>Performance Specialists</span>
+                    </div>
+                  </div>
+                  <p className="text-sm leading-relaxed mb-6" style={{ color: '#888' }}>
+                    Your trusted source for premium road and triathlon bicycles. Expert service by cyclists, for cyclists.
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-medium" style={{ color: '#B87333' }}>0402 880 242</span>
+                  </div>
+                </div>
+
+                <div className="col-span-8 grid grid-cols-4 gap-8">
+                  {[
+                    { title: 'Collection', links: ['Road Bikes', 'Triathlon Bikes', 'All Available', 'Sell Your Bike'] },
+                    { title: 'Services', links: ['Essential Tune', 'Performance Service', 'Complete Overhaul', 'Custom Builds'] },
+                    { title: 'Information', links: ['About Us', 'Our Process', 'Bike Sizing', 'FAQs'] },
+                    { title: 'Visit Us', links: ['167/171 Bronte Rd', 'Queens Park NSW 2022', 'By Appointment Only', 'Get Directions'] },
+                  ].map((col, i) => (
+                    <div key={i}>
+                      <h4 className="text-[10px] uppercase tracking-[0.2em] mb-4" style={{ color: '#B87333' }}>{col.title}</h4>
+                      <ul className="space-y-2.5">
+                        {col.links.map((link, j) => (
+                          <li key={j} className="text-sm cursor-pointer transition-colors hover:text-white" style={{ color: '#888' }}>{link}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pt-8 flex items-center justify-between" style={{ borderTop: '1px solid #333' }}>
+                <p className="text-xs" style={{ color: '#555' }}>© 2024 Bicycles2U. All rights reserved.</p>
+                <div className="flex items-center gap-6">
+                  <span className="text-xs cursor-pointer" style={{ color: '#666' }}>Privacy Policy</span>
+                  <span className="text-xs cursor-pointer" style={{ color: '#666' }}>Terms of Service</span>
+                </div>
+              </div>
+            </footer>
+          </div>
+        </section>
+
+
+        {/* ================================================================== */}
         {/* PAGE LAYOUT EXAMPLES */}
         {/* ================================================================== */}
         <section className="border-t border-neutral-800 pt-16">
