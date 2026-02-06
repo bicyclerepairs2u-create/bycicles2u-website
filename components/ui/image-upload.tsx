@@ -116,30 +116,47 @@ export default function ImageUpload({
 
   return (
     <Box>
-      <Typography variant="h6" sx={{ fontWeight: 600, color: "#212121", mb: 2 }}>
+      <Typography
+        variant="h6"
+        sx={{
+          fontWeight: 700,
+          color: "var(--theme-text-primary)",
+          mb: 2,
+          fontSize: "0.875rem",
+          textTransform: "uppercase",
+          letterSpacing: "0.05em",
+        }}
+      >
         {label} {required && "*"}
       </Typography>
 
       {/* Upload Buttons */}
-      <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
+      <Stack direction="row" spacing={2} sx={{ mb: 2, flexWrap: "wrap", gap: 2 }}>
         <Button
-          variant="outlined"
+          variant="contained"
           component="label"
           disabled={images.length >= maxImages}
           sx={{
-            borderColor: displayError ? "#d32f2f" : "#0288d1",
-            color: displayError ? "#d32f2f" : "#0288d1",
-            fontWeight: 600,
-            textTransform: "none",
-            borderWidth: "2px",
+            backgroundColor: displayError ? "#d32f2f" : "#00d4ff",
+            color: "#000000",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            fontSize: "0.75rem",
+            letterSpacing: "0.05em",
+            px: 3,
+            py: 1.5,
+            borderRadius: 0,
+            boxShadow: displayError ? "0 4px 20px rgba(211, 47, 47, 0.3)" : "0 4px 20px rgba(0, 212, 255, 0.3)",
             "&:hover": {
-              borderWidth: "2px",
-              borderColor: displayError ? "#d32f2f" : "#0277bd",
+              backgroundColor: displayError ? "#c62828" : "#0099cc",
+              boxShadow: displayError ? "0 6px 30px rgba(211, 47, 47, 0.4)" : "0 6px 30px rgba(0, 212, 255, 0.4)",
+              transform: "translateY(-2px)",
             },
             "&.Mui-disabled": {
-              borderColor: "#e0e0e0",
-              color: "#9e9e9e",
+              backgroundColor: "rgba(0, 212, 255, 0.3)",
+              color: "#000000",
             },
+            transition: "all 0.3s ease",
           }}
         >
           <i className="fi fi-rr-folder-upload" style={{ marginRight: "8px" }}></i>
@@ -159,19 +176,26 @@ export default function ImageUpload({
           component="label"
           disabled={images.length >= maxImages}
           sx={{
-            borderColor: displayError ? "#d32f2f" : "#0288d1",
-            color: displayError ? "#d32f2f" : "#0288d1",
-            fontWeight: 600,
-            textTransform: "none",
+            borderColor: displayError ? "#d32f2f" : "#00d4ff",
+            color: displayError ? "#d32f2f" : "var(--theme-text-primary)",
+            fontWeight: 700,
+            textTransform: "uppercase",
+            fontSize: "0.75rem",
+            letterSpacing: "0.05em",
+            px: 3,
+            py: 1.5,
+            borderRadius: 0,
             borderWidth: "2px",
             "&:hover": {
               borderWidth: "2px",
-              borderColor: displayError ? "#d32f2f" : "#0277bd",
+              borderColor: displayError ? "#c62828" : "#0099cc",
+              backgroundColor: displayError ? "rgba(211, 47, 47, 0.08)" : "rgba(0, 212, 255, 0.08)",
             },
             "&.Mui-disabled": {
-              borderColor: "#e0e0e0",
-              color: "#9e9e9e",
+              borderColor: "var(--theme-border)",
+              color: "var(--theme-text-muted)",
             },
+            transition: "all 0.3s ease",
           }}
         >
           <i className="fi fi-rr-camera" style={{ marginRight: "8px" }}></i>
@@ -189,11 +213,13 @@ export default function ImageUpload({
 
       {/* Helper Text / Error */}
       {displayError ? (
-        <FormHelperText error sx={{ mb: 2 }}>
+        <FormHelperText error sx={{ mb: 2, fontSize: "0.875rem" }}>
           {displayError}
         </FormHelperText>
       ) : (
-        <FormHelperText sx={{ mb: 2 }}>{helperText}</FormHelperText>
+        <FormHelperText sx={{ mb: 2, color: "var(--theme-text-muted)", fontSize: "0.875rem" }}>
+          {helperText}
+        </FormHelperText>
       )}
 
       {/* Image Previews */}
@@ -293,8 +319,9 @@ export default function ImageUpload({
           sx={{
             display: "block",
             mt: 2,
-            color: "#757575",
+            color: "var(--theme-text-muted)",
             textAlign: "center",
+            fontSize: "0.875rem",
           }}
         >
           {images.length} of {maxImages} photos uploaded

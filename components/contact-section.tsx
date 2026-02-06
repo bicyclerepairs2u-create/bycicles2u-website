@@ -126,7 +126,7 @@ export default function ContactSection() {
   const darkInputStyles = {
     "& .MuiOutlinedInput-root": {
       backgroundColor: "var(--theme-bg-secondary)",
-      color: "var(--theme-text-secondary)",
+      color: "var(--theme-text-primary)",
       "& fieldset": {
         borderColor: "var(--theme-border)",
       },
@@ -138,13 +138,17 @@ export default function ContactSection() {
       },
     },
     "& .MuiInputLabel-root": {
-      color: "var(--theme-text-muted)",
+      color: "var(--theme-text-secondary)",
       "&.Mui-focused": {
         color: "#00d4ff",
       },
     },
     "& .MuiSelect-icon": {
+      color: "var(--theme-text-secondary)",
+    },
+    "& .MuiInputBase-input::placeholder": {
       color: "var(--theme-text-muted)",
+      opacity: 0.7,
     },
   }
 
