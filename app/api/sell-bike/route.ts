@@ -14,7 +14,17 @@ export async function POST(request: NextRequest) {
     const year = formData.get("year") as string
     const condition = formData.get("condition") as string
     const description = formData.get("description") as string
-    const image = formData.get("image") as File | null
+
+    // Extract all images
+    const images: File[] = []
+    let imageIndex = 0
+    while (formData.has(`image_${imageIndex}`)) {
+      const image = formData.get(`image_${imageIndex}`) as File
+      if (image) {
+        images.push(image)
+      }
+      imageIndex++
+    }
 
     // Validate required fields
     if (
@@ -71,15 +81,14 @@ ${description}
       text: emailBody,
     }
 
-    // Add image attachment if provided
-    if (image) {
-      const buffer = Buffer.from(await image.arrayBuffer())
-      mailOptions.attachments = [
-        {
-          filename: image.name,
-          content: buffer,
-        },
-      ]
+    // Add image attachments if provided
+    if (images.length > 0) {
+      mailOptions.attachments = await Promise.all(
+        images.map(async (image, index) => ({
+          filename: `bike_photo_${index + 1}_${image.name}`,
+          content: Buffer.from(await image.arrayBuffer()),
+        }))
+      )
     }
 
     // Send email

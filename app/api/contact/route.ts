@@ -3,18 +3,29 @@ import nodemailer from "nodemailer"
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
-    const {
-      name,
-      email,
-      phone,
-      inquiryType,
-      serviceLevel,
-      bikeType,
-      bikeDetails,
-      pickupNeeded,
-      message,
-    } = body
+    const formData = await request.formData()
+
+    // Extract form fields
+    const name = formData.get("name") as string
+    const email = formData.get("email") as string
+    const phone = formData.get("phone") as string
+    const inquiryType = formData.get("inquiryType") as string
+    const serviceLevel = formData.get("serviceLevel") as string
+    const bikeType = formData.get("bikeType") as string
+    const bikeDetails = formData.get("bikeDetails") as string
+    const pickupNeeded = formData.get("pickupNeeded") as string
+    const message = formData.get("message") as string
+
+    // Extract all images
+    const images: File[] = []
+    let imageIndex = 0
+    while (formData.has(`image_${imageIndex}`)) {
+      const image = formData.get(`image_${imageIndex}`) as File
+      if (image) {
+        images.push(image)
+      }
+      imageIndex++
+    }
 
     // Validate required fields
     if (!name || !email || !phone || !inquiryType || !message) {
@@ -53,14 +64,27 @@ Message:
 ${message}
     `.trim()
 
-    // Send email
-    await transporter.sendMail({
+    // Prepare email options
+    const mailOptions: any = {
       from: process.env.GMAIL_USER,
       to: process.env.GMAIL_USER,
       replyTo: email,
       subject: emailSubject,
       text: emailBody,
-    })
+    }
+
+    // Add image attachments if provided
+    if (images.length > 0) {
+      mailOptions.attachments = await Promise.all(
+        images.map(async (image, index) => ({
+          filename: `photo_${index + 1}_${image.name}`,
+          content: Buffer.from(await image.arrayBuffer()),
+        }))
+      )
+    }
+
+    // Send email
+    await transporter.sendMail(mailOptions)
 
     return NextResponse.json(
       { message: "Email sent successfully" },
