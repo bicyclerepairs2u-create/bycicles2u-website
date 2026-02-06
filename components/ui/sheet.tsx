@@ -72,7 +72,7 @@ function SheetContent({
         {...props}
       >
         {children}
-        <SheetPrimitive.Close className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-[var(--theme-text-muted)] hover:text-[#ff1744] hover:bg-[#ff1744]/10 transition-all focus:outline-none focus:ring-2 focus:ring-[#ff1744] disabled:pointer-events-none">
+        <SheetPrimitive.Close className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-[var(--theme-text-muted)] hover:text-[#00d4ff] hover:bg-[#00d4ff]/10 transition-all focus:outline-none focus:ring-2 focus:ring-[#00d4ff] disabled:pointer-events-none">
           <XIcon className="size-4" />
           <span className="sr-only">Close</span>
         </SheetPrimitive.Close>

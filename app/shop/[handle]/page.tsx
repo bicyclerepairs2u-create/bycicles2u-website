@@ -67,7 +67,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <Link
             href="/shop"
-            className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--theme-text-muted)] hover:text-[#ff1744] transition-colors uppercase tracking-wider font-semibold"
+            className="mb-8 inline-flex items-center gap-2 text-sm text-[var(--theme-text-muted)] hover:text-[#00d4ff] transition-colors uppercase tracking-wider font-semibold"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Shop
@@ -83,8 +83,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 }}
               >
                 {/* Corner accent */}
-                <div className="absolute top-0 right-0 w-24 h-1 bg-[#ff1744] z-10" />
-                <div className="absolute top-0 right-0 w-1 h-20 bg-[#ff1744] z-10" />
+                <div className="absolute top-0 right-0 w-24 h-1 bg-[#00d4ff] z-10" />
+                <div className="absolute top-0 right-0 w-1 h-20 bg-[#00d4ff] z-10" />
 
                 {product.featuredImage ? (
                   <Image
@@ -105,7 +105,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   {images.slice(0, 4).map((image, index) => (
                     <div
                       key={index}
-                      className="relative aspect-square overflow-hidden bg-[var(--theme-bg-secondary)] border border-[var(--theme-border)] hover:border-[#ff1744]/50 transition-colors"
+                      className="relative aspect-square overflow-hidden bg-[var(--theme-bg-secondary)] border border-[var(--theme-border)] hover:border-[#00d4ff]/50 transition-colors"
                     >
                       <Image
                         src={image.url}
@@ -122,7 +122,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {/* Product Info */}
             <div className="space-y-6">
               {product.vendor && (
-                <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#ff1744]">
+                <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#00d4ff]">
                   {product.vendor}
                 </p>
               )}
@@ -131,7 +131,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               </h1>
 
               <div className="flex items-baseline gap-4">
-                <p className="text-3xl font-bold text-[#ff1744]">
+                <p className="text-3xl font-bold text-[#00d4ff]">
                   {formatPrice(product.priceRange.minVariantPrice)}
                 </p>
                 {firstVariant?.compareAtPrice && (
@@ -143,12 +143,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
               {!product.availableForSale && (
                 <div
-                  className="bg-[#ff1744]/10 border border-[#ff1744]/30 px-4 py-3"
+                  className="bg-[#00d4ff]/10 border border-[#00d4ff]/30 px-4 py-3"
                   style={{
                     clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)',
                   }}
                 >
-                  <p className="font-bold text-[#ff1744] uppercase tracking-wider text-sm">
+                  <p className="font-bold text-[#00d4ff] uppercase tracking-wider text-sm">
                     This item is currently sold out.
                   </p>
                 </div>
@@ -166,7 +166,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   <div
                     className="prose prose-sm max-w-none text-[var(--theme-text-secondary)]
                                prose-headings:text-[var(--theme-text-primary)] prose-headings:font-bold prose-headings:uppercase
-                               prose-strong:text-[var(--theme-text-primary)] prose-a:text-[#ff1744] prose-a:no-underline hover:prose-a:underline
+                               prose-strong:text-[var(--theme-text-primary)] prose-a:text-[#00d4ff] prose-a:no-underline hover:prose-a:underline
                                dark:prose-invert"
                     dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
                   />
@@ -182,7 +182,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     {product.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-3 py-1 text-xs font-semibold text-[var(--theme-text-muted)] border border-[var(--theme-border-hover)] hover:border-[#ff1744] hover:text-[#ff1744] transition-colors uppercase tracking-wider"
+                        className="px-3 py-1 text-xs font-semibold text-[var(--theme-text-muted)] border border-[var(--theme-border-hover)] hover:border-[#00d4ff] hover:text-[#00d4ff] transition-colors uppercase tracking-wider"
                       >
                         {tag}
                       </span>

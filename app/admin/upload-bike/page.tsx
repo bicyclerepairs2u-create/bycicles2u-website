@@ -45,7 +45,7 @@ export default function UploadBikePage() {
                 <IconButton
                   sx={{
                     color: "var(--theme-text-muted)",
-                    "&:hover": { color: "#ff1744" },
+                    "&:hover": { color: "#00d4ff" },
                   }}
                 >
                   <ArrowLeft size={20} />
@@ -58,7 +58,7 @@ export default function UploadBikePage() {
                     fontWeight: 600,
                     letterSpacing: "0.3em",
                     textTransform: "uppercase",
-                    color: "#ff1744",
+                    color: "#00d4ff",
                   }}
                 >
                   Admin Panel
@@ -82,7 +82,7 @@ export default function UploadBikePage() {
               sx={{
                 color: "var(--theme-text-muted)",
                 textTransform: "none",
-                "&:hover": { color: "#ff1744" },
+                "&:hover": { color: "#00d4ff" },
               }}
             >
               Logout

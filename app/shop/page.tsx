@@ -21,7 +21,7 @@ async function ProductList() {
             href="https://www.facebook.com/marketplace/profile/61551793451820"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-[#ff1744] underline hover:text-[#d50032]"
+            className="font-medium text-[#00d4ff] underline hover:text-[#0099cc]"
           >
             Facebook Marketplace
           </a>
@@ -71,8 +71,8 @@ export default function ShopPage() {
           style={{
             backgroundImage: `repeating-linear-gradient(
               -45deg,
-              #ff1744,
-              #ff1744 1px,
+              #00d4ff,
+              #00d4ff 1px,
               transparent 1px,
               transparent 40px
             )`
@@ -87,13 +87,13 @@ export default function ShopPage() {
             Premium road & triathlon machines built for speed.
           </p>
           <div className="flex items-center gap-3 mt-6">
-            <span className="px-4 py-1.5 text-xs font-bold uppercase tracking-wider bg-[#ff1744] text-black">
+            <span className="px-4 py-1.5 text-xs font-bold uppercase tracking-wider bg-[#00d4ff] text-black">
               Road
             </span>
-            <span className="px-4 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#ff1744] text-[#ff1744]">
+            <span className="px-4 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#00d4ff] text-[#00d4ff]">
               Triathlon
             </span>
-            <span className="px-4 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#ff1744] text-[#ff1744]">
+            <span className="px-4 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#00d4ff] text-[#00d4ff]">
               Time Trial
             </span>
           </div>

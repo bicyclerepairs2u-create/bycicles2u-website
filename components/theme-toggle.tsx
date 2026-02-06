@@ -45,9 +45,9 @@ export function ThemeToggle() {
         cursor: "pointer",
         transition: "all 0.2s ease",
         "&:hover": {
-          backgroundColor: "rgba(255, 23, 68, 0.1)",
-          borderColor: "rgba(255, 23, 68, 0.3)",
-          color: "#ff1744",
+          backgroundColor: "rgba(0, 212, 255, 0.1)",
+          borderColor: "rgba(0, 212, 255, 0.3)",
+          color: "#00d4ff",
         },
       }}
     >

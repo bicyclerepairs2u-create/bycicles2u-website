@@ -108,7 +108,7 @@ export default function Navigation() {
                 textTransform: "uppercase",
                 transition: "color 0.2s ease",
                 "&:hover": {
-                  color: "#ff1744",
+                  color: "#00d4ff",
                 },
               }}
             >
@@ -138,9 +138,9 @@ export default function Navigation() {
                 cursor: "pointer",
                 transition: "all 0.2s ease",
                 "&:hover": {
-                  backgroundColor: "rgba(255, 23, 68, 0.1)",
-                  borderColor: "rgba(255, 23, 68, 0.3)",
-                  color: "#ff1744",
+                  backgroundColor: "rgba(0, 212, 255, 0.1)",
+                  borderColor: "rgba(0, 212, 255, 0.3)",
+                  color: "#00d4ff",
                 },
               }}
             >
@@ -149,7 +149,7 @@ export default function Navigation() {
                 color="primary"
                 sx={{
                   "& .MuiBadge-badge": {
-                    backgroundColor: "#ff1744",
+                    backgroundColor: "#00d4ff",
                     color: "#000",
                     fontWeight: 700,
                     fontSize: "0.7rem",
@@ -182,9 +182,9 @@ export default function Navigation() {
                 cursor: "pointer",
                 transition: "all 0.2s ease",
                 "&:hover": {
-                  backgroundColor: "rgba(255, 23, 68, 0.1)",
-                  borderColor: "rgba(255, 23, 68, 0.3)",
-                  color: "#ff1744",
+                  backgroundColor: "rgba(0, 212, 255, 0.1)",
+                  borderColor: "rgba(0, 212, 255, 0.3)",
+                  color: "#00d4ff",
                 },
               }}
             >
@@ -230,9 +230,9 @@ export default function Navigation() {
                     "100%": { opacity: 1, transform: "translateX(0)" },
                   },
                   "&:hover": {
-                    color: "#ff1744",
-                    backgroundColor: "rgba(255, 23, 68, 0.08)",
-                    borderLeftColor: "#ff1744",
+                    color: "#00d4ff",
+                    backgroundColor: "rgba(0, 212, 255, 0.08)",
+                    borderLeftColor: "#00d4ff",
                   },
                 }}
               >

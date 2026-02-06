@@ -78,7 +78,7 @@ export default function Testimonials() {
 							fontWeight: 600,
 							letterSpacing: "0.2em",
 							textTransform: "uppercase",
-							color: "#ff1744",
+							color: "#00d4ff",
 							mb: 2,
 						}}
 					>
@@ -145,7 +145,7 @@ export default function Testimonials() {
 								},
 								"&:hover": {
 									boxShadow: "0 0 30px var(--theme-accent-glow)",
-									borderColor: "#ff1744",
+									borderColor: "#00d4ff",
 									transform: "translateY(-4px)",
 								},
 							}}
@@ -158,7 +158,7 @@ export default function Testimonials() {
 									left: 0,
 									width: "100%",
 									height: "2px",
-									background: "linear-gradient(90deg, #ff1744 0%, transparent 60%)",
+									background: "linear-gradient(90deg, #00d4ff 0%, transparent 60%)",
 								}}
 							/>
 
@@ -169,7 +169,7 @@ export default function Testimonials() {
 											sx={{
 												width: 44,
 												height: 44,
-												backgroundColor: "#ff1744",
+												backgroundColor: "#00d4ff",
 												color: "#000000",
 												display: "flex",
 												alignItems: "center",
@@ -201,7 +201,7 @@ export default function Testimonials() {
 									</Box>
 									<Box sx={{ display: "flex", gap: 0.25 }}>
 										{[...Array(testimonial.rating)].map((_, i) => (
-											<i key={i} className="fi fi-sr-star" style={{ color: "#ff1744", fontSize: "0.875rem" }}></i>
+											<i key={i} className="fi fi-sr-star" style={{ color: "#00d4ff", fontSize: "0.875rem" }}></i>
 										))}
 									</Box>
 								</Box>
@@ -237,7 +237,7 @@ export default function Testimonials() {
 							gap: 2,
 						}}
 					>
-						<Box sx={{ width: "40px", height: "1px", backgroundColor: "#ff1744", opacity: 0.5 }} />
+						<Box sx={{ width: "40px", height: "1px", backgroundColor: "#00d4ff", opacity: 0.5 }} />
 						<Typography
 							sx={{
 								fontSize: "0.625rem",
@@ -249,7 +249,7 @@ export default function Testimonials() {
 						>
 							5 Star Rated
 						</Typography>
-						<Box sx={{ width: "40px", height: "1px", backgroundColor: "#ff1744", opacity: 0.5 }} />
+						<Box sx={{ width: "40px", height: "1px", backgroundColor: "#00d4ff", opacity: 0.5 }} />
 					</Box>
 				</Box>
 			</Container>

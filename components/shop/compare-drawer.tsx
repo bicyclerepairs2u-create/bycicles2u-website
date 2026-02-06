@@ -114,14 +114,14 @@ export function CompareDrawer() {
                 <SheetTitle className="text-xl font-bold uppercase tracking-tight text-[var(--theme-text-primary)]">
                   Compare Bikes
                 </SheetTitle>
-                <span className="px-2 py-0.5 text-xs font-bold bg-[#ff1744] text-black">
+                <span className="px-2 py-0.5 text-xs font-bold bg-[#00d4ff] text-black">
                   {compareItems.length} / 4
                 </span>
               </div>
               {compareItems.length > 0 && (
                 <button
                   onClick={clearCompare}
-                  className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--theme-text-muted)] hover:text-[#ff1744] transition-colors"
+                  className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--theme-text-muted)] hover:text-[#00d4ff] transition-colors"
                 >
                   <Trash2 size={14} />
                   Clear All
@@ -134,7 +134,7 @@ export function CompareDrawer() {
           <div className="flex-1 overflow-auto">
             {compareItems.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center px-6">
-                <div className="text-5xl mb-4 text-[#ff1744]">
+                <div className="text-5xl mb-4 text-[#00d4ff]">
                   <i className="fi fi-rr-scale"></i>
                 </div>
                 <h3 className="text-xl font-bold uppercase tracking-tight text-[var(--theme-text-primary)] mb-2">
@@ -158,7 +158,7 @@ export function CompareDrawer() {
                         <div className="relative">
                           <button
                             onClick={() => removeFromCompare(product.id)}
-                            className="absolute -top-1 -right-1 p-1 bg-[var(--theme-bg-tertiary)] text-[var(--theme-text-muted)] hover:text-[#ff1744] hover:bg-[#ff1744]/10 transition-colors z-10"
+                            className="absolute -top-1 -right-1 p-1 bg-[var(--theme-bg-tertiary)] text-[var(--theme-text-muted)] hover:text-[#00d4ff] hover:bg-[#00d4ff]/10 transition-colors z-10"
                             aria-label="Remove from compare"
                           >
                             <X size={16} />
@@ -178,7 +178,7 @@ export function CompareDrawer() {
                               </div>
                             )}
                           </div>
-                          <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#ff1744] mb-1">
+                          <p className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#00d4ff] mb-1">
                             {product.vendor || "Bicycles2U"}
                           </p>
                           <h3 className="text-sm font-bold text-[var(--theme-text-primary)] line-clamp-2 mb-2">
@@ -187,7 +187,7 @@ export function CompareDrawer() {
                           <Link
                             href={`/shop/${product.handle}`}
                             onClick={closeCompare}
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#ff1744] hover:underline"
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#00d4ff] hover:underline"
                           >
                             View Details <ExternalLink size={12} />
                           </Link>
@@ -200,10 +200,10 @@ export function CompareDrawer() {
                 {/* Comparison Rows */}
                 <CompareRow
                   label="Price"
-                  icon={<DollarSign size={14} className="text-[#ff1744]" />}
+                  icon={<DollarSign size={14} className="text-[#00d4ff]" />}
                   items={compareItems}
                   getValue={(product) => (
-                    <span className="font-bold text-[#ff1744]">
+                    <span className="font-bold text-[#00d4ff]">
                       {formatPrice(product.priceRange.minVariantPrice)}
                     </span>
                   )}
@@ -211,7 +211,7 @@ export function CompareDrawer() {
 
                 <CompareRow
                   label="Available"
-                  icon={<Check size={14} className="text-[#ff1744]" />}
+                  icon={<Check size={14} className="text-[#00d4ff]" />}
                   items={compareItems}
                   getValue={(product) =>
                     product.availableForSale ? (
@@ -228,35 +228,35 @@ export function CompareDrawer() {
 
                 <CompareRow
                   label="Best For"
-                  icon={<Target size={14} className="text-[#ff1744]" />}
+                  icon={<Target size={14} className="text-[#00d4ff]" />}
                   items={compareItems}
                   getValue={(product) => getRecommendedFor(product)}
                 />
 
                 <CompareRow
                   label="Frame"
-                  icon={<Weight size={14} className="text-[#ff1744]" />}
+                  icon={<Weight size={14} className="text-[#00d4ff]" />}
                   items={compareItems}
                   getValue={(product) => getFrameMaterial(product)}
                 />
 
                 <CompareRow
                   label="Weight"
-                  icon={<Zap size={14} className="text-[#ff1744]" />}
+                  icon={<Zap size={14} className="text-[#00d4ff]" />}
                   items={compareItems}
                   getValue={(product) => getWeight(product)}
                 />
 
                 <CompareRow
                   label="Type"
-                  icon={<Tag size={14} className="text-[#ff1744]" />}
+                  icon={<Tag size={14} className="text-[#00d4ff]" />}
                   items={compareItems}
                   getValue={(product) => product.productType || "Road Bike"}
                 />
 
                 <CompareRow
                   label="Brand"
-                  icon={<Tag size={14} className="text-[#ff1744]" />}
+                  icon={<Tag size={14} className="text-[#00d4ff]" />}
                   items={compareItems}
                   getValue={(product) => product.vendor || "Various"}
                 />
@@ -265,7 +265,7 @@ export function CompareDrawer() {
                 <div className="border-b border-[var(--theme-border)]">
                   <div className="flex">
                     <div className="w-32 shrink-0 bg-[var(--theme-bg-tertiary)] p-3 flex items-start gap-2">
-                      <Tag size={14} className="text-[#ff1744] mt-0.5" />
+                      <Tag size={14} className="text-[#00d4ff] mt-0.5" />
                       <span className="text-xs font-semibold uppercase tracking-wider text-[var(--theme-text-muted)]">
                         Features
                       </span>

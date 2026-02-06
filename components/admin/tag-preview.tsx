@@ -33,7 +33,7 @@ export default function TagPreview({ formData }: TagPreviewProps) {
           gap: 1,
         }}
       >
-        <i className="fi fi-rr-tags" style={{ fontSize: "1.2rem", color: "#ff1744" }}></i>
+        <i className="fi fi-rr-tags" style={{ fontSize: "1.2rem", color: "#00d4ff" }}></i>
         Generated Tags Preview
       </Typography>
 
@@ -67,8 +67,8 @@ export default function TagPreview({ formData }: TagPreviewProps) {
                     label={tag}
                     size="small"
                     sx={{
-                      backgroundColor: "rgba(255, 23, 68, 0.15)",
-                      color: "#ff1744",
+                      backgroundColor: "rgba(0, 212, 255, 0.15)",
+                      color: "#00d4ff",
                       fontWeight: 500,
                       fontSize: "0.75rem",
                       borderRadius: 0,

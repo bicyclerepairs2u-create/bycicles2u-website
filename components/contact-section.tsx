@@ -98,16 +98,16 @@ export default function ContactSection() {
         borderColor: "var(--theme-border)",
       },
       "&:hover fieldset": {
-        borderColor: "#ff1744",
+        borderColor: "#00d4ff",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "#ff1744",
+        borderColor: "#00d4ff",
       },
     },
     "& .MuiInputLabel-root": {
       color: "var(--theme-text-muted)",
       "&.Mui-focused": {
-        color: "#ff1744",
+        color: "#00d4ff",
       },
     },
     "& .MuiSelect-icon": {
@@ -136,8 +136,8 @@ export default function ContactSection() {
           height: "100%",
           backgroundImage: `repeating-linear-gradient(
             -45deg,
-            #ff1744,
-            #ff1744 1px,
+            #00d4ff,
+            #00d4ff 1px,
             transparent 1px,
             transparent 50px
           )`,
@@ -155,7 +155,7 @@ export default function ContactSection() {
               fontWeight: 600,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "#ff1744",
+              color: "#00d4ff",
               mb: 2,
             }}
           >
@@ -225,7 +225,7 @@ export default function ContactSection() {
                   right: 0,
                   width: "60px",
                   height: "2px",
-                  backgroundColor: "#ff1744",
+                  backgroundColor: "#00d4ff",
                 }}
               />
               <Box
@@ -235,7 +235,7 @@ export default function ContactSection() {
                   right: 0,
                   width: "2px",
                   height: "40px",
-                  backgroundColor: "#ff1744",
+                  backgroundColor: "#00d4ff",
                 }}
               />
 
@@ -270,12 +270,12 @@ export default function ContactSection() {
                               "& .MuiMenuItem-root": {
                                 color: "var(--theme-text-secondary)",
                                 "&:hover": {
-                                  backgroundColor: "rgba(255, 23, 68, 0.1)",
+                                  backgroundColor: "rgba(0, 212, 255, 0.1)",
                                 },
                                 "&.Mui-selected": {
-                                  backgroundColor: "rgba(255, 23, 68, 0.15)",
+                                  backgroundColor: "rgba(0, 212, 255, 0.15)",
                                   "&:hover": {
-                                    backgroundColor: "rgba(255, 23, 68, 0.2)",
+                                    backgroundColor: "rgba(0, 212, 255, 0.2)",
                                   },
                                 },
                               },
@@ -309,10 +309,10 @@ export default function ContactSection() {
                               "& .MuiMenuItem-root": {
                                 color: "var(--theme-text-secondary)",
                                 "&:hover": {
-                                  backgroundColor: "rgba(255, 23, 68, 0.1)",
+                                  backgroundColor: "rgba(0, 212, 255, 0.1)",
                                 },
                                 "&.Mui-selected": {
-                                  backgroundColor: "rgba(255, 23, 68, 0.15)",
+                                  backgroundColor: "rgba(0, 212, 255, 0.15)",
                                 },
                               },
                             },
@@ -346,10 +346,10 @@ export default function ContactSection() {
                                 "& .MuiMenuItem-root": {
                                   color: "var(--theme-text-secondary)",
                                   "&:hover": {
-                                    backgroundColor: "rgba(255, 23, 68, 0.1)",
+                                    backgroundColor: "rgba(0, 212, 255, 0.1)",
                                   },
                                   "&.Mui-selected": {
-                                    backgroundColor: "rgba(255, 23, 68, 0.15)",
+                                    backgroundColor: "rgba(0, 212, 255, 0.15)",
                                   },
                                 },
                               },
@@ -395,10 +395,10 @@ export default function ContactSection() {
                               "& .MuiMenuItem-root": {
                                 color: "var(--theme-text-secondary)",
                                 "&:hover": {
-                                  backgroundColor: "rgba(255, 23, 68, 0.1)",
+                                  backgroundColor: "rgba(0, 212, 255, 0.1)",
                                 },
                                 "&.Mui-selected": {
-                                  backgroundColor: "rgba(255, 23, 68, 0.15)",
+                                  backgroundColor: "rgba(0, 212, 255, 0.15)",
                                 },
                               },
                             },
@@ -488,7 +488,7 @@ export default function ContactSection() {
                     fullWidth
                     disabled={submitStatus === "loading" || submitStatus === "success"}
                     sx={{
-                      backgroundColor: "#ff1744",
+                      backgroundColor: "#00d4ff",
                       color: "#000000",
                       fontWeight: 700,
                       fontSize: "0.875rem",
@@ -496,14 +496,14 @@ export default function ContactSection() {
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                       borderRadius: 0,
-                      boxShadow: "0 4px 20px rgba(255, 23, 68, 0.3)",
+                      boxShadow: "0 4px 20px rgba(0, 212, 255, 0.3)",
                       "&:hover": {
-                        backgroundColor: "#d50032",
-                        boxShadow: "0 6px 30px rgba(255, 23, 68, 0.4)",
+                        backgroundColor: "#0099cc",
+                        boxShadow: "0 6px 30px rgba(0, 212, 255, 0.4)",
                         transform: "translateY(-2px)",
                       },
                       "&.Mui-disabled": {
-                        backgroundColor: "rgba(255, 23, 68, 0.5)",
+                        backgroundColor: "rgba(0, 212, 255, 0.5)",
                         color: "#000000",
                       },
                       transition: "all 0.3s ease",
@@ -534,8 +534,8 @@ export default function ContactSection() {
                 sx={{
                   p: 3,
                   borderRadius: 0,
-                  backgroundColor: "rgba(255, 23, 68, 0.08)",
-                  border: "1px solid rgba(255, 23, 68, 0.3)",
+                  backgroundColor: "rgba(0, 212, 255, 0.08)",
+                  border: "1px solid rgba(0, 212, 255, 0.3)",
                 }}
               >
                 <Typography
@@ -549,7 +549,7 @@ export default function ContactSection() {
                     fontSize: "0.875rem",
                   }}
                 >
-                  <i className="fi fi-rr-info" style={{ color: "#ff1744" }}></i>
+                  <i className="fi fi-rr-info" style={{ color: "#00d4ff" }}></i>
                   Quick Response
                 </Typography>
                 <Typography sx={{ color: "var(--theme-text-muted)", lineHeight: 1.7, fontSize: "0.875rem" }}>
@@ -576,14 +576,14 @@ export default function ContactSection() {
                     left: 0,
                     width: "40px",
                     height: "2px",
-                    backgroundColor: "#ff1744",
+                    backgroundColor: "#00d4ff",
                   }}
                 />
 
                 <Stack spacing={4}>
                   <Box>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
-                      <i className="fi fi-rr-envelope" style={{ color: "#ff1744", fontSize: "1.1rem" }}></i>
+                      <i className="fi fi-rr-envelope" style={{ color: "#00d4ff", fontSize: "1.1rem" }}></i>
                       <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         Email
                       </Typography>
@@ -596,7 +596,7 @@ export default function ContactSection() {
                         textDecoration: "none",
                         transition: "color 0.2s ease",
                         "&:hover": {
-                          color: "#ff1744",
+                          color: "#00d4ff",
                         },
                       }}
                     >
@@ -606,7 +606,7 @@ export default function ContactSection() {
 
                   <Box>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
-                      <i className="fi fi-rr-phone-call" style={{ color: "#ff1744", fontSize: "1.1rem" }}></i>
+                      <i className="fi fi-rr-phone-call" style={{ color: "#00d4ff", fontSize: "1.1rem" }}></i>
                       <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         Phone
                       </Typography>
@@ -619,7 +619,7 @@ export default function ContactSection() {
                         textDecoration: "none",
                         transition: "color 0.2s ease",
                         "&:hover": {
-                          color: "#ff1744",
+                          color: "#00d4ff",
                         },
                       }}
                     >
@@ -629,7 +629,7 @@ export default function ContactSection() {
 
                   <Box>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
-                      <i className="fi fi-rr-marker" style={{ color: "#ff1744", fontSize: "1.1rem" }}></i>
+                      <i className="fi fi-rr-marker" style={{ color: "#00d4ff", fontSize: "1.1rem" }}></i>
                       <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         Location
                       </Typography>
@@ -643,7 +643,7 @@ export default function ContactSection() {
 
                   <Box>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
-                      <i className="fi fi-rr-clock" style={{ color: "#ff1744", fontSize: "1.1rem" }}></i>
+                      <i className="fi fi-rr-clock" style={{ color: "#00d4ff", fontSize: "1.1rem" }}></i>
                       <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         Hours
                       </Typography>
@@ -660,7 +660,7 @@ export default function ContactSection() {
 
                   <Box>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 1 }}>
-                      <i className="fi fi-brands-facebook" style={{ color: "#ff1744", fontSize: "1.1rem" }}></i>
+                      <i className="fi fi-brands-facebook" style={{ color: "#00d4ff", fontSize: "1.1rem" }}></i>
                       <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                         Facebook
                       </Typography>
@@ -675,7 +675,7 @@ export default function ContactSection() {
                         textDecoration: "none",
                         transition: "color 0.2s ease",
                         "&:hover": {
-                          color: "#ff1744",
+                          color: "#00d4ff",
                         },
                       }}
                     >
@@ -708,7 +708,7 @@ export default function ContactSection() {
                     letterSpacing: "0.05em",
                   }}
                 >
-                  <i className="fi fi-rr-tool-box" style={{ color: "#ff1744" }}></i>
+                  <i className="fi fi-rr-tool-box" style={{ color: "#00d4ff" }}></i>
                   Our Services
                 </Typography>
                 <Stack spacing={2}>
@@ -721,7 +721,7 @@ export default function ContactSection() {
                         gap: 2,
                       }}
                     >
-                      <Box sx={{ width: "4px", height: "4px", backgroundColor: "#ff1744" }} />
+                      <Box sx={{ width: "4px", height: "4px", backgroundColor: "#00d4ff" }} />
                       <Typography sx={{ color: "var(--theme-text-muted)", fontSize: "0.875rem" }}>
                         {service}
                       </Typography>

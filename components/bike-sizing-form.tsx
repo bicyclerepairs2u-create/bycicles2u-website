@@ -147,16 +147,16 @@ export default function BikeSizingForm() {
         borderColor: "var(--theme-border)",
       },
       "&:hover fieldset": {
-        borderColor: "#ff1744",
+        borderColor: "#00d4ff",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "#ff1744",
+        borderColor: "#00d4ff",
       },
     },
     "& .MuiInputLabel-root": {
       color: "var(--theme-text-muted)",
       "&.Mui-focused": {
-        color: "#ff1744",
+        color: "#00d4ff",
       },
     },
     "& .MuiFormHelperText-root": {
@@ -187,8 +187,8 @@ export default function BikeSizingForm() {
             height: "100%",
             backgroundImage: `repeating-linear-gradient(
               -45deg,
-              #ff1744,
-              #ff1744 1px,
+              #00d4ff,
+              #00d4ff 1px,
               transparent 1px,
               transparent 50px
             )`,
@@ -206,7 +206,7 @@ export default function BikeSizingForm() {
                 fontWeight: 600,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "#ff1744",
+                color: "#00d4ff",
                 mb: 2,
               }}
             >
@@ -259,8 +259,8 @@ export default function BikeSizingForm() {
               }}
             >
               {/* Corner accent */}
-              <Box sx={{ position: "absolute", top: 0, right: 0, width: "60px", height: "2px", backgroundColor: "#ff1744" }} />
-              <Box sx={{ position: "absolute", top: 0, right: 0, width: "2px", height: "40px", backgroundColor: "#ff1744" }} />
+              <Box sx={{ position: "absolute", top: 0, right: 0, width: "60px", height: "2px", backgroundColor: "#00d4ff" }} />
+              <Box sx={{ position: "absolute", top: 0, right: 0, width: "2px", height: "40px", backgroundColor: "#00d4ff" }} />
 
               <Box sx={{ mb: 3, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 2 }}>
                 <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
@@ -284,9 +284,9 @@ export default function BikeSizingForm() {
                       borderRadius: 0,
                     },
                     "& .Mui-selected": {
-                      backgroundColor: "#ff1744 !important",
+                      backgroundColor: "#00d4ff !important",
                       color: "#000000 !important",
-                      borderColor: "#ff1744 !important",
+                      borderColor: "#00d4ff !important",
                     },
                   }}
                 >
@@ -356,7 +356,7 @@ export default function BikeSizingForm() {
                   onClick={calculateSize}
                   disabled={!formData.height || !formData.inseam}
                   sx={{
-                    backgroundColor: "#ff1744",
+                    backgroundColor: "#00d4ff",
                     color: "#000000",
                     fontWeight: 700,
                     fontSize: "0.875rem",
@@ -365,10 +365,10 @@ export default function BikeSizingForm() {
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
                     borderRadius: 0,
-                    boxShadow: "0 4px 20px rgba(255, 23, 68, 0.3)",
+                    boxShadow: "0 4px 20px rgba(0, 212, 255, 0.3)",
                     "&:hover": {
-                      backgroundColor: "#d50032",
-                      boxShadow: "0 6px 30px rgba(255, 23, 68, 0.4)",
+                      backgroundColor: "#0099cc",
+                      boxShadow: "0 6px 30px rgba(0, 212, 255, 0.4)",
                     },
                     "&:disabled": {
                       backgroundColor: "var(--theme-border-hover)",
@@ -402,7 +402,7 @@ export default function BikeSizingForm() {
                       },
                     }}
                   >
-                    <i className="fi fi-rr-info" style={{ color: "#ff1744", fontSize: "1rem" }}></i>
+                    <i className="fi fi-rr-info" style={{ color: "#00d4ff", fontSize: "1rem" }}></i>
                     <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>How to Measure</Typography>
                   </AccordionSummary>
                   <AccordionDetails sx={{ borderTop: "1px solid var(--theme-border)" }}>
@@ -438,15 +438,15 @@ export default function BikeSizingForm() {
                   sx={{
                     p: { xs: 3, md: 4 },
                     borderRadius: 0,
-                    backgroundColor: "rgba(255, 23, 68, 0.08)",
-                    border: "2px solid #ff1744",
+                    backgroundColor: "rgba(0, 212, 255, 0.08)",
+                    border: "2px solid #00d4ff",
                     mb: 4,
                   }}
                 >
                   <Box sx={{ textAlign: "center", mb: 3 }}>
                     <i
                       className="fi fi-rr-check-circle"
-                      style={{ color: "#ff1744", fontSize: "2.5rem", marginBottom: "16px", display: "block" }}
+                      style={{ color: "#00d4ff", fontSize: "2.5rem", marginBottom: "16px", display: "block" }}
                     ></i>
                     <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", mb: 1, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
                       Your Recommended Frame Size
@@ -454,7 +454,7 @@ export default function BikeSizingForm() {
                     <Typography
                       sx={{
                         fontWeight: 900,
-                        color: "#ff1744",
+                        color: "#00d4ff",
                         fontSize: { xs: "3rem", md: "4rem" },
                         letterSpacing: "-0.02em",
                       }}
@@ -466,17 +466,17 @@ export default function BikeSizingForm() {
                     </Typography>
                   </Box>
 
-                  <Divider sx={{ my: 3, borderColor: "rgba(255, 23, 68, 0.3)" }} />
+                  <Divider sx={{ my: 3, borderColor: "rgba(0, 212, 255, 0.3)" }} />
 
                   <Alert
                     severity="info"
                     icon={<i className="fi fi-rr-bulb" style={{ fontSize: "1.25rem" }}></i>}
                     sx={{
-                      backgroundColor: "rgba(255, 23, 68, 0.1)",
-                      border: "1px solid rgba(255, 23, 68, 0.3)",
+                      backgroundColor: "rgba(0, 212, 255, 0.1)",
+                      border: "1px solid rgba(0, 212, 255, 0.3)",
                       borderRadius: 0,
                       "& .MuiAlert-icon": {
-                        color: "#ff1744",
+                        color: "#00d4ff",
                       },
                     }}
                   >
@@ -491,7 +491,7 @@ export default function BikeSizingForm() {
                       size="large"
                       href="#contact"
                       sx={{
-                        backgroundColor: "#ff1744",
+                        backgroundColor: "#00d4ff",
                         color: "#000000",
                         fontWeight: 700,
                         fontSize: "0.875rem",
@@ -501,7 +501,7 @@ export default function BikeSizingForm() {
                         letterSpacing: "0.05em",
                         borderRadius: 0,
                         "&:hover": {
-                          backgroundColor: "#d50032",
+                          backgroundColor: "#0099cc",
                         },
                       }}
                       onClick={(e) => {
@@ -526,7 +526,7 @@ export default function BikeSizingForm() {
                 }}
               >
                 <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", mb: 3, display: "flex", alignItems: "center", gap: 1.5, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                  <i className="fi fi-rr-chart-histogram" style={{ color: "#ff1744" }}></i>
+                  <i className="fi fi-rr-chart-histogram" style={{ color: "#00d4ff" }}></i>
                   Standard Road Bike Size Chart
                 </Typography>
 
@@ -550,13 +550,13 @@ export default function BikeSizingForm() {
                               backgroundColor: "var(--theme-bg-primary)",
                             },
                             "&:hover": {
-                              backgroundColor: "rgba(255, 23, 68, 0.05)",
+                              backgroundColor: "rgba(0, 212, 255, 0.05)",
                             },
                           }}
                         >
                           <TableCell sx={{ color: "var(--theme-text-muted)", borderColor: "var(--theme-border)", fontSize: "0.875rem" }}>{row.height}</TableCell>
                           <TableCell sx={{ color: "var(--theme-text-muted)", borderColor: "var(--theme-border)", fontSize: "0.875rem" }}>{row.inseam}</TableCell>
-                          <TableCell sx={{ fontWeight: 700, color: "#ff1744", borderColor: "var(--theme-border)", fontSize: "0.875rem" }}>{row.frameSize}</TableCell>
+                          <TableCell sx={{ fontWeight: 700, color: "#00d4ff", borderColor: "var(--theme-border)", fontSize: "0.875rem" }}>{row.frameSize}</TableCell>
                           <TableCell sx={{ color: "var(--theme-text-secondary)", borderColor: "var(--theme-border)", fontSize: "0.875rem" }}>{row.size}</TableCell>
                         </TableRow>
                       ))}
@@ -584,13 +584,13 @@ export default function BikeSizingForm() {
                 sx={{
                   p: 3,
                   borderRadius: 0,
-                  backgroundColor: "rgba(255, 23, 68, 0.08)",
-                  border: "1px solid rgba(255, 23, 68, 0.2)",
+                  backgroundColor: "rgba(0, 212, 255, 0.08)",
+                  border: "1px solid rgba(0, 212, 255, 0.2)",
                   mt: 3,
                 }}
               >
                 <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", mb: 2, display: "flex", alignItems: "center", gap: 1.5, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                  <i className="fi fi-rr-exclamation" style={{ color: "#ff1744" }}></i>
+                  <i className="fi fi-rr-exclamation" style={{ color: "#00d4ff" }}></i>
                   Important Notes
                 </Typography>
                 <Stack spacing={2}>
@@ -601,7 +601,7 @@ export default function BikeSizingForm() {
                     "Contact us for personalized sizing advice based on the specific bike you're interested in.",
                   ].map((note, index) => (
                     <Box key={index} sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
-                      <Box sx={{ width: "4px", height: "4px", backgroundColor: "#ff1744", mt: 1.5, flexShrink: 0 }} />
+                      <Box sx={{ width: "4px", height: "4px", backgroundColor: "#00d4ff", mt: 1.5, flexShrink: 0 }} />
                       <Typography sx={{ color: "var(--theme-text-muted)", lineHeight: 1.6, fontSize: "0.875rem" }}>
                         {note}
                       </Typography>

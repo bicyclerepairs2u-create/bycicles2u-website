@@ -47,16 +47,16 @@ export default function SellBikeForm() {
         borderColor: "var(--theme-border)",
       },
       "&:hover fieldset": {
-        borderColor: "#ff1744",
+        borderColor: "#00d4ff",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "#ff1744",
+        borderColor: "#00d4ff",
       },
     },
     "& .MuiInputLabel-root": {
       color: "var(--theme-text-muted)",
       "&.Mui-focused": {
-        color: "#ff1744",
+        color: "#00d4ff",
       },
     },
     "& .MuiFormHelperText-root": {
@@ -267,8 +267,8 @@ export default function SellBikeForm() {
             sx={{
               p: 3,
               mb: 4,
-              backgroundColor: "rgba(255, 23, 68, 0.08)",
-              border: "1px solid rgba(255, 23, 68, 0.3)",
+              backgroundColor: "rgba(0, 212, 255, 0.08)",
+              border: "1px solid rgba(0, 212, 255, 0.3)",
               borderRadius: 0,
             }}
           >
@@ -283,7 +283,7 @@ export default function SellBikeForm() {
                 gap: 1,
               }}
             >
-              <i className="fi fi-rr-info" style={{ fontSize: "1.5rem", color: "#ff1744" }}></i>
+              <i className="fi fi-rr-info" style={{ fontSize: "1.5rem", color: "#00d4ff" }}></i>
               Submission Guidelines
             </Typography>
             <Stack spacing={1}>
@@ -439,12 +439,12 @@ export default function SellBikeForm() {
                           "& .MuiMenuItem-root": {
                             color: "var(--theme-text-secondary)",
                             "&:hover": {
-                              backgroundColor: "rgba(255, 23, 68, 0.1)",
+                              backgroundColor: "rgba(0, 212, 255, 0.1)",
                             },
                             "&.Mui-selected": {
-                              backgroundColor: "rgba(255, 23, 68, 0.15)",
+                              backgroundColor: "rgba(0, 212, 255, 0.15)",
                               "&:hover": {
-                                backgroundColor: "rgba(255, 23, 68, 0.2)",
+                                backgroundColor: "rgba(0, 212, 255, 0.2)",
                               },
                             },
                           },
@@ -488,16 +488,16 @@ export default function SellBikeForm() {
                     variant="outlined"
                     component="label"
                     sx={{
-                      borderColor: errors.image ? "#d32f2f" : "#ff1744",
-                      color: errors.image ? "#d32f2f" : "#ff1744",
+                      borderColor: errors.image ? "#d32f2f" : "#00d4ff",
+                      color: errors.image ? "#d32f2f" : "#00d4ff",
                       fontWeight: 600,
                       textTransform: "none",
                       borderWidth: "2px",
                       borderRadius: 0,
                       "&:hover": {
                         borderWidth: "2px",
-                        borderColor: errors.image ? "#d32f2f" : "#d50032",
-                        backgroundColor: "rgba(255, 23, 68, 0.05)",
+                        borderColor: errors.image ? "#d32f2f" : "#0099cc",
+                        backgroundColor: "rgba(0, 212, 255, 0.05)",
                       },
                     }}
                   >
@@ -564,7 +564,7 @@ export default function SellBikeForm() {
                   size="large"
                   disabled={submitStatus === "loading" || submitStatus === "success"}
                   sx={{
-                    backgroundColor: "#ff1744",
+                    backgroundColor: "#00d4ff",
                     color: "#000000",
                     fontWeight: 700,
                     fontSize: "0.875rem",
@@ -573,13 +573,13 @@ export default function SellBikeForm() {
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
                     borderRadius: 0,
-                    boxShadow: "0 4px 20px rgba(255, 23, 68, 0.3)",
+                    boxShadow: "0 4px 20px rgba(0, 212, 255, 0.3)",
                     "&:hover": {
-                      backgroundColor: "#d50032",
-                      boxShadow: "0 6px 30px rgba(255, 23, 68, 0.4)",
+                      backgroundColor: "#0099cc",
+                      boxShadow: "0 6px 30px rgba(0, 212, 255, 0.4)",
                     },
                     "&.Mui-disabled": {
-                      backgroundColor: "rgba(255, 23, 68, 0.5)",
+                      backgroundColor: "rgba(0, 212, 255, 0.5)",
                       color: "#000000",
                     },
                   }}
@@ -607,11 +607,11 @@ export default function SellBikeForm() {
           <Box sx={{ mt: 4, textAlign: "center" }}>
             <Typography variant="body2" sx={{ color: "var(--theme-text-muted)", mb: 1 }}>
               Questions? Contact us at{" "}
-              <Link href="mailto:bicyclerepairs2u@gmail.com" sx={{ color: "#ff1744" }}>
+              <Link href="mailto:bicyclerepairs2u@gmail.com" sx={{ color: "#00d4ff" }}>
                 bicyclerepairs2u@gmail.com
               </Link>
               {" or call "}
-              <Link href="tel:+61402880242" sx={{ color: "#ff1744" }}>
+              <Link href="tel:+61402880242" sx={{ color: "#00d4ff" }}>
                 0402 880 242
               </Link>
             </Typography>

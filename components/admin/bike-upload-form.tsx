@@ -75,16 +75,16 @@ export default function BikeUploadForm() {
         borderColor: "var(--theme-border)",
       },
       "&:hover fieldset": {
-        borderColor: "#ff1744",
+        borderColor: "#00d4ff",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "#ff1744",
+        borderColor: "#00d4ff",
       },
     },
     "& .MuiInputLabel-root": {
       color: "var(--theme-text-muted)",
       "&.Mui-focused": {
-        color: "#ff1744",
+        color: "#00d4ff",
       },
     },
     "& .MuiFormHelperText-root": {
@@ -108,12 +108,12 @@ export default function BikeUploadForm() {
         "& .MuiAutocomplete-option": {
           color: "var(--theme-text-secondary)",
           "&:hover": {
-            backgroundColor: "rgba(255, 23, 68, 0.1)",
+            backgroundColor: "rgba(0, 212, 255, 0.1)",
           },
           "&[aria-selected='true']": {
-            backgroundColor: "rgba(255, 23, 68, 0.15)",
+            backgroundColor: "rgba(0, 212, 255, 0.15)",
             "&:hover": {
-              backgroundColor: "rgba(255, 23, 68, 0.2)",
+              backgroundColor: "rgba(0, 212, 255, 0.2)",
             },
           },
         },
@@ -263,7 +263,7 @@ export default function BikeUploadForm() {
               variant="h6"
               sx={{ fontWeight: 600, color: "var(--theme-text-primary)", mb: 3 }}
             >
-              <i className="fi fi-rr-info" style={{ marginRight: 8, color: "#ff1744" }}></i>
+              <i className="fi fi-rr-info" style={{ marginRight: 8, color: "#00d4ff" }}></i>
               Basic Information
             </Typography>
 
@@ -357,7 +357,7 @@ export default function BikeUploadForm() {
               variant="h6"
               sx={{ fontWeight: 600, color: "var(--theme-text-primary)", mb: 3 }}
             >
-              <i className="fi fi-rr-settings" style={{ marginRight: 8, color: "#ff1744" }}></i>
+              <i className="fi fi-rr-settings" style={{ marginRight: 8, color: "#00d4ff" }}></i>
               Bike Characteristics
             </Typography>
 
@@ -491,7 +491,7 @@ export default function BikeUploadForm() {
                           disabled={isSubmitting}
                           sx={{
                             color: "var(--theme-text-muted)",
-                            "&.Mui-checked": { color: "#ff1744" },
+                            "&.Mui-checked": { color: "#00d4ff" },
                           }}
                         />
                       }
@@ -520,7 +520,7 @@ export default function BikeUploadForm() {
                           disabled={isSubmitting}
                           sx={{
                             color: "var(--theme-text-muted)",
-                            "&.Mui-checked": { color: "#ff1744" },
+                            "&.Mui-checked": { color: "#00d4ff" },
                           }}
                         />
                       }
@@ -558,7 +558,7 @@ export default function BikeUploadForm() {
               variant="h6"
               sx={{ fontWeight: 600, color: "var(--theme-text-primary)", mb: 3 }}
             >
-              <i className="fi fi-rr-document" style={{ marginRight: 8, color: "#ff1744" }}></i>
+              <i className="fi fi-rr-document" style={{ marginRight: 8, color: "#00d4ff" }}></i>
               Description
             </Typography>
 
@@ -590,7 +590,7 @@ export default function BikeUploadForm() {
               variant="h6"
               sx={{ fontWeight: 600, color: "var(--theme-text-primary)", mb: 3 }}
             >
-              <i className="fi fi-rr-picture" style={{ marginRight: 8, color: "#ff1744" }}></i>
+              <i className="fi fi-rr-picture" style={{ marginRight: 8, color: "#00d4ff" }}></i>
               Product Images
             </Typography>
 
@@ -679,7 +679,7 @@ export default function BikeUploadForm() {
                 fullWidth
                 disabled={isSubmitting}
                 sx={{
-                  backgroundColor: "#ff1744",
+                  backgroundColor: "#00d4ff",
                   color: "#000000",
                   fontWeight: 700,
                   fontSize: "0.875rem",
@@ -687,13 +687,13 @@ export default function BikeUploadForm() {
                   textTransform: "uppercase",
                   letterSpacing: "0.05em",
                   borderRadius: 0,
-                  boxShadow: "0 4px 20px rgba(255, 23, 68, 0.3)",
+                  boxShadow: "0 4px 20px rgba(0, 212, 255, 0.3)",
                   "&:hover": {
-                    backgroundColor: "#d50032",
-                    boxShadow: "0 6px 30px rgba(255, 23, 68, 0.4)",
+                    backgroundColor: "#0099cc",
+                    boxShadow: "0 6px 30px rgba(0, 212, 255, 0.4)",
                   },
                   "&.Mui-disabled": {
-                    backgroundColor: "rgba(255, 23, 68, 0.5)",
+                    backgroundColor: "rgba(0, 212, 255, 0.5)",
                     color: "#000000",
                   },
                 }}

@@ -108,21 +108,21 @@ export default function ImageUpload({
         onDragLeave={() => setDragOver(false)}
         onDrop={handleDrop}
         sx={{
-          border: `2px dashed ${dragOver ? "#ff1744" : "var(--theme-border)"}`,
+          border: `2px dashed ${dragOver ? "#00d4ff" : "var(--theme-border)"}`,
           borderRadius: 0,
           p: 4,
           textAlign: "center",
           backgroundColor: dragOver
-            ? "rgba(255, 23, 68, 0.05)"
+            ? "rgba(0, 212, 255, 0.05)"
             : "var(--theme-bg-primary)",
           transition: "all 0.2s ease",
           cursor: disabled ? "not-allowed" : "pointer",
           opacity: disabled ? 0.6 : 1,
           "&:hover": {
-            borderColor: disabled ? "var(--theme-border)" : "#ff1744",
+            borderColor: disabled ? "var(--theme-border)" : "#00d4ff",
             backgroundColor: disabled
               ? "var(--theme-bg-primary)"
-              : "rgba(255, 23, 68, 0.05)",
+              : "rgba(0, 212, 255, 0.05)",
           },
         }}
         onClick={() => {
@@ -144,7 +144,7 @@ export default function ImageUpload({
         <Upload
           size={40}
           style={{
-            color: dragOver ? "#ff1744" : "var(--theme-text-muted)",
+            color: dragOver ? "#00d4ff" : "var(--theme-text-muted)",
             marginBottom: 16,
           }}
         />
@@ -204,7 +204,7 @@ export default function ImageUpload({
                   position: "relative",
                   aspectRatio: "1",
                   backgroundColor: "var(--theme-bg-secondary)",
-                  border: index === 0 ? "2px solid #ff1744" : "1px solid var(--theme-border)",
+                  border: index === 0 ? "2px solid #00d4ff" : "1px solid var(--theme-border)",
                   borderRadius: 0,
                   overflow: "hidden",
                 }}
@@ -228,7 +228,7 @@ export default function ImageUpload({
                       height: "100%",
                     }}
                   >
-                    <CircularProgress size={24} sx={{ color: "#ff1744" }} />
+                    <CircularProgress size={24} sx={{ color: "#00d4ff" }} />
                   </Box>
                 )}
 
@@ -239,7 +239,7 @@ export default function ImageUpload({
                       position: "absolute",
                       top: 0,
                       left: 0,
-                      backgroundColor: "#ff1744",
+                      backgroundColor: "#00d4ff",
                       color: "#000",
                       px: 1,
                       py: 0.25,
@@ -302,7 +302,7 @@ export default function ImageUpload({
                           height: 20,
                           fontSize: "0.7rem",
                           "&:hover": {
-                            backgroundColor: "rgba(255, 23, 68, 0.8)",
+                            backgroundColor: "rgba(0, 212, 255, 0.8)",
                           },
                         }}
                       >
@@ -324,7 +324,7 @@ export default function ImageUpload({
                           height: 20,
                           fontSize: "0.7rem",
                           "&:hover": {
-                            backgroundColor: "rgba(255, 23, 68, 0.8)",
+                            backgroundColor: "rgba(0, 212, 255, 0.8)",
                           },
                         }}
                       >

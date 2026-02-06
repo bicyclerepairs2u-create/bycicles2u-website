@@ -60,8 +60,8 @@ export default function HeroSection() {
           height: "100%",
           backgroundImage: `repeating-linear-gradient(
             -45deg,
-            #ff1744,
-            #ff1744 1px,
+            #00d4ff,
+            #00d4ff 1px,
             transparent 1px,
             transparent 40px
           )`,
@@ -78,7 +78,7 @@ export default function HeroSection() {
           left: 0,
           width: "30%",
           height: "3px",
-          background: "linear-gradient(90deg, #ff1744 0%, transparent 100%)",
+          background: "linear-gradient(90deg, #00d4ff 0%, transparent 100%)",
           zIndex: 3,
           animation: "slideInLeft 1s ease-out forwards",
           "@keyframes slideInLeft": {
@@ -104,7 +104,7 @@ export default function HeroSection() {
               fontWeight: 600,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "#ff1744",
+              color: "#00d4ff",
               mb: 2,
               animation: "fadeInUp 0.6s ease-out forwards",
               animationDelay: "0.2s",
@@ -138,7 +138,7 @@ export default function HeroSection() {
             <Box
               component="span"
               sx={{
-                color: "#ff1744",
+                color: "#00d4ff",
                 display: "inline",
               }}
             >
@@ -189,13 +189,13 @@ export default function HeroSection() {
                   fontWeight: 700,
                   textTransform: "uppercase",
                   letterSpacing: "0.05em",
-                  border: "1px solid #ff1744",
-                  color: "#ff1744",
+                  border: "1px solid #00d4ff",
+                  color: "#00d4ff",
                   backgroundColor: "rgba(0,0,0,0.3)",
                   transition: "all 0.2s ease",
                   cursor: "pointer",
                   "&:hover": {
-                    backgroundColor: "#ff1744",
+                    backgroundColor: "#00d4ff",
                     color: "#000000",
                   },
                 }}
@@ -220,7 +220,7 @@ export default function HeroSection() {
               size="large"
               onClick={() => handleScroll("#bikes")}
               sx={{
-                backgroundColor: "#ff1744",
+                backgroundColor: "#00d4ff",
                 color: "#000000",
                 fontWeight: 700,
                 fontSize: "0.875rem",
@@ -229,10 +229,10 @@ export default function HeroSection() {
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
                 borderRadius: 0,
-                boxShadow: "0 4px 20px rgba(255, 23, 68, 0.4)",
+                boxShadow: "0 4px 20px rgba(0, 212, 255, 0.4)",
                 "&:hover": {
-                  backgroundColor: "#d50032",
-                  boxShadow: "0 6px 30px rgba(255, 23, 68, 0.5)",
+                  backgroundColor: "#0099cc",
+                  boxShadow: "0 6px 30px rgba(0, 212, 255, 0.5)",
                   transform: "translateY(-2px)",
                 },
                 transition: "all 0.3s ease",
@@ -246,8 +246,8 @@ export default function HeroSection() {
               size="large"
               onClick={() => handleScroll("#contact")}
               sx={{
-                borderColor: "#ff1744",
-                color: "#ff1744",
+                borderColor: "#00d4ff",
+                color: "#00d4ff",
                 fontWeight: 700,
                 fontSize: "0.875rem",
                 px: 4,
@@ -258,8 +258,8 @@ export default function HeroSection() {
                 borderWidth: "1px",
                 backgroundColor: "rgba(0,0,0,0.2)",
                 "&:hover": {
-                  borderColor: "#ff1744",
-                  backgroundColor: "#ff1744",
+                  borderColor: "#00d4ff",
+                  backgroundColor: "#00d4ff",
                   color: "#000000",
                   borderWidth: "1px",
                   transform: "translateY(-2px)",
@@ -287,8 +287,8 @@ export default function HeroSection() {
                 borderWidth: "1px",
                 backgroundColor: "rgba(0,0,0,0.2)",
                 "&:hover": {
-                  borderColor: "#ff1744",
-                  color: "#ff1744",
+                  borderColor: "#00d4ff",
+                  color: "#00d4ff",
                   backgroundColor: "rgba(0,0,0,0.3)",
                   borderWidth: "1px",
                   transform: "translateY(-2px)",

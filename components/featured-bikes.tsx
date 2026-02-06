@@ -81,7 +81,7 @@ function FeaturedBikeCard({ product, index }: { product: FeaturedProduct; index:
             right: 0,
             width: "60px",
             height: "3px",
-            backgroundColor: "#ff1744",
+            backgroundColor: "#00d4ff",
             zIndex: 20,
           }}
         />
@@ -92,7 +92,7 @@ function FeaturedBikeCard({ product, index }: { product: FeaturedProduct; index:
             right: 0,
             width: "3px",
             height: "40px",
-            backgroundColor: "#ff1744",
+            backgroundColor: "#00d4ff",
             zIndex: 20,
           }}
         />
@@ -104,7 +104,7 @@ function FeaturedBikeCard({ product, index }: { product: FeaturedProduct; index:
               position: "absolute",
               top: 12,
               left: 0,
-              backgroundColor: "#ff1744",
+              backgroundColor: "#00d4ff",
               color: "#000",
               px: 2,
               py: 0.5,
@@ -200,7 +200,7 @@ function FeaturedBikeCard({ product, index }: { product: FeaturedProduct; index:
               fontWeight: 600,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "#ff1744",
+              color: "#00d4ff",
               mb: 1,
             }}
           >
@@ -227,7 +227,7 @@ function FeaturedBikeCard({ product, index }: { product: FeaturedProduct; index:
           {/* Specs Row */}
           <Box sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              <Target size={14} color="#ff1744" />
+              <Target size={14} color="#00d4ff" />
               <Typography sx={{ fontSize: "0.7rem", color: "var(--theme-text-muted)" }}>
                 {recommendedFor}
               </Typography>
@@ -240,7 +240,7 @@ function FeaturedBikeCard({ product, index }: { product: FeaturedProduct; index:
               sx={{
                 fontSize: "1.25rem",
                 fontWeight: 700,
-                color: "#ff1744",
+                color: "#00d4ff",
               }}
             >
               {formatPrice(product.priceRange.minVariantPrice)}
@@ -257,7 +257,7 @@ function FeaturedBikeCard({ product, index }: { product: FeaturedProduct; index:
                 letterSpacing: "0.05em",
                 transition: "color 0.2s ease",
                 "&:hover": {
-                  color: "#ff1744",
+                  color: "#00d4ff",
                 },
               }}
             >
@@ -355,8 +355,8 @@ export default function FeaturedBikes() {
           height: "100%",
           backgroundImage: `repeating-linear-gradient(
             -45deg,
-            #ff1744,
-            #ff1744 1px,
+            #00d4ff,
+            #00d4ff 1px,
             transparent 1px,
             transparent 60px
           )`,
@@ -388,7 +388,7 @@ export default function FeaturedBikes() {
               fontWeight: 600,
               letterSpacing: "0.3em",
               textTransform: "uppercase",
-              color: "#ff1744",
+              color: "#00d4ff",
               mb: 2,
             }}
           >
@@ -437,7 +437,7 @@ export default function FeaturedBikes() {
               sx={{
                 fontSize: "3rem",
                 mb: 2,
-                color: "#ff1744",
+                color: "#00d4ff",
               }}
             >
               <i className="fi fi-rr-bicycle"></i>
@@ -467,7 +467,7 @@ export default function FeaturedBikes() {
               variant="contained"
               size="large"
               sx={{
-                backgroundColor: "#ff1744",
+                backgroundColor: "#00d4ff",
                 color: "#000",
                 fontWeight: 700,
                 fontSize: "0.875rem",
@@ -476,10 +476,10 @@ export default function FeaturedBikes() {
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
                 borderRadius: 0,
-                boxShadow: "0 4px 20px rgba(255, 23, 68, 0.3)",
+                boxShadow: "0 4px 20px rgba(0, 212, 255, 0.3)",
                 "&:hover": {
-                  backgroundColor: "#d50032",
-                  boxShadow: "0 6px 30px rgba(255, 23, 68, 0.4)",
+                  backgroundColor: "#0099cc",
+                  boxShadow: "0 6px 30px rgba(0, 212, 255, 0.4)",
                 },
               }}
             >
@@ -513,8 +513,8 @@ export default function FeaturedBikes() {
                 variant="outlined"
                 size="large"
                 sx={{
-                  borderColor: "#ff1744",
-                  color: "#ff1744",
+                  borderColor: "#00d4ff",
+                  color: "#00d4ff",
                   fontWeight: 700,
                   fontSize: "0.875rem",
                   px: 5,
@@ -524,8 +524,8 @@ export default function FeaturedBikes() {
                   borderRadius: 0,
                   borderWidth: "2px",
                   "&:hover": {
-                    borderColor: "#ff1744",
-                    backgroundColor: "#ff1744",
+                    borderColor: "#00d4ff",
+                    backgroundColor: "#00d4ff",
                     color: "#000",
                     borderWidth: "2px",
                   },

@@ -30,7 +30,7 @@ export default function Footer() {
           left: 0,
           width: "100%",
           height: "2px",
-          background: "linear-gradient(90deg, #ff1744 0%, transparent 50%, #ff1744 100%)",
+          background: "linear-gradient(90deg, #00d4ff 0%, transparent 50%, #00d4ff 100%)",
           opacity: 0.5,
         }}
       />
@@ -45,8 +45,8 @@ export default function Footer() {
           height: "100%",
           backgroundImage: `repeating-linear-gradient(
             -45deg,
-            #ff1744,
-            #ff1744 1px,
+            #00d4ff,
+            #00d4ff 1px,
             transparent 1px,
             transparent 60px
           )`,
@@ -96,7 +96,7 @@ export default function Footer() {
                 mb: 3,
               }}
             >
-              <Box component="span" sx={{ color: "#ff1744", fontWeight: 600 }}>Road Bike ONLY Specialists</Box>
+              <Box component="span" sx={{ color: "#00d4ff", fontWeight: 600 }}>Road Bike ONLY Specialists</Box>
               <br />
               Premium service, repairs & custom builds for serious cyclists.
             </Typography>
@@ -106,7 +106,7 @@ export default function Footer() {
                 sx={{
                   color: "var(--theme-text-muted)",
                   transition: "all 0.2s ease",
-                  "&:hover": { color: "#ff1744", transform: "translateY(-2px)" },
+                  "&:hover": { color: "#00d4ff", transform: "translateY(-2px)" },
                   display: "inline-block",
                 }}
               >
@@ -117,7 +117,7 @@ export default function Footer() {
                 sx={{
                   color: "var(--theme-text-muted)",
                   transition: "all 0.2s ease",
-                  "&:hover": { color: "#ff1744", transform: "translateY(-2px)" },
+                  "&:hover": { color: "#00d4ff", transform: "translateY(-2px)" },
                   display: "inline-block",
                 }}
               >
@@ -130,7 +130,7 @@ export default function Footer() {
                 sx={{
                   color: "var(--theme-text-muted)",
                   transition: "all 0.2s ease",
-                  "&:hover": { color: "#ff1744", transform: "translateY(-2px)" },
+                  "&:hover": { color: "#00d4ff", transform: "translateY(-2px)" },
                   display: "inline-block",
                 }}
               >
@@ -173,12 +173,12 @@ export default function Footer() {
                     alignItems: "center",
                     gap: 1.5,
                     "&:hover": {
-                      color: "#ff1744",
+                      color: "#00d4ff",
                       paddingLeft: "8px",
                     },
                   }}
                 >
-                  <Box sx={{ width: "4px", height: "4px", backgroundColor: "#ff1744", opacity: 0.5 }} />
+                  <Box sx={{ width: "4px", height: "4px", backgroundColor: "#00d4ff", opacity: 0.5 }} />
                   {item.label}
                 </Link>
               ))}
@@ -219,12 +219,12 @@ export default function Footer() {
                     alignItems: "center",
                     gap: 1.5,
                     "&:hover": {
-                      color: "#ff1744",
+                      color: "#00d4ff",
                       paddingLeft: "8px",
                     },
                   }}
                 >
-                  <Box sx={{ width: "4px", height: "4px", backgroundColor: "#ff1744", opacity: 0.5 }} />
+                  <Box sx={{ width: "4px", height: "4px", backgroundColor: "#00d4ff", opacity: 0.5 }} />
                   {item.label}
                 </Link>
               ))}
@@ -265,7 +265,7 @@ export default function Footer() {
                   fontSize: "0.875rem",
                   transition: "color 0.2s ease",
                   "&:hover": {
-                    color: "#ff1744",
+                    color: "#00d4ff",
                   },
                 }}
               >
@@ -279,7 +279,7 @@ export default function Footer() {
                   fontSize: "0.875rem",
                   transition: "color 0.2s ease",
                   "&:hover": {
-                    color: "#ff1744",
+                    color: "#00d4ff",
                   },
                 }}
               >
@@ -289,13 +289,13 @@ export default function Footer() {
                 sx={{
                   mt: 2,
                   p: 2,
-                  backgroundColor: "rgba(255, 23, 68, 0.08)",
-                  border: "1px solid rgba(255, 23, 68, 0.2)",
+                  backgroundColor: "rgba(0, 212, 255, 0.08)",
+                  border: "1px solid rgba(0, 212, 255, 0.2)",
                 }}
               >
                 <Typography
                   sx={{
-                    color: "#ff1744",
+                    color: "#00d4ff",
                     fontSize: "0.75rem",
                     fontWeight: 600,
                     textTransform: "uppercase",
@@ -343,7 +343,7 @@ export default function Footer() {
               gap: 2,
             }}
           >
-            <Box component="span" sx={{ color: "#ff1744" }}>Road Bike Specialists</Box>
+            <Box component="span" sx={{ color: "#00d4ff" }}>Road Bike Specialists</Box>
             <Box component="span">•</Box>
             Queens Park, Sydney
           </Typography>

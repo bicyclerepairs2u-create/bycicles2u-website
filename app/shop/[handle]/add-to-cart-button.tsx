@@ -28,7 +28,7 @@ export function AddToCartButton({ variantId }: AddToCartButtonProps) {
       onClick={handleAddToCart}
       disabled={isLoading}
       size="lg"
-      className="w-full bg-[#ff1744] hover:bg-[#d50032] text-black font-bold uppercase tracking-wider rounded-none transition-all duration-200 hover:shadow-[0_0_20px_rgba(255,23,68,0.3)]"
+      className="w-full bg-[#00d4ff] hover:bg-[#0099cc] text-black font-bold uppercase tracking-wider rounded-none transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,212,255,0.3)]"
     >
       {isLoading ? (
         <>

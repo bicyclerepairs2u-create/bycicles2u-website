@@ -199,11 +199,11 @@ section {
   --theme-text-muted: #737373;
   --theme-border: #e5e5e5;
   --theme-border-hover: #d4d4d4;
-  --theme-accent: #ff1744;
-  --theme-accent-hover: #d50032;
-  --theme-accent-glow: rgba(255, 23, 68, 0.15);
+  --theme-accent: #00d4ff;
+  --theme-accent-hover: #0099cc;
+  --theme-accent-glow: rgba(0, 212, 255, 0.15);
   --theme-nav-bg: rgba(255, 255, 255, 0.95);
-  --theme-nav-border: rgba(255, 23, 68, 0.15);
+  --theme-nav-border: rgba(0, 212, 255, 0.15);
   --theme-overlay: rgba(0, 0, 0, 0.5);
 }
 
@@ -218,11 +218,11 @@ section {
   --theme-text-muted: #737373;
   --theme-border: #262626;
   --theme-border-hover: #404040;
-  --theme-accent: #ff1744;
-  --theme-accent-hover: #d50032;
-  --theme-accent-glow: rgba(255, 23, 68, 0.3);
+  --theme-accent: #00d4ff;
+  --theme-accent-hover: #0099cc;
+  --theme-accent-glow: rgba(0, 212, 255, 0.3);
   --theme-nav-bg: rgba(10, 10, 10, 0.95);
-  --theme-nav-border: rgba(255, 23, 68, 0.2);
+  --theme-nav-border: rgba(0, 212, 255, 0.2);
   --theme-overlay: rgba(0, 0, 0, 0.7);
 }
 

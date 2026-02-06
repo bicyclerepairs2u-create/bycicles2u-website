@@ -23,7 +23,7 @@ export function CartDrawer() {
       <SheetContent className="flex w-full flex-col sm:max-w-lg bg-[var(--theme-bg-primary)] border-l border-[var(--theme-border)]">
         <SheetHeader className="border-b border-[var(--theme-border)] pb-4">
           <SheetTitle className="flex items-center gap-2 text-[var(--theme-text-primary)] uppercase tracking-wider font-bold">
-            <ShoppingBag className="h-5 w-5 text-[#ff1744]" />
+            <ShoppingBag className="h-5 w-5 text-[#00d4ff]" />
             Cart ({cart?.totalQuantity || 0})
           </SheetTitle>
         </SheetHeader>
@@ -35,7 +35,7 @@ export function CartDrawer() {
             <Button
               onClick={closeCart}
               variant="outline"
-              className="border-[#ff1744] text-[#ff1744] hover:bg-[#ff1744] hover:text-black rounded-none uppercase tracking-wider font-bold"
+              className="border-[#00d4ff] text-[#00d4ff] hover:bg-[#00d4ff] hover:text-black rounded-none uppercase tracking-wider font-bold"
             >
               Continue Shopping
             </Button>
@@ -47,7 +47,7 @@ export function CartDrawer() {
                 {lineItems.map((item) => (
                   <div
                     key={item.id}
-                    className="flex gap-4 border border-[var(--theme-border)] p-3 bg-[var(--theme-bg-secondary)] transition-all duration-200 hover:border-[#ff1744]/30"
+                    className="flex gap-4 border border-[var(--theme-border)] p-3 bg-[var(--theme-bg-secondary)] transition-all duration-200 hover:border-[#00d4ff]/30"
                     style={{
                       clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)',
                     }}
@@ -73,7 +73,7 @@ export function CartDrawer() {
                       {item.merchandise.title !== 'Default Title' && (
                         <p className="text-xs text-[var(--theme-text-muted)]">{item.merchandise.title}</p>
                       )}
-                      <p className="mt-1 text-sm font-bold text-[#ff1744]">
+                      <p className="mt-1 text-sm font-bold text-[#00d4ff]">
                         {formatPrice(item.merchandise.price)}
                       </p>
                       <div className="mt-auto flex items-center justify-between">
@@ -81,7 +81,7 @@ export function CartDrawer() {
                           <Button
                             size="icon"
                             variant="outline"
-                            className="h-7 w-7 rounded-none border-[var(--theme-border-hover)] text-[var(--theme-text-muted)] hover:border-[#ff1744] hover:text-[#ff1744] hover:bg-transparent"
+                            className="h-7 w-7 rounded-none border-[var(--theme-border-hover)] text-[var(--theme-text-muted)] hover:border-[#00d4ff] hover:text-[#00d4ff] hover:bg-transparent"
                             onClick={() => updateItem(item.id, item.quantity - 1)}
                             disabled={isLoading || item.quantity <= 1}
                           >
@@ -91,7 +91,7 @@ export function CartDrawer() {
                           <Button
                             size="icon"
                             variant="outline"
-                            className="h-7 w-7 rounded-none border-[var(--theme-border-hover)] text-[var(--theme-text-muted)] hover:border-[#ff1744] hover:text-[#ff1744] hover:bg-transparent"
+                            className="h-7 w-7 rounded-none border-[var(--theme-border-hover)] text-[var(--theme-text-muted)] hover:border-[#00d4ff] hover:text-[#00d4ff] hover:bg-transparent"
                             onClick={() => updateItem(item.id, item.quantity + 1)}
                             disabled={isLoading}
                           >
@@ -101,7 +101,7 @@ export function CartDrawer() {
                         <Button
                           size="icon"
                           variant="ghost"
-                          className="h-7 w-7 text-[var(--theme-text-muted)] hover:bg-[#ff1744]/10 hover:text-[#ff1744]"
+                          className="h-7 w-7 text-[var(--theme-text-muted)] hover:bg-[#00d4ff]/10 hover:text-[#00d4ff]"
                           onClick={() => removeItem(item.id)}
                           disabled={isLoading}
                         >
@@ -118,13 +118,13 @@ export function CartDrawer() {
               <div className="w-full space-y-4">
                 <div className="flex items-center justify-between text-lg font-bold">
                   <span className="text-[var(--theme-text-primary)] uppercase tracking-wider">Subtotal</span>
-                  <span className="text-[#ff1744]">{cart ? formatPrice(cart.cost.subtotalAmount) : '$0.00'}</span>
+                  <span className="text-[#00d4ff]">{cart ? formatPrice(cart.cost.subtotalAmount) : '$0.00'}</span>
                 </div>
                 <p className="text-xs text-[var(--theme-text-muted)]">
                   Shipping and taxes calculated at checkout.
                 </p>
                 <Button
-                  className="w-full bg-[#ff1744] hover:bg-[#d50032] text-black font-bold uppercase tracking-wider rounded-none"
+                  className="w-full bg-[#00d4ff] hover:bg-[#0099cc] text-black font-bold uppercase tracking-wider rounded-none"
                   size="lg"
                   asChild
                   disabled={isLoading}

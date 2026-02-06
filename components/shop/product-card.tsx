@@ -45,12 +45,12 @@ export function ProductCard({ product }: ProductCardProps) {
         }}
       >
         {/* Angular accent corner */}
-        <div className="absolute top-0 right-0 w-24 h-1 bg-[#ff1744] z-20" />
-        <div className="absolute top-0 right-0 w-1 h-16 bg-[#ff1744] z-20" />
+        <div className="absolute top-0 right-0 w-24 h-1 bg-[#00d4ff] z-20" />
+        <div className="absolute top-0 right-0 w-1 h-16 bg-[#00d4ff] z-20" />
 
         {/* Compare indicator badge */}
         {inCompare && (
-          <div className="absolute top-2 left-2 z-30 flex items-center gap-1 px-2 py-1 bg-[#ff1744] text-black text-[10px] font-bold uppercase tracking-wider">
+          <div className="absolute top-2 left-2 z-30 flex items-center gap-1 px-2 py-1 bg-[#00d4ff] text-black text-[10px] font-bold uppercase tracking-wider">
             <Check className="w-3 h-3" />
             Comparing
           </div>
@@ -88,11 +88,11 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex flex-col justify-end p-4">
             <div className="space-y-2 text-xs">
               <div className="flex items-center gap-2">
-                <Weight className="w-3.5 h-3.5 text-[#ff1744]" />
+                <Weight className="w-3.5 h-3.5 text-[#00d4ff]" />
                 <span className="text-neutral-300">Premium Carbon Frame</span>
               </div>
               <div className="flex items-center gap-2">
-                <Zap className="w-3.5 h-3.5 text-[#ff1744]" />
+                <Zap className="w-3.5 h-3.5 text-[#00d4ff]" />
                 <span className="text-neutral-300">Race Ready</span>
               </div>
             </div>
@@ -101,14 +101,14 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* Content */}
         <div className="p-5">
-          <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-1 text-[#ff1744]">
+          <p className="text-[10px] uppercase tracking-[0.2em] font-semibold mb-1 text-[#00d4ff]">
             {product.vendor || 'Bicycles2U'}
           </p>
           <h3 className="text-lg font-bold text-[var(--theme-text-primary)] mb-3 leading-tight line-clamp-2">
             {product.title}
           </h3>
           <div className="flex items-center justify-between">
-            <span className="text-xl font-bold text-[#ff1744]">
+            <span className="text-xl font-bold text-[#00d4ff]">
               {formatPrice(price)}
             </span>
             <div className="flex items-center gap-2">
@@ -118,8 +118,8 @@ export function ProductCard({ product }: ProductCardProps) {
                 disabled={!inCompare && !canAddMore}
                 className={`p-2.5 transition-all duration-200 ${
                   inCompare
-                    ? 'bg-[#ff1744] text-black hover:bg-[#d50032]'
-                    : 'border border-[var(--theme-border-hover)] text-[var(--theme-text-muted)] hover:border-[#ff1744] hover:text-[#ff1744]'
+                    ? 'bg-[#00d4ff] text-black hover:bg-[#0099cc]'
+                    : 'border border-[var(--theme-border-hover)] text-[var(--theme-text-muted)] hover:border-[#00d4ff] hover:text-[#00d4ff]'
                 } disabled:opacity-50 disabled:cursor-not-allowed`}
                 aria-label={inCompare ? 'Remove from compare' : 'Add to compare'}
                 title={inCompare ? 'Remove from compare' : canAddMore ? 'Add to compare' : 'Compare limit reached (4)'}
@@ -131,7 +131,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 <button
                   onClick={handleAddToCart}
                   disabled={isLoading}
-                  className="p-2.5 bg-[#ff1744] text-black transition-all duration-200 hover:bg-[#d50032] disabled:opacity-50"
+                  className="p-2.5 bg-[#00d4ff] text-black transition-all duration-200 hover:bg-[#0099cc] disabled:opacity-50"
                   aria-label="Add to cart"
                 >
                   <ShoppingCart className="w-4 h-4" />

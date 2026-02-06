@@ -31,8 +31,8 @@ export default function BikeShowcase() {
           height: "100%",
           backgroundImage: `repeating-linear-gradient(
             -45deg,
-            #ff1744,
-            #ff1744 1px,
+            #00d4ff,
+            #00d4ff 1px,
             transparent 1px,
             transparent 60px
           )`,
@@ -84,7 +84,7 @@ export default function BikeShowcase() {
                 right: 0,
                 width: "80px",
                 height: "3px",
-                backgroundColor: "#ff1744",
+                backgroundColor: "#00d4ff",
               }}
             />
             <Box
@@ -94,7 +94,7 @@ export default function BikeShowcase() {
                 right: 0,
                 width: "3px",
                 height: "60px",
-                backgroundColor: "#ff1744",
+                backgroundColor: "#00d4ff",
               }}
             />
 
@@ -105,7 +105,7 @@ export default function BikeShowcase() {
                 mb: 3,
                 display: "flex",
                 justifyContent: "center",
-                color: "#ff1744",
+                color: "#00d4ff",
                 animation: "pulse 2s ease-in-out infinite",
                 "@keyframes pulse": {
                   "0%, 100%": { opacity: 1, transform: "scale(1)" },
@@ -122,7 +122,7 @@ export default function BikeShowcase() {
                 fontWeight: 600,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "#ff1744",
+                color: "#00d4ff",
                 mb: 2,
               }}
             >
@@ -148,7 +148,7 @@ export default function BikeShowcase() {
               sx={{
                 fontSize: { xs: "1.1rem", md: "1.25rem" },
                 fontWeight: 700,
-                color: "#ff1744",
+                color: "#00d4ff",
                 mb: 3,
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
@@ -176,7 +176,7 @@ export default function BikeShowcase() {
               sx={{
                 width: "60px",
                 height: "2px",
-                backgroundColor: "#ff1744",
+                backgroundColor: "#00d4ff",
                 mx: "auto",
                 mb: 4,
                 opacity: 0.5,
@@ -203,7 +203,7 @@ export default function BikeShowcase() {
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
-                  backgroundColor: "#ff1744",
+                  backgroundColor: "#00d4ff",
                   color: "#000000",
                   fontWeight: 700,
                   fontSize: "0.875rem",
@@ -212,10 +212,10 @@ export default function BikeShowcase() {
                   textTransform: "uppercase",
                   letterSpacing: "0.05em",
                   borderRadius: 0,
-                  boxShadow: "0 4px 20px rgba(255, 23, 68, 0.3)",
+                  boxShadow: "0 4px 20px rgba(0, 212, 255, 0.3)",
                   "&:hover": {
-                    backgroundColor: "#d50032",
-                    boxShadow: "0 6px 30px rgba(255, 23, 68, 0.4)",
+                    backgroundColor: "#0099cc",
+                    boxShadow: "0 6px 30px rgba(0, 212, 255, 0.4)",
                     transform: "translateY(-2px)",
                   },
                   transition: "all 0.3s ease",
@@ -230,8 +230,8 @@ export default function BikeShowcase() {
                 size="large"
                 onClick={() => handleScroll("#contact")}
                 sx={{
-                  borderColor: "#ff1744",
-                  color: "#ff1744",
+                  borderColor: "#00d4ff",
+                  color: "#00d4ff",
                   fontWeight: 700,
                   fontSize: "0.875rem",
                   px: 4,
@@ -241,8 +241,8 @@ export default function BikeShowcase() {
                   borderRadius: 0,
                   borderWidth: "1px",
                   "&:hover": {
-                    borderColor: "#ff1744",
-                    backgroundColor: "#ff1744",
+                    borderColor: "#00d4ff",
+                    backgroundColor: "#00d4ff",
                     color: "#000000",
                     borderWidth: "1px",
                     transform: "translateY(-2px)",

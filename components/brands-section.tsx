@@ -33,7 +33,7 @@ export default function BrandsSection() {
           left: 0,
           width: "100%",
           height: "1px",
-          background: "linear-gradient(90deg, transparent 0%, #ff1744 50%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, #00d4ff 50%, transparent 100%)",
           opacity: 0.3,
         }}
       />
@@ -47,7 +47,7 @@ export default function BrandsSection() {
               fontWeight: 600,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "#ff1744",
+              color: "#00d4ff",
               mb: 2,
             }}
           >
@@ -211,7 +211,7 @@ export default function BrandsSection() {
           left: 0,
           width: "100%",
           height: "1px",
-          background: "linear-gradient(90deg, transparent 0%, #ff1744 50%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, #00d4ff 50%, transparent 100%)",
           opacity: 0.3,
         }}
       />

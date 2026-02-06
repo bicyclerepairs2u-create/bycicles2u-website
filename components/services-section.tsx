@@ -56,8 +56,8 @@ export default function ServicesSection() {
           height: "100%",
           backgroundImage: `repeating-linear-gradient(
             -45deg,
-            #ff1744,
-            #ff1744 1px,
+            #00d4ff,
+            #00d4ff 1px,
             transparent 1px,
             transparent 50px
           )`,
@@ -75,7 +75,7 @@ export default function ServicesSection() {
               fontWeight: 600,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "#ff1744",
+              color: "#00d4ff",
               mb: 2,
             }}
           >
@@ -126,10 +126,10 @@ export default function ServicesSection() {
                 transition: "all 0.2s ease",
               },
               "& .Mui-selected": {
-                color: "#ff1744",
+                color: "#00d4ff",
               },
               "& .MuiTabs-indicator": {
-                backgroundColor: "#ff1744",
+                backgroundColor: "#00d4ff",
                 height: 2,
               },
             }}
@@ -182,7 +182,7 @@ export default function ServicesSection() {
                           <Typography sx={{ fontWeight: 700, color: "var(--theme-text-secondary)", mb: 0.5, fontSize: "0.875rem", textTransform: "uppercase" }}>
                             Basic
                           </Typography>
-                          <Typography sx={{ fontWeight: 700, color: "#ff1744", fontSize: "1.5rem" }}>
+                          <Typography sx={{ fontWeight: 700, color: "#00d4ff", fontSize: "1.5rem" }}>
                             $59
                           </Typography>
                         </TableCell>
@@ -199,7 +199,7 @@ export default function ServicesSection() {
                           <Typography sx={{ fontWeight: 700, color: "var(--theme-text-secondary)", mb: 0.5, fontSize: "0.875rem", textTransform: "uppercase" }}>
                             Standard
                           </Typography>
-                          <Typography sx={{ fontWeight: 700, color: "#ff1744", fontSize: "1.5rem" }}>
+                          <Typography sx={{ fontWeight: 700, color: "#00d4ff", fontSize: "1.5rem" }}>
                             $119
                           </Typography>
                         </TableCell>
@@ -207,10 +207,10 @@ export default function ServicesSection() {
                           align="center"
                           sx={{
                             fontWeight: 700,
-                            backgroundColor: "rgba(255, 23, 68, 0.08)",
-                            borderBottom: "2px solid #ff1744",
-                            borderLeft: "2px solid #ff1744",
-                            borderRight: "2px solid #ff1744",
+                            backgroundColor: "rgba(0, 212, 255, 0.08)",
+                            borderBottom: "2px solid #00d4ff",
+                            borderLeft: "2px solid #00d4ff",
+                            borderRight: "2px solid #00d4ff",
                             position: "relative",
                             width: "15%",
                           }}
@@ -221,7 +221,7 @@ export default function ServicesSection() {
                               top: 8,
                               left: "50%",
                               transform: "translateX(-50%)",
-                              backgroundColor: "#ff1744",
+                              backgroundColor: "#00d4ff",
                               color: "#000000",
                               px: 2,
                               py: 0.5,
@@ -236,7 +236,7 @@ export default function ServicesSection() {
                           <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", mb: 0.5, fontSize: "0.875rem", mt: 3, textTransform: "uppercase" }}>
                             Deluxe
                           </Typography>
-                          <Typography sx={{ fontWeight: 700, color: "#ff1744", fontSize: "1.5rem" }}>
+                          <Typography sx={{ fontWeight: 700, color: "#00d4ff", fontSize: "1.5rem" }}>
                             $159
                           </Typography>
                         </TableCell>
@@ -253,7 +253,7 @@ export default function ServicesSection() {
                           <Typography sx={{ fontWeight: 700, color: "var(--theme-text-secondary)", mb: 0.5, fontSize: "0.875rem", textTransform: "uppercase" }}>
                             Ultimate
                           </Typography>
-                          <Typography sx={{ fontWeight: 700, color: "#ff1744", fontSize: "1.5rem" }}>
+                          <Typography sx={{ fontWeight: 700, color: "#00d4ff", fontSize: "1.5rem" }}>
                             $299
                           </Typography>
                         </TableCell>
@@ -292,21 +292,21 @@ export default function ServicesSection() {
                             },
                             transition: "background-color 0.2s ease",
                             "&:hover": {
-                              backgroundColor: "rgba(255, 23, 68, 0.03)",
+                              backgroundColor: "rgba(0, 212, 255, 0.03)",
                             },
                           }}
                         >
                           <TableCell sx={{ py: 2, color: "var(--theme-text-muted)", fontSize: "0.875rem", borderBottom: "1px solid var(--theme-border)" }}>{feature.name}</TableCell>
                           <TableCell align="center" sx={{ py: 2, borderLeft: "1px solid var(--theme-border)", borderBottom: "1px solid var(--theme-border)" }}>
                             {feature.basic ? (
-                              <i className="fi fi-rr-check" style={{ color: "#ff1744", fontSize: "1.25rem" }}></i>
+                              <i className="fi fi-rr-check" style={{ color: "#00d4ff", fontSize: "1.25rem" }}></i>
                             ) : (
                               <i className="fi fi-rr-cross" style={{ color: "var(--theme-border-hover)", fontSize: "1.25rem" }}></i>
                             )}
                           </TableCell>
                           <TableCell align="center" sx={{ py: 2, borderLeft: "1px solid var(--theme-border)", borderBottom: "1px solid var(--theme-border)" }}>
                             {feature.standard ? (
-                              <i className="fi fi-rr-check" style={{ color: "#ff1744", fontSize: "1.25rem" }}></i>
+                              <i className="fi fi-rr-check" style={{ color: "#00d4ff", fontSize: "1.25rem" }}></i>
                             ) : (
                               <i className="fi fi-rr-cross" style={{ color: "var(--theme-border-hover)", fontSize: "1.25rem" }}></i>
                             )}
@@ -315,21 +315,21 @@ export default function ServicesSection() {
                             align="center"
                             sx={{
                               py: 2,
-                              backgroundColor: "rgba(255, 23, 68, 0.05)",
-                              borderLeft: "2px solid #ff1744",
-                              borderRight: "2px solid #ff1744",
+                              backgroundColor: "rgba(0, 212, 255, 0.05)",
+                              borderLeft: "2px solid #00d4ff",
+                              borderRight: "2px solid #00d4ff",
                               borderBottom: "1px solid var(--theme-border)",
                             }}
                           >
                             {feature.deluxe ? (
-                              <i className="fi fi-rr-check" style={{ color: "#ff1744", fontSize: "1.25rem" }}></i>
+                              <i className="fi fi-rr-check" style={{ color: "#00d4ff", fontSize: "1.25rem" }}></i>
                             ) : (
                               <i className="fi fi-rr-cross" style={{ color: "var(--theme-border-hover)", fontSize: "1.25rem" }}></i>
                             )}
                           </TableCell>
                           <TableCell align="center" sx={{ py: 2, borderLeft: "1px solid var(--theme-border)", borderBottom: "1px solid var(--theme-border)" }}>
                             {feature.ultimate ? (
-                              <i className="fi fi-rr-check" style={{ color: "#ff1744", fontSize: "1.25rem" }}></i>
+                              <i className="fi fi-rr-check" style={{ color: "#00d4ff", fontSize: "1.25rem" }}></i>
                             ) : (
                               <i className="fi fi-rr-cross" style={{ color: "var(--theme-border-hover)", fontSize: "1.25rem" }}></i>
                             )}
@@ -389,15 +389,15 @@ export default function ServicesSection() {
                         borderRadius: 0,
                         transition: "all 0.3s ease",
                         "&:hover": {
-                          borderColor: "#ff1744",
-                          boxShadow: "0 0 20px rgba(255, 23, 68, 0.1)",
+                          borderColor: "#00d4ff",
+                          boxShadow: "0 0 20px rgba(0, 212, 255, 0.1)",
                         },
                       }}
                     >
                       <Typography sx={{ fontWeight: 600, color: "var(--theme-text-secondary)", fontSize: "0.875rem" }}>
                         Pickup - Drop Off Service
                       </Typography>
-                      <Typography sx={{ fontWeight: 700, color: "#ff1744", fontSize: "1.25rem" }}>
+                      <Typography sx={{ fontWeight: 700, color: "#00d4ff", fontSize: "1.25rem" }}>
                         $29
                       </Typography>
                     </Paper>
@@ -413,15 +413,15 @@ export default function ServicesSection() {
                         borderRadius: 0,
                         transition: "all 0.3s ease",
                         "&:hover": {
-                          borderColor: "#ff1744",
-                          boxShadow: "0 0 20px rgba(255, 23, 68, 0.1)",
+                          borderColor: "#00d4ff",
+                          boxShadow: "0 0 20px rgba(0, 212, 255, 0.1)",
                         },
                       }}
                     >
                       <Typography sx={{ fontWeight: 600, color: "var(--theme-text-secondary)", fontSize: "0.875rem" }}>
                         On-Site Servicing Fee
                       </Typography>
-                      <Typography sx={{ fontWeight: 700, color: "#ff1744", fontSize: "1.25rem" }}>
+                      <Typography sx={{ fontWeight: 700, color: "#00d4ff", fontSize: "1.25rem" }}>
                         $39
                       </Typography>
                     </Paper>
@@ -434,7 +434,7 @@ export default function ServicesSection() {
                     size="large"
                     onClick={() => handleScroll("#contact")}
                     sx={{
-                      backgroundColor: "#ff1744",
+                      backgroundColor: "#00d4ff",
                       color: "#000000",
                       fontWeight: 700,
                       fontSize: "0.875rem",
@@ -443,10 +443,10 @@ export default function ServicesSection() {
                       textTransform: "uppercase",
                       letterSpacing: "0.05em",
                       borderRadius: 0,
-                      boxShadow: "0 4px 20px rgba(255, 23, 68, 0.3)",
+                      boxShadow: "0 4px 20px rgba(0, 212, 255, 0.3)",
                       "&:hover": {
-                        backgroundColor: "#d50032",
-                        boxShadow: "0 6px 30px rgba(255, 23, 68, 0.4)",
+                        backgroundColor: "#0099cc",
+                        boxShadow: "0 6px 30px rgba(0, 212, 255, 0.4)",
                         transform: "translateY(-2px)",
                       },
                       transition: "all 0.3s ease",
@@ -493,7 +493,7 @@ export default function ServicesSection() {
                   size="large"
                   href="mailto:bicyclerepairs2u@gmail.com?subject=Custom Build Inquiry"
                   sx={{
-                    backgroundColor: "#ff1744",
+                    backgroundColor: "#00d4ff",
                     color: "#000000",
                     fontWeight: 700,
                     fontSize: "0.875rem",
@@ -502,10 +502,10 @@ export default function ServicesSection() {
                     textTransform: "uppercase",
                     letterSpacing: "0.05em",
                     borderRadius: 0,
-                    boxShadow: "0 4px 20px rgba(255, 23, 68, 0.3)",
+                    boxShadow: "0 4px 20px rgba(0, 212, 255, 0.3)",
                     "&:hover": {
-                      backgroundColor: "#d50032",
-                      boxShadow: "0 6px 30px rgba(255, 23, 68, 0.4)",
+                      backgroundColor: "#0099cc",
+                      boxShadow: "0 6px 30px rgba(0, 212, 255, 0.4)",
                       transform: "translateY(-2px)",
                     },
                     transition: "all 0.3s ease",
@@ -527,7 +527,7 @@ export default function ServicesSection() {
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style={{ color: "#ff1744" }}
+              style={{ color: "#00d4ff" }}
             >
               <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" fill="currentColor" />
             </svg>
@@ -535,12 +535,12 @@ export default function ServicesSection() {
           sx={{
             mt: 5,
             borderRadius: 0,
-            backgroundColor: "rgba(255, 23, 68, 0.08)",
-            border: "1px solid rgba(255, 23, 68, 0.3)",
+            backgroundColor: "rgba(0, 212, 255, 0.08)",
+            border: "1px solid rgba(0, 212, 255, 0.3)",
             maxWidth: "1000px",
             mx: "auto",
             "& .MuiAlert-icon": {
-              color: "#ff1744",
+              color: "#00d4ff",
             },
           }}
         >
