@@ -35,6 +35,7 @@ export interface ShopifyProduct {
   productType: string
   tags: string[]
   availableForSale: boolean
+  createdAt: string
   featuredImage: ShopifyImage | null
   images: {
     edges: {

@@ -5,10 +5,42 @@ import Link from 'next/link'
 import { ShopifyProduct, formatPrice, getFirstVariant } from '@/lib/shopify'
 import { useCart } from '@/components/providers/cart-provider'
 import { useCompare } from '@/components/providers/compare-provider'
-import { ShoppingCart, Weight, Zap, Scale, Check } from 'lucide-react'
+import { ShoppingCart, Weight, Zap, Scale, Check, Star, Sparkles, Tag } from 'lucide-react'
 
 interface ProductCardProps {
   product: ShopifyProduct
+}
+
+// Check if product has "featured" tag
+function isFeatured(product: ShopifyProduct): boolean {
+  return product.tags.some(tag => tag.toLowerCase() === 'featured')
+}
+
+// Check if product was listed within the last 14 days
+function isNewListing(product: ShopifyProduct): boolean {
+  if (!product.createdAt) return false
+  const createdDate = new Date(product.createdAt)
+  const fourteenDaysAgo = new Date()
+  fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14)
+  return createdDate > fourteenDaysAgo
+}
+
+// Check if product is on sale (has compareAtPrice higher than current price)
+function getSaleInfo(product: ShopifyProduct) {
+  const firstVariant = product.variants.edges[0]?.node
+  if (!firstVariant?.compareAtPrice) return null
+
+  const currentPrice = parseFloat(firstVariant.price.amount)
+  const comparePrice = parseFloat(firstVariant.compareAtPrice.amount)
+
+  if (comparePrice > currentPrice) {
+    const discount = Math.round(((comparePrice - currentPrice) / comparePrice) * 100)
+    return {
+      compareAtPrice: firstVariant.compareAtPrice,
+      discountPercent: discount
+    }
+  }
+  return null
 }
 
 export function ProductCard({ product }: ProductCardProps) {
@@ -17,6 +49,9 @@ export function ProductCard({ product }: ProductCardProps) {
   const firstVariant = getFirstVariant(product)
   const price = product.priceRange.minVariantPrice
   const inCompare = isInCompare(product.id)
+  const featured = isFeatured(product)
+  const newListing = isNewListing(product)
+  const saleInfo = getSaleInfo(product)
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault()
@@ -48,13 +83,33 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="absolute top-0 right-0 w-24 h-1 bg-[#00d4ff] z-20" />
         <div className="absolute top-0 right-0 w-1 h-16 bg-[#00d4ff] z-20" />
 
-        {/* Compare indicator badge */}
-        {inCompare && (
-          <div className="absolute top-2 left-2 z-30 flex items-center gap-1 px-2 py-1 bg-[#00d4ff] text-black text-[10px] font-bold uppercase tracking-wider">
-            <Check className="w-3 h-3" />
-            Comparing
-          </div>
-        )}
+        {/* Product badges */}
+        <div className="absolute top-2 left-2 z-30 flex flex-col gap-1">
+          {saleInfo && (
+            <div className="flex items-center gap-1 px-2 py-1 bg-red-500 text-white text-[10px] font-bold uppercase tracking-wider">
+              <Tag className="w-3 h-3" />
+              {saleInfo.discountPercent}% Off
+            </div>
+          )}
+          {featured && (
+            <div className="flex items-center gap-1 px-2 py-1 bg-amber-500 text-black text-[10px] font-bold uppercase tracking-wider">
+              <Star className="w-3 h-3 fill-current" />
+              Featured
+            </div>
+          )}
+          {newListing && !featured && !saleInfo && (
+            <div className="flex items-center gap-1 px-2 py-1 bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-wider">
+              <Sparkles className="w-3 h-3" />
+              New
+            </div>
+          )}
+          {inCompare && (
+            <div className="flex items-center gap-1 px-2 py-1 bg-[#00d4ff] text-black text-[10px] font-bold uppercase tracking-wider">
+              <Check className="w-3 h-3" />
+              Comparing
+            </div>
+          )}
+        </div>
 
         {/* Image area */}
         <div className="relative aspect-[4/3] bg-[var(--theme-bg-tertiary)] overflow-hidden">
@@ -108,9 +163,22 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.title}
           </h3>
           <div className="flex items-center justify-between">
-            <span className="text-xl font-bold text-[#00d4ff]">
-              {formatPrice(price)}
-            </span>
+            <div className="flex flex-col">
+              {saleInfo ? (
+                <>
+                  <span className="text-xl font-bold text-red-500">
+                    {formatPrice(price)}
+                  </span>
+                  <span className="text-sm text-[var(--theme-text-muted)] line-through">
+                    {formatPrice(saleInfo.compareAtPrice)}
+                  </span>
+                </>
+              ) : (
+                <span className="text-xl font-bold text-[#00d4ff]">
+                  {formatPrice(price)}
+                </span>
+              )}
+            </div>
             <div className="flex items-center gap-2">
               {/* Compare button */}
               <button

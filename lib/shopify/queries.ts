@@ -46,6 +46,7 @@ const PRODUCT_FRAGMENT = `
     productType
     tags
     availableForSale
+    createdAt
     featuredImage {
       ...ImageFields
     }

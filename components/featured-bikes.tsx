@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Box, Container, Typography, Button, Skeleton } from "@mui/material"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Zap, Weight, Target } from "lucide-react"
+import { ArrowRight, Zap, Weight, Target, Star, Sparkles, Tag } from "lucide-react"
 
 interface FeaturedProduct {
   id: string
@@ -14,6 +14,7 @@ interface FeaturedProduct {
   productType: string
   tags: string[]
   availableForSale: boolean
+  createdAt?: string
   featuredImage: {
     url: string
     altText: string | null
@@ -24,6 +25,46 @@ interface FeaturedProduct {
       currencyCode: string
     }
   }
+  variants?: {
+    edges: {
+      node: {
+        price: { amount: string; currencyCode: string }
+        compareAtPrice: { amount: string; currencyCode: string } | null
+      }
+    }[]
+  }
+}
+
+// Check if product has "featured" tag
+function isFeatured(product: FeaturedProduct): boolean {
+  return product.tags.some(tag => tag.toLowerCase() === 'featured')
+}
+
+// Check if product was listed within the last 14 days
+function isNewListing(product: FeaturedProduct): boolean {
+  if (!product.createdAt) return false
+  const createdDate = new Date(product.createdAt)
+  const fourteenDaysAgo = new Date()
+  fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14)
+  return createdDate > fourteenDaysAgo
+}
+
+// Check if product is on sale
+function getSaleInfo(product: FeaturedProduct) {
+  const firstVariant = product.variants?.edges[0]?.node
+  if (!firstVariant?.compareAtPrice) return null
+
+  const currentPrice = parseFloat(firstVariant.price.amount)
+  const comparePrice = parseFloat(firstVariant.compareAtPrice.amount)
+
+  if (comparePrice > currentPrice) {
+    const discount = Math.round(((comparePrice - currentPrice) / comparePrice) * 100)
+    return {
+      compareAtPrice: firstVariant.compareAtPrice,
+      discountPercent: discount
+    }
+  }
+  return null
 }
 
 function formatPrice(price: { amount: string; currencyCode: string }): string {
@@ -57,6 +98,7 @@ function getRecommendedFor(product: FeaturedProduct): string {
 
 function FeaturedBikeCard({ product, index }: { product: FeaturedProduct; index: number }) {
   const recommendedFor = getRecommendedFor(product)
+  const saleInfo = getSaleInfo(product)
 
   return (
     <Link href={`/shop/${product.handle}`}>
@@ -97,27 +139,79 @@ function FeaturedBikeCard({ product, index }: { product: FeaturedProduct; index:
           }}
         />
 
-        {/* Featured Badge */}
-        {index === 0 && (
-          <Box
-            sx={{
-              position: "absolute",
-              top: 12,
-              left: 0,
-              backgroundColor: "#00d4ff",
-              color: "#000",
-              px: 2,
-              py: 0.5,
-              fontSize: "0.625rem",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              zIndex: 20,
-            }}
-          >
-            Featured
-          </Box>
-        )}
+        {/* Product Badges */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 12,
+            left: 0,
+            display: "flex",
+            flexDirection: "column",
+            gap: 0.5,
+            zIndex: 20,
+          }}
+        >
+          {saleInfo && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                backgroundColor: "#ef4444",
+                color: "#fff",
+                px: 1.5,
+                py: 0.5,
+                fontSize: "0.625rem",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+              }}
+            >
+              <Tag size={12} />
+              {saleInfo.discountPercent}% Off
+            </Box>
+          )}
+          {isFeatured(product) && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                backgroundColor: "#f59e0b",
+                color: "#000",
+                px: 1.5,
+                py: 0.5,
+                fontSize: "0.625rem",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+              }}
+            >
+              <Star size={12} fill="currentColor" />
+              Featured
+            </Box>
+          )}
+          {isNewListing(product) && !isFeatured(product) && !saleInfo && (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                backgroundColor: "#10b981",
+                color: "#fff",
+                px: 1.5,
+                py: 0.5,
+                fontSize: "0.625rem",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+              }}
+            >
+              <Sparkles size={12} />
+              New
+            </Box>
+          )}
+        </Box>
 
         {/* Image */}
         <Box
@@ -236,15 +330,40 @@ function FeaturedBikeCard({ product, index }: { product: FeaturedProduct; index:
 
           {/* Price */}
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <Typography
-              sx={{
-                fontSize: "1.25rem",
-                fontWeight: 700,
-                color: "#00d4ff",
-              }}
-            >
-              {formatPrice(product.priceRange.minVariantPrice)}
-            </Typography>
+            <Box>
+              {saleInfo ? (
+                <>
+                  <Typography
+                    sx={{
+                      fontSize: "1.25rem",
+                      fontWeight: 700,
+                      color: "#ef4444",
+                    }}
+                  >
+                    {formatPrice(product.priceRange.minVariantPrice)}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "0.875rem",
+                      color: "var(--theme-text-muted)",
+                      textDecoration: "line-through",
+                    }}
+                  >
+                    {formatPrice(saleInfo.compareAtPrice)}
+                  </Typography>
+                </>
+              ) : (
+                <Typography
+                  sx={{
+                    fontSize: "1.25rem",
+                    fontWeight: 700,
+                    color: "#00d4ff",
+                  }}
+                >
+                  {formatPrice(product.priceRange.minVariantPrice)}
+                </Typography>
+              )}
+            </Box>
             <Box
               sx={{
                 display: "flex",

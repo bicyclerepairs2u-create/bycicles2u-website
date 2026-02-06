@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react'
 import { ShopifyProduct } from '@/lib/shopify'
 import { ProductCard } from './product-card'
-import { Search, X, ChevronDown } from 'lucide-react'
+import { Search, X, ChevronDown, Tag } from 'lucide-react'
 
 type BikeCategory = 'all' | 'road' | 'triathlon' | 'time-trial'
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc'
@@ -27,13 +27,35 @@ const sortOptions: { id: SortOption; label: string }[] = [
   { id: 'name-desc', label: 'Name: Z to A' },
 ]
 
+// Check if product is on sale (has compareAtPrice higher than current price)
+function isOnSale(product: ShopifyProduct): boolean {
+  const firstVariant = product.variants.edges[0]?.node
+  if (!firstVariant?.compareAtPrice) return false
+
+  const currentPrice = parseFloat(firstVariant.price.amount)
+  const comparePrice = parseFloat(firstVariant.compareAtPrice.amount)
+
+  return comparePrice > currentPrice
+}
+
 export function ShopFilters({ products }: ShopFiltersProps) {
   const [activeCategory, setActiveCategory] = useState<BikeCategory>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [sortBy, setSortBy] = useState<SortOption>('featured')
+  const [showOnSaleOnly, setShowOnSaleOnly] = useState(false)
+
+  // Count sale items for the badge
+  const saleCount = useMemo(() => {
+    return products.filter(isOnSale).length
+  }, [products])
 
   const filteredProducts = useMemo(() => {
     let filtered = products
+
+    // Filter by sale status
+    if (showOnSaleOnly) {
+      filtered = filtered.filter(isOnSale)
+    }
 
     // Filter by category
     if (activeCategory !== 'all') {
@@ -121,7 +143,7 @@ export function ShopFilters({ products }: ShopFiltersProps) {
     }
 
     return sorted
-  }, [products, activeCategory, searchQuery, sortBy])
+  }, [products, activeCategory, searchQuery, sortBy, showOnSaleOnly])
 
   return (
     <div className="space-y-8">
@@ -144,6 +166,27 @@ export function ShopFilters({ products }: ShopFiltersProps) {
                 {category.label}
               </button>
             ))}
+            {/* Separator */}
+            <div className="w-px h-6 bg-[var(--theme-border)] mx-1 hidden sm:block" />
+            {/* On Sale Toggle */}
+            <button
+              onClick={() => setShowOnSaleOnly(!showOnSaleOnly)}
+              className={`flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                showOnSaleOnly
+                  ? 'bg-red-500 text-white'
+                  : 'border border-red-500 text-red-500 hover:bg-red-500/10'
+              }`}
+            >
+              <Tag className="w-3 h-3" />
+              On Sale
+              {saleCount > 0 && (
+                <span className={`ml-1 px-1.5 py-0.5 text-[10px] rounded-full ${
+                  showOnSaleOnly ? 'bg-white/20' : 'bg-red-500 text-white'
+                }`}>
+                  {saleCount}
+                </span>
+              )}
+            </button>
           </div>
 
           {/* Search and Sort */}
@@ -192,16 +235,18 @@ export function ShopFilters({ products }: ShopFiltersProps) {
       <div className="flex items-center justify-between text-sm text-[var(--theme-text-muted)]">
         <span>
           {filteredProducts.length} {filteredProducts.length === 1 ? 'bike' : 'bikes'} found
+          {showOnSaleOnly && ' on sale'}
           {activeCategory !== 'all' && ` in ${categories.find(c => c.id === activeCategory)?.label}`}
           {searchQuery && ` matching "${searchQuery}"`}
           {sortBy !== 'featured' && ` · Sorted by ${sortOptions.find(s => s.id === sortBy)?.label.toLowerCase()}`}
         </span>
-        {(activeCategory !== 'all' || searchQuery || sortBy !== 'featured') && (
+        {(activeCategory !== 'all' || searchQuery || sortBy !== 'featured' || showOnSaleOnly) && (
           <button
             onClick={() => {
               setActiveCategory('all')
               setSearchQuery('')
               setSortBy('featured')
+              setShowOnSaleOnly(false)
             }}
             className="text-[#00d4ff] hover:underline"
           >
@@ -221,6 +266,7 @@ export function ShopFilters({ products }: ShopFiltersProps) {
               setActiveCategory('all')
               setSearchQuery('')
               setSortBy('featured')
+              setShowOnSaleOnly(false)
             }}
             className="px-6 py-2 bg-[#00d4ff] text-black font-bold uppercase text-sm tracking-wider hover:bg-[#0099cc] transition-colors"
           >
