@@ -25,7 +25,6 @@ const navItems = [
   { label: "Find Your Size", href: "/bike-sizing", type: "page" },
   { label: "Sell Your Bike", href: "/sell-bike", type: "page" },
   { label: "Contact", href: "#contact", type: "section" },
-  { label: "Style Preview", href: "/styles", type: "page" },
 ]
 
 export default function Navigation() {

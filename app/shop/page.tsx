@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { getProducts, isShopifyConfigured } from '@/lib/shopify'
-import { ProductGrid } from '@/components/shop'
+import { ShopFilters } from '@/components/shop/shop-filters'
 import { CompareBar } from '@/components/shop/compare-bar'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
@@ -31,9 +31,9 @@ async function ProductList() {
     )
   }
 
-  const products = await getProducts(20)
+  const products = await getProducts(50)
 
-  return <ProductGrid products={products} />
+  return <ShopFilters products={products} />
 }
 
 function ProductListSkeleton() {
@@ -86,17 +86,6 @@ export default function ShopPage() {
           <p className="mt-3 text-lg text-[var(--theme-text-muted)] max-w-xl">
             Premium road & triathlon machines built for speed.
           </p>
-          <div className="flex items-center gap-3 mt-6">
-            <span className="px-4 py-1.5 text-xs font-bold uppercase tracking-wider bg-[#00d4ff] text-black">
-              Road
-            </span>
-            <span className="px-4 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#00d4ff] text-[#00d4ff]">
-              Triathlon
-            </span>
-            <span className="px-4 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#00d4ff] text-[#00d4ff]">
-              Time Trial
-            </span>
-          </div>
         </div>
       </div>
 

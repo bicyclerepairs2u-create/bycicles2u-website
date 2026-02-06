@@ -22,9 +22,9 @@ A premium, technical aesthetic inspired by professional cycling and triathlon eq
 
 | Name | Hex | RGB | Usage |
 |------|-----|-----|-------|
-| **Competition Red** | `#ff1744` | rgb(255, 23, 68) | Primary accent, CTAs, highlights, prices |
-| **Competition Red Dark** | `#d50032` | rgb(213, 0, 50) | Hover states, active states |
-| **Competition Red Glow** | `rgba(255, 23, 68, 0.3)` | — | Shadows, glows, overlays |
+| **Electric Cyan** | `#00d4ff` | rgb(0, 212, 255) | Primary accent, CTAs, highlights, prices |
+| **Electric Cyan Dark** | `#0099cc` | rgb(0, 153, 204) | Hover states, active states |
+| **Electric Cyan Glow** | `rgba(0, 212, 255, 0.3)` | — | Shadows, glows, overlays |
 
 ### Dark Carbon Scale
 
@@ -48,10 +48,10 @@ A premium, technical aesthetic inspired by professional cycling and triathlon eq
 ### CSS Variables
 
 ```css
-/* Shop accent - Competition Red */
---color-shop-accent: #ff1744;
---color-shop-accent-dark: #d50032;
---color-shop-accent-glow: rgba(255, 23, 68, 0.3);
+/* Shop accent - Electric Cyan */
+--color-shop-accent: #00d4ff;
+--color-shop-accent-dark: #0099cc;
+--color-shop-accent-glow: rgba(0, 212, 255, 0.3);
 
 /* Dark Carbon theme colors */
 --color-carbon-950: #0a0a0a;
@@ -86,7 +86,7 @@ A premium, technical aesthetic inspired by professional cycling and triathlon eq
 
 1. **Headings**: Always bold/black weight, often uppercase
 2. **Brand names**: Small, uppercase, wide letter-spacing (0.2em)
-3. **Prices**: Bold, Competition Red color
+3. **Prices**: Bold, Electric Cyan color
 4. **Body text**: Neutral 300-400 for readability on dark backgrounds
 5. **No sentence case for UI labels** — use uppercase for tags, buttons, categories
 
@@ -106,7 +106,7 @@ A premium, technical aesthetic inspired by professional cycling and triathlon eq
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #ff1744;
+  color: #00d4ff;
 }
 ```
 
@@ -127,7 +127,7 @@ clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 
 **Accent Lines**
 - Top-right corner: horizontal line (24px wide, 1px tall)
 - Top-right corner: vertical line (1px wide, 16px tall)
-- Color: Competition Red
+- Color: Electric Cyan
 
 **Image Treatment**
 - Aspect ratio: 4:3 for product cards
@@ -135,7 +135,7 @@ clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 
 - Hover: 5% scale increase, 500ms transition
 
 **Hover State**
-- Red glow shadow: `0 0 30px rgba(255, 23, 68, 0.15)`
+- Cyan glow shadow: `0 0 30px rgba(0, 212, 255, 0.15)`
 - Specs overlay fades in (black/80 background)
 
 ```jsx
@@ -143,8 +143,8 @@ clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 
 <div className="group relative bg-neutral-900 overflow-hidden"
      style={{ clipPath: '...' }}>
   {/* Accent lines */}
-  <div className="absolute top-0 right-0 w-24 h-1 bg-[#ff1744]" />
-  <div className="absolute top-0 right-0 w-1 h-16 bg-[#ff1744]" />
+  <div className="absolute top-0 right-0 w-24 h-1 bg-[#00d4ff]" />
+  <div className="absolute top-0 right-0 w-1 h-16 bg-[#00d4ff]" />
 
   {/* Image with overlay */}
   <div className="relative aspect-[4/3]">
@@ -161,7 +161,7 @@ clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 
 
 **Primary (Solid)**
 ```css
-background: #ff1744;
+background: #00d4ff;
 color: #000000;
 font-weight: 700;
 text-transform: uppercase;
@@ -169,37 +169,37 @@ letter-spacing: 0.05em;
 padding: 0.75rem 1.5rem;
 
 /* Hover */
-background: #d50032;
+background: #0099cc;
 ```
 
 **Secondary (Outline)**
 ```css
 background: transparent;
-border: 1px solid #ff1744;
-color: #ff1744;
+border: 1px solid #00d4ff;
+color: #00d4ff;
 font-weight: 700;
 text-transform: uppercase;
 
 /* Hover */
-background: #ff1744;
+background: #00d4ff;
 color: #000000;
 ```
 
 **Icon Button**
 ```css
-background: #ff1744;
+background: #00d4ff;
 color: #000000;
 padding: 0.625rem;
 
 /* Hover */
-background: #d50032;
+background: #0099cc;
 ```
 
 ### Tags / Badges
 
 **Filled Tag**
 ```css
-background: #ff1744;
+background: #00d4ff;
 color: #000000;
 padding: 0.375rem 1rem;
 font-size: 0.75rem;
@@ -211,8 +211,8 @@ letter-spacing: 0.05em;
 **Outline Tag**
 ```css
 background: transparent;
-border: 1px solid #ff1744;
-color: #ff1744;
+border: 1px solid #00d4ff;
+color: #00d4ff;
 /* Same sizing as filled */
 ```
 
@@ -224,15 +224,15 @@ color: #ff1744;
 
 **Full-Width Gradient Hero**
 ```css
-background: linear-gradient(135deg, #0a0a0a 0%, rgba(255, 23, 68, 0.08) 100%);
+background: linear-gradient(135deg, #0a0a0a 0%, rgba(0, 212, 255, 0.08) 100%);
 ```
 
 **Diagonal Line Pattern (decorative)**
 ```css
 background-image: repeating-linear-gradient(
   -45deg,
-  #ff1744,
-  #ff1744 1px,
+  #00d4ff,
+  #00d4ff 1px,
   transparent 1px,
   transparent 40px
 );
@@ -300,7 +300,7 @@ gap: 1.5rem;
 
 **Card Glow (hover)**
 ```css
-box-shadow: 0 0 30px rgba(255, 23, 68, 0.15);
+box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
 ```
 
 **Elevated Surface**
@@ -325,7 +325,7 @@ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 
 ### Icon Colors
 - Default: Neutral 400
-- Active/Accent: Competition Red
+- Active/Accent: Electric Cyan
 - On dark buttons: Black
 
 ---
@@ -335,12 +335,12 @@ box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 ### Contrast Ratios
 - White text on Carbon 950: **21:1** ✓
 - Neutral 300 on Carbon 950: **12.6:1** ✓
-- Competition Red on Carbon 950: **5.2:1** ✓ (for large text/icons)
-- Black on Competition Red: **5.9:1** ✓
+- Electric Cyan on Carbon 950: **5.2:1** ✓ (for large text/icons)
+- Black on Electric Cyan: **5.9:1** ✓
 
 ### Focus States
 ```css
-outline: 2px solid #ff1744;
+outline: 2px solid #00d4ff;
 outline-offset: 2px;
 ```
 
@@ -352,7 +352,7 @@ outline-offset: 2px;
 
 - Use dark backgrounds consistently (Carbon 950 or 900)
 - Apply the angular clip-path to cards
-- Use Competition Red sparingly for maximum impact
+- Use Electric Cyan sparingly for maximum impact
 - Keep typography bold and uppercase for headings
 - Add subtle red glow on interactive hover states
 - Use wide letter-spacing for brand labels
@@ -360,7 +360,7 @@ outline-offset: 2px;
 ### ❌ Don't
 
 - Mix light and dark backgrounds inconsistently
-- Overuse Competition Red (it should feel special)
+- Overuse Electric Cyan (it should feel special)
 - Use rounded corners (keep things sharp/angular)
 - Use thin font weights for headings
 - Add too many accent colors (red is the only accent)
@@ -376,7 +376,7 @@ When implementing the Dark Carbon aesthetic on a new page:
 - [ ] Use hero header pattern with gradient + diagonal lines
 - [ ] Apply angular clip-path to cards
 - [ ] Add accent corner lines to cards
-- [ ] Use Competition Red for prices, CTAs, and highlights
+- [ ] Use Electric Cyan for prices, CTAs, and highlights
 - [ ] Apply uppercase + tracking to labels and headings
 - [ ] Add hover glow effect to interactive cards
 - [ ] Ensure text uses the neutral scale for readability

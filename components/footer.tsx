@@ -74,7 +74,6 @@ export default function Footer() {
                 sx={{
                   height: "32px",
                   width: "auto",
-                  filter: "brightness(0) invert(1)",
                 }}
               />
               <Typography

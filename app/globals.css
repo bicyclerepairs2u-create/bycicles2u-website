@@ -124,10 +124,10 @@
   --color-brand-charcoal: #424242;
   --color-brand-success: #4caf50;
 
-  /* Shop accent - Competition Red */
-  --color-shop-accent: #ff1744;
-  --color-shop-accent-dark: #d50032;
-  --color-shop-accent-glow: rgba(255, 23, 68, 0.3);
+  /* Shop accent - Electric Cyan */
+  --color-shop-accent: #00d4ff;
+  --color-shop-accent-dark: #0099cc;
+  --color-shop-accent-glow: rgba(0, 212, 255, 0.3);
 
   /* Dark Carbon theme colors */
   --color-carbon-950: #0a0a0a;
@@ -250,10 +250,10 @@ section {
 /* Subtle pulse glow for accent elements */
 @keyframes pulseGlow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(255, 23, 68, 0.2);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
   }
   50% {
-    box-shadow: 0 0 30px rgba(255, 23, 68, 0.4);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
   }
 }
 
@@ -341,7 +341,7 @@ section {
 }
 
 .hover-glow:hover {
-  box-shadow: 0 0 30px rgba(255, 23, 68, 0.15);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.15);
 }
 
 /* Angular clip-path for cards */
@@ -363,16 +363,16 @@ section {
 
 /* Dark Carbon gradient backgrounds */
 .bg-carbon-gradient {
-  background: linear-gradient(135deg, #0a0a0a 0%, rgba(255, 23, 68, 0.08) 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, rgba(0, 212, 255, 0.08) 100%);
 }
 
 .bg-carbon-radial {
-  background: radial-gradient(ellipse at top right, rgba(255, 23, 68, 0.1) 0%, #0a0a0a 60%);
+  background: radial-gradient(ellipse at top right, rgba(0, 212, 255, 0.1) 0%, #0a0a0a 60%);
 }
 
 /* Text gradient for headings */
-.text-gradient-red {
-  background: linear-gradient(135deg, #ffffff 0%, #ff1744 100%);
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #ffffff 0%, #00d4ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

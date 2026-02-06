@@ -2,6 +2,11 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
+  // Block access to /styles page
+  if (request.nextUrl.pathname.startsWith('/styles')) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
+
   // Only protect /admin routes (except login)
   if (
     request.nextUrl.pathname.startsWith('/admin') &&
@@ -42,5 +47,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/admin/:path*',
+  matcher: ['/admin/:path*', '/styles/:path*'],
 }
