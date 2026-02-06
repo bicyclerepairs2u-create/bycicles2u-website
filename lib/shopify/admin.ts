@@ -161,22 +161,28 @@ export async function publishProduct(productId: string): Promise<boolean> {
   }
 }
 
-// Update variant price
+// Update variant price and optionally compareAtPrice
 export async function updateVariantPrice(
   productId: string,
   variantId: string,
-  price: string
+  price: string,
+  compareAtPrice?: string
 ): Promise<void> {
+  const variantInput: { id: string; price: string; compareAtPrice?: string } = {
+    id: variantId,
+    price,
+  }
+
+  // Only add compareAtPrice if it's provided and valid
+  if (compareAtPrice && parseFloat(compareAtPrice) > 0) {
+    variantInput.compareAtPrice = compareAtPrice
+  }
+
   const data = await adminFetch<ProductVariantUpdateResponse>(
     PRODUCT_VARIANT_UPDATE_MUTATION,
     {
       productId,
-      variants: [
-        {
-          id: variantId,
-          price,
-        },
-      ],
+      variants: [variantInput],
     }
   )
 
@@ -191,7 +197,8 @@ export async function updateVariantPrice(
 export async function createAndPublishProduct(
   productInput: Record<string, unknown>,
   mediaUrls: string[],
-  price: string
+  price: string,
+  compareAtPrice?: string
 ): Promise<{ id: string; handle: string; title: string } | null> {
   // Create the product first
   const product = await createProduct(productInput, mediaUrls)
@@ -200,10 +207,10 @@ export async function createAndPublishProduct(
     return null
   }
 
-  // Get variant ID and update price
+  // Get variant ID and update price (and compareAtPrice if provided)
   if (product.variants?.edges?.[0]?.node?.id) {
     const variantId = product.variants.edges[0].node.id
-    await updateVariantPrice(product.id, variantId, price)
+    await updateVariantPrice(product.id, variantId, price, compareAtPrice)
   }
 
   // Publish to Online Store

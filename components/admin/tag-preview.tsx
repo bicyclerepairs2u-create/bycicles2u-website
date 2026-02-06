@@ -46,6 +46,37 @@ export default function TagPreview({ formData }: TagPreviewProps) {
         </Typography>
       ) : (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {/* Featured Badge */}
+          {tags.specialTags.includes("featured") && (
+            <Box
+              sx={{
+                p: 1.5,
+                backgroundColor: "rgba(251, 191, 36, 0.15)",
+                border: "1px solid #fbbf24",
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              <i className="fi fi-rr-star" style={{ color: "#fbbf24" }}></i>
+              <Typography sx={{ color: "#fbbf24", fontWeight: 600, fontSize: "0.875rem" }}>
+                Featured Product
+              </Typography>
+              <Chip
+                label="featured"
+                size="small"
+                sx={{
+                  ml: "auto",
+                  backgroundColor: "rgba(251, 191, 36, 0.2)",
+                  color: "#fbbf24",
+                  fontWeight: 600,
+                  fontSize: "0.75rem",
+                  borderRadius: 0,
+                }}
+              />
+            </Box>
+          )}
+
           {/* Category Tags */}
           {tags.categoryTags.length > 0 && (
             <Box>

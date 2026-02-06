@@ -75,11 +75,12 @@ export async function POST(request: NextRequest) {
       status: 'ACTIVE',
     }
 
-    // Create product, set price, and publish to Online Store
+    // Create product, set price (and compareAtPrice if provided), and publish to Online Store
     const product = await createAndPublishProduct(
       productInput,
       imageUrls,
-      formData.price
+      formData.price,
+      formData.compareAtPrice
     )
 
     if (!product) {

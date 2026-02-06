@@ -51,11 +51,13 @@ export default function BikeUploadForm() {
     vendor: "",
     productType: "Road Bike",
     price: "",
+    compareAtPrice: "",
     bikeCategory: "road",
     frameMaterial: "carbon",
     groupsetType: "mechanical",
     brakeType: "disc-brakes",
     weight: "",
+    isFeatured: false,
     features: [],
     customTags: "",
     description: "",
@@ -217,11 +219,13 @@ export default function BikeUploadForm() {
           vendor: "",
           productType: "Road Bike",
           price: "",
+          compareAtPrice: "",
           bikeCategory: "road",
           frameMaterial: "carbon",
           groupsetType: "mechanical",
           brakeType: "disc-brakes",
           weight: "",
+          isFeatured: false,
           features: [],
           customTags: "",
           description: "",
@@ -302,37 +306,50 @@ export default function BikeUploadForm() {
                 slotProps={autocompleteSlotProps}
               />
 
+              <Autocomplete
+                freeSolo
+                options={BIKE_TYPES}
+                value={formData.productType || ""}
+                onChange={(_, value) => handleChange("productType", value || "")}
+                onInputChange={(_, value) => handleChange("productType", value)}
+                disabled={isSubmitting}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Product Type"
+                    error={!!errors.productType}
+                    helperText={errors.productType || "Select or type custom"}
+                    sx={inputStyles}
+                  />
+                )}
+                sx={{
+                  "& .MuiAutocomplete-popupIndicator": { color: "var(--theme-text-muted)" },
+                  "& .MuiAutocomplete-clearIndicator": { color: "var(--theme-text-muted)" },
+                }}
+                slotProps={autocompleteSlotProps}
+              />
+
               <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 3 }}>
-                <Autocomplete
-                  freeSolo
-                  options={BIKE_TYPES}
-                  value={formData.productType || ""}
-                  onChange={(_, value) => handleChange("productType", value || "")}
-                  onInputChange={(_, value) => handleChange("productType", value)}
+                <TextField
+                  fullWidth
+                  label="Sale Price"
+                  value={formData.price}
+                  onChange={(e) => handleChange("price", e.target.value)}
+                  error={!!errors.price}
+                  helperText={errors.price || "Current selling price"}
                   disabled={isSubmitting}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Product Type"
-                      error={!!errors.productType}
-                      helperText={errors.productType || "Select or type custom"}
-                      sx={inputStyles}
-                    />
-                  )}
-                  sx={{
-                    "& .MuiAutocomplete-popupIndicator": { color: "var(--theme-text-muted)" },
-                    "& .MuiAutocomplete-clearIndicator": { color: "var(--theme-text-muted)" },
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">$</InputAdornment>,
                   }}
-                  slotProps={autocompleteSlotProps}
+                  sx={inputStyles}
                 />
 
                 <TextField
                   fullWidth
-                  label="Price"
-                  value={formData.price}
-                  onChange={(e) => handleChange("price", e.target.value)}
-                  error={!!errors.price}
-                  helperText={errors.price}
+                  label="Compare At Price"
+                  value={formData.compareAtPrice}
+                  onChange={(e) => handleChange("compareAtPrice", e.target.value)}
+                  helperText="Original price (optional, shows as strikethrough)"
                   disabled={isSubmitting}
                   InputProps={{
                     startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -501,6 +518,41 @@ export default function BikeUploadForm() {
                   ))}
                 </RadioGroup>
               </FormControl>
+
+              {/* Featured Product Toggle */}
+              <Box
+                sx={{
+                  p: 2,
+                  backgroundColor: formData.isFeatured ? "rgba(251, 191, 36, 0.1)" : "transparent",
+                  border: formData.isFeatured ? "1px solid #fbbf24" : "1px solid var(--theme-border)",
+                  transition: "all 0.2s ease",
+                }}
+              >
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={formData.isFeatured || false}
+                      onChange={(e) => handleChange("isFeatured", e.target.checked)}
+                      disabled={isSubmitting}
+                      sx={{
+                        color: "#fbbf24",
+                        "&.Mui-checked": { color: "#fbbf24" },
+                      }}
+                    />
+                  }
+                  label={
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      <i className="fi fi-rr-star" style={{ color: "#fbbf24" }}></i>
+                      <Typography sx={{ color: "var(--theme-text-secondary)", fontWeight: 500 }}>
+                        Featured Product
+                      </Typography>
+                    </Box>
+                  }
+                />
+                <Typography variant="caption" sx={{ color: "var(--theme-text-muted)", display: "block", ml: 4 }}>
+                  Show this bike in the Featured section on the homepage
+                </Typography>
+              </Box>
 
               <Box>
                 <Typography

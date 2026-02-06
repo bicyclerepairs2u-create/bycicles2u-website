@@ -10,6 +10,7 @@ export interface GeneratedTags {
   groupsetTags: string[]
   brakeTags: string[]
   featureTags: string[]
+  specialTags: string[]
   customTags: string[]
   allTags: string[]
 }
@@ -113,6 +114,12 @@ export function generateTags(formData: Partial<BikeUploadFormData>): GeneratedTa
     customTags.push(...parsed)
   }
 
+  // 8. Featured tag if product is marked as featured
+  const specialTags: string[] = []
+  if (formData.isFeatured) {
+    specialTags.push('featured')
+  }
+
   // Combine all tags and deduplicate
   const allTags = [
     ...new Set([
@@ -122,6 +129,7 @@ export function generateTags(formData: Partial<BikeUploadFormData>): GeneratedTa
       ...groupsetTags,
       ...brakeTags,
       ...featureTags,
+      ...specialTags,
       ...customTags,
     ]),
   ]
@@ -133,6 +141,7 @@ export function generateTags(formData: Partial<BikeUploadFormData>): GeneratedTa
     groupsetTags,
     brakeTags,
     featureTags,
+    specialTags,
     customTags,
     allTags,
   }

@@ -8,6 +8,7 @@ export interface BikeUploadFormData {
   vendor: string
   productType: string // Allow custom product types
   price: string
+  compareAtPrice: string // Original price for sale items (optional)
 
   // Tag generation fields (allow custom values)
   bikeCategory: string
@@ -17,6 +18,9 @@ export interface BikeUploadFormData {
 
   // Weight
   weight: string
+
+  // Featured product flag
+  isFeatured: boolean
 
   // Feature checkboxes
   features: FeatureTag[]
