@@ -252,7 +252,7 @@ export default function TermsOfService() {
                 5. Bike Sales and Consignment
               </Typography>
               <Typography variant="body1" sx={bodyStyle}>
-                Second-hand bikes are sold through our Facebook Marketplace page. All bikes are sold as-is unless otherwise specified. We provide honest assessments of bike condition, but buyers are responsible for inspecting bikes before purchase.
+                Second-hand bikes are sold through our Facebook Marketplace page. We provide honest assessments of bike condition and all second-hand bikes are backed by our warranty policy (see Section 6). Buyers are encouraged to inspect bikes before purchase.
               </Typography>
               <Typography variant="body1" sx={bodyStyle}>
                 For consignment sales (selling your bike through us), we accept road bikes valued at $1,000 or more. Consignment terms and commission rates will be discussed on a case-by-case basis.
@@ -330,8 +330,36 @@ export default function TermsOfService() {
                 Second-Hand Bikes
               </Typography>
               <Typography variant="body1" sx={bodyStyle}>
-                Used bikes are sold <strong>as-is</strong> unless otherwise specified in writing. While we provide honest assessments of bike condition and perform safety checks, we do not offer warranties on second-hand bikes beyond what is explicitly stated in the sale agreement. Buyers are encouraged to inspect bikes thoroughly and ask questions before purchase.
+                Bicycles2U offers warranties on second-hand bikes purchased through us, subject to the terms outlined below.
               </Typography>
+
+              <Typography variant="body1" sx={{ ...bodyStyle, fontWeight: 600, color: "var(--theme-text-primary)" }}>
+                Carbon Fibre Frame Warranty
+              </Typography>
+              <Typography variant="body1" sx={bodyStyle}>
+                For your peace of mind, any cracks discovered in a carbon fibre frame after purchase will be covered under our warranty. We will provide either a replacement bike or a full refund at our discretion. This warranty does <strong>not</strong> cover cracks resulting from neglect, misuse, or any incident involving a collision or crash.
+              </Typography>
+
+              <Typography variant="body1" sx={{ ...bodyStyle, fontWeight: 600, color: "var(--theme-text-primary)" }}>
+                Mechanical Parts Warranty
+              </Typography>
+              <Typography variant="body1" sx={bodyStyle}>
+                All mechanical components on second-hand road bikes are covered by a <strong>6-month</strong> warranty from the date of purchase. This warranty will be voided if damage results from neglect or improper use, including but not limited to:
+              </Typography>
+              <Box sx={{ pl: 2, mb: 2 }}>
+                {[
+                  "Shifting under load, resulting in bent or broken derailleurs and hangers",
+                  "Fitting of third-party components without installation by a professional mechanic",
+                  "Improper fitment of wheels or general mishandling of the bike",
+                ].map((item, idx) => (
+                  <Box key={idx} sx={listItemStyle}>
+                    <Box sx={{ width: "4px", height: "4px", backgroundColor: "#ff6b6b", mt: 1.2, flexShrink: 0 }} />
+                    <Typography variant="body1" sx={{ color: "var(--theme-text-secondary)", lineHeight: 1.8 }}>
+                      {item}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
 
               <Typography
                 variant="h6"
