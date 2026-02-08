@@ -41,6 +41,7 @@ export default function BikeSizingForm() {
     sizeRange: string
     sizeCategory: SizeCategory | null
     fitNotes: string
+    estimatedFromHeight: boolean
   } | null>(null)
 
   const handleUnitChange = (_event: React.MouseEvent<HTMLElement>, newUnit: "cm" | "inches" | null) => {
@@ -74,16 +75,22 @@ export default function BikeSizingForm() {
   }
 
   const calculateSize = () => {
-    if (!formData.height || !formData.inseam) {
+    if (!formData.height) {
       return
     }
 
-    // Convert to cm if needed
-    const inseamCm = unit === "cm" ? parseFloat(formData.inseam) : parseFloat(formData.inseam) * 2.54
     const heightCm = unit === "cm" ? parseFloat(formData.height) : parseFloat(formData.height) * 2.54
+    const hasInseam = !!formData.inseam
+    const inseamCm = hasInseam
+      ? unit === "cm" ? parseFloat(formData.inseam) : parseFloat(formData.inseam) * 2.54
+      : null
 
-    // Calculate road bike frame size using the standard formula
-    const calculatedSize = inseamCm * 0.665
+    // Calculate road bike frame size
+    // If inseam provided: use the precise formula (inseam × 0.665)
+    // If only height: estimate using height-based formula (height × 0.335 - 1)
+    const calculatedSize = inseamCm
+      ? inseamCm * 0.665
+      : heightCm * 0.335 - 1
 
     // Determine size range from shared constants
     const sizeMatch = getSizeFromFrame(calculatedSize)
@@ -97,12 +104,14 @@ export default function BikeSizingForm() {
       fitNotes = sizeMatch.fitNotes
     }
 
-    // Additional fit notes based on height vs inseam ratio
-    const ratio = heightCm / inseamCm
-    if (ratio > 2.2) {
-      fitNotes += " You have a longer torso relative to your legs - consider a bike with a slightly longer reach or top tube."
-    } else if (ratio < 2.0) {
-      fitNotes += " You have longer legs relative to your torso - consider a bike with a slightly shorter reach or top tube."
+    // Additional fit notes based on height vs inseam ratio (only when inseam provided)
+    if (inseamCm) {
+      const ratio = heightCm / inseamCm
+      if (ratio > 2.2) {
+        fitNotes += " You have a longer torso relative to your legs - consider a bike with a slightly longer reach or top tube."
+      } else if (ratio < 2.0) {
+        fitNotes += " You have longer legs relative to your torso - consider a bike with a slightly shorter reach or top tube."
+      }
     }
 
     setResult({
@@ -110,6 +119,7 @@ export default function BikeSizingForm() {
       sizeRange,
       sizeCategory,
       fitNotes,
+      estimatedFromHeight: !hasInseam,
     })
 
     // Scroll to results
@@ -300,15 +310,14 @@ export default function BikeSizingForm() {
 
                 <TextField
                   fullWidth
-                  label={`Inseam / Inner Leg Length (${unit}) *`}
+                  label={`Inseam / Inner Leg Length (${unit}) — Strongly Recommended`}
                   name="inseam"
                   type="number"
                   value={formData.inseam}
                   onChange={handleChange}
-                  required
                   variant="outlined"
                   inputProps={{ step: "0.1", min: "0" }}
-                  helperText="Measure from your crotch to the floor while standing barefoot"
+                  helperText="Measure from your crotch to the floor while standing barefoot. Providing inseam gives a much more accurate result."
                   sx={darkInputStyles}
                 />
 
@@ -343,7 +352,7 @@ export default function BikeSizingForm() {
                   size="large"
                   fullWidth
                   onClick={calculateSize}
-                  disabled={!formData.height || !formData.inseam}
+                  disabled={!formData.height}
                   sx={{
                     backgroundColor: "#00d4ff",
                     color: "#000000",
@@ -432,13 +441,31 @@ export default function BikeSizingForm() {
                     mb: 4,
                   }}
                 >
+                  {result.estimatedFromHeight && (
+                    <Alert
+                      severity="warning"
+                      icon={<i className="fi fi-rr-exclamation" style={{ fontSize: "1.25rem" }}></i>}
+                      sx={{
+                        mb: 3,
+                        backgroundColor: "rgba(255, 167, 38, 0.1)",
+                        border: "1px solid rgba(255, 167, 38, 0.4)",
+                        borderRadius: 0,
+                        "& .MuiAlert-icon": { color: "#ffa726" },
+                      }}
+                    >
+                      <Typography sx={{ color: "var(--theme-text-secondary)", lineHeight: 1.7, fontSize: "0.875rem" }}>
+                        This is an approximate estimate based on height only. For a much more accurate result, go back and enter your <strong>inseam measurement</strong>.
+                      </Typography>
+                    </Alert>
+                  )}
+
                   <Box sx={{ textAlign: "center", mb: 3 }}>
                     <i
                       className="fi fi-rr-check-circle"
                       style={{ color: "#00d4ff", fontSize: "2.5rem", marginBottom: "16px", display: "block" }}
                     ></i>
                     <Typography sx={{ fontWeight: 700, color: "var(--theme-text-primary)", mb: 1, fontSize: "0.875rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                      Your Recommended Frame Size
+                      {result.estimatedFromHeight ? "Estimated Frame Size" : "Your Recommended Frame Size"}
                     </Typography>
                     <Typography
                       sx={{
