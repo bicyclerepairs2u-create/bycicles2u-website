@@ -32,7 +32,11 @@ export default function BikeSizingForm() {
   const [unit, setUnit] = useState<"cm" | "inches">("cm")
   const [formData, setFormData] = useState({
     height: "",
+    heightFeet: "",
+    heightInches: "",
     inseam: "",
+    inseamFeet: "",
+    inseamInches: "",
     armLength: "",
     torsoLength: "",
   })
@@ -48,16 +52,35 @@ export default function BikeSizingForm() {
     if (newUnit !== null) {
       // Convert existing values
       if (unit === "cm" && newUnit === "inches") {
+        // Convert height cm to feet + inches
+        const heightTotalIn = formData.height ? parseFloat(formData.height) / 2.54 : 0
+        const hFeet = heightTotalIn ? Math.floor(heightTotalIn / 12) : 0
+        const hInches = heightTotalIn ? Math.round(heightTotalIn % 12) : 0
+        // Convert inseam cm to feet + inches
+        const inseamTotalIn = formData.inseam ? parseFloat(formData.inseam) / 2.54 : 0
+        const iFeet = inseamTotalIn ? Math.floor(inseamTotalIn / 12) : 0
+        const iInches = inseamTotalIn ? Math.round(inseamTotalIn % 12) : 0
         setFormData({
-          height: formData.height ? (parseFloat(formData.height) / 2.54).toFixed(1) : "",
-          inseam: formData.inseam ? (parseFloat(formData.inseam) / 2.54).toFixed(1) : "",
+          height: "",
+          heightFeet: heightTotalIn ? String(hFeet) : "",
+          heightInches: heightTotalIn ? String(hInches) : "",
+          inseam: "",
+          inseamFeet: inseamTotalIn ? String(iFeet) : "",
+          inseamInches: inseamTotalIn ? String(iInches) : "",
           armLength: formData.armLength ? (parseFloat(formData.armLength) / 2.54).toFixed(1) : "",
           torsoLength: formData.torsoLength ? (parseFloat(formData.torsoLength) / 2.54).toFixed(1) : "",
         })
       } else if (unit === "inches" && newUnit === "cm") {
+        // Convert feet + inches to cm
+        const heightTotalIn = (formData.heightFeet ? parseFloat(formData.heightFeet) * 12 : 0) + (formData.heightInches ? parseFloat(formData.heightInches) : 0)
+        const inseamTotalIn = (formData.inseamFeet ? parseFloat(formData.inseamFeet) * 12 : 0) + (formData.inseamInches ? parseFloat(formData.inseamInches) : 0)
         setFormData({
-          height: formData.height ? (parseFloat(formData.height) * 2.54).toFixed(1) : "",
-          inseam: formData.inseam ? (parseFloat(formData.inseam) * 2.54).toFixed(1) : "",
+          height: heightTotalIn ? (heightTotalIn * 2.54).toFixed(1) : "",
+          heightFeet: "",
+          heightInches: "",
+          inseam: inseamTotalIn ? (inseamTotalIn * 2.54).toFixed(1) : "",
+          inseamFeet: "",
+          inseamInches: "",
           armLength: formData.armLength ? (parseFloat(formData.armLength) * 2.54).toFixed(1) : "",
           torsoLength: formData.torsoLength ? (parseFloat(formData.torsoLength) * 2.54).toFixed(1) : "",
         })
@@ -74,16 +97,30 @@ export default function BikeSizingForm() {
     setResult(null) // Clear result when form changes
   }
 
+  const hasHeight = unit === "cm" ? !!formData.height : !!(formData.heightFeet || formData.heightInches)
+
   const calculateSize = () => {
-    if (!formData.height) {
+    if (!hasHeight) {
       return
     }
 
-    const heightCm = unit === "cm" ? parseFloat(formData.height) : parseFloat(formData.height) * 2.54
-    const hasInseam = !!formData.inseam
-    const inseamCm = hasInseam
-      ? unit === "cm" ? parseFloat(formData.inseam) : parseFloat(formData.inseam) * 2.54
-      : null
+    let heightCm: number
+    if (unit === "cm") {
+      heightCm = parseFloat(formData.height)
+    } else {
+      const totalInches = (formData.heightFeet ? parseFloat(formData.heightFeet) * 12 : 0) + (formData.heightInches ? parseFloat(formData.heightInches) : 0)
+      heightCm = totalInches * 2.54
+    }
+    const hasInseam = unit === "cm" ? !!formData.inseam : !!(formData.inseamFeet || formData.inseamInches)
+    let inseamCm: number | null = null
+    if (hasInseam) {
+      if (unit === "cm") {
+        inseamCm = parseFloat(formData.inseam)
+      } else {
+        const totalInseamInches = (formData.inseamFeet ? parseFloat(formData.inseamFeet) * 12 : 0) + (formData.inseamInches ? parseFloat(formData.inseamInches) : 0)
+        inseamCm = totalInseamInches * 2.54
+      }
+    }
 
     // Calculate road bike frame size
     // If inseam provided: use the precise formula (inseam × 0.665)
@@ -290,40 +327,103 @@ export default function BikeSizingForm() {
                   }}
                 >
                   <ToggleButton value="cm">CM</ToggleButton>
-                  <ToggleButton value="inches">IN</ToggleButton>
+                  <ToggleButton value="inches">FT/IN</ToggleButton>
                 </ToggleButtonGroup>
               </Box>
 
               <Stack spacing={3}>
-                <TextField
-                  fullWidth
-                  label={`Height (${unit}) *`}
-                  name="height"
-                  type="number"
-                  value={formData.height}
-                  onChange={handleChange}
-                  required
-                  variant="outlined"
-                  inputProps={{ step: "0.1", min: "0" }}
-                  sx={darkInputStyles}
-                />
+                {unit === "cm" ? (
+                  <TextField
+                    fullWidth
+                    label="Height (cm) *"
+                    name="height"
+                    type="number"
+                    value={formData.height}
+                    onChange={handleChange}
+                    required
+                    variant="outlined"
+                    inputProps={{ step: "0.1", min: "0" }}
+                    sx={darkInputStyles}
+                  />
+                ) : (
+                  <Box sx={{ border: "1px solid var(--theme-border)", p: 2, pt: 1 }}>
+                    <Typography sx={{ fontSize: "0.75rem", color: "var(--theme-text-muted)", mb: 1.5, textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: 600 }}>
+                      Height *
+                    </Typography>
+                    <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+                      <TextField
+                        label="ft"
+                        name="heightFeet"
+                        type="number"
+                        value={formData.heightFeet}
+                        onChange={handleChange}
+                        variant="outlined"
+                        inputProps={{ step: "1", min: "0", max: "8" }}
+                        sx={{ ...darkInputStyles, flex: 1 }}
+                      />
+                      <TextField
+                        label="in"
+                        name="heightInches"
+                        type="number"
+                        value={formData.heightInches}
+                        onChange={handleChange}
+                        variant="outlined"
+                        inputProps={{ step: "1", min: "0", max: "11" }}
+                        sx={{ ...darkInputStyles, flex: 1 }}
+                      />
+                    </Box>
+                  </Box>
+                )}
+
+                {unit === "cm" ? (
+                  <TextField
+                    fullWidth
+                    label="Inseam / Inner Leg Length (cm) — Strongly Recommended"
+                    name="inseam"
+                    type="number"
+                    value={formData.inseam}
+                    onChange={handleChange}
+                    variant="outlined"
+                    inputProps={{ step: "0.1", min: "0" }}
+                    helperText="Measure from your crotch to the floor while standing barefoot. Providing inseam gives a much more accurate result."
+                    sx={darkInputStyles}
+                  />
+                ) : (
+                  <Box sx={{ border: "1px solid var(--theme-border)", p: 2, pt: 1 }}>
+                    <Typography sx={{ fontSize: "0.75rem", color: "var(--theme-text-muted)", mb: 0.5, textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: 600 }}>
+                      Inseam / Inner Leg Length — Strongly Recommended
+                    </Typography>
+                    <Typography sx={{ fontSize: "0.75rem", color: "var(--theme-text-muted)", mb: 1.5 }}>
+                      Measure from your crotch to the floor while standing barefoot. Providing inseam gives a much more accurate result.
+                    </Typography>
+                    <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+                      <TextField
+                        label="ft"
+                        name="inseamFeet"
+                        type="number"
+                        value={formData.inseamFeet}
+                        onChange={handleChange}
+                        variant="outlined"
+                        inputProps={{ step: "1", min: "0", max: "4" }}
+                        sx={{ ...darkInputStyles, flex: 1 }}
+                      />
+                      <TextField
+                        label="in"
+                        name="inseamInches"
+                        type="number"
+                        value={formData.inseamInches}
+                        onChange={handleChange}
+                        variant="outlined"
+                        inputProps={{ step: "1", min: "0", max: "11" }}
+                        sx={{ ...darkInputStyles, flex: 1 }}
+                      />
+                    </Box>
+                  </Box>
+                )}
 
                 <TextField
                   fullWidth
-                  label={`Inseam / Inner Leg Length (${unit}) — Strongly Recommended`}
-                  name="inseam"
-                  type="number"
-                  value={formData.inseam}
-                  onChange={handleChange}
-                  variant="outlined"
-                  inputProps={{ step: "0.1", min: "0" }}
-                  helperText="Measure from your crotch to the floor while standing barefoot. Providing inseam gives a much more accurate result."
-                  sx={darkInputStyles}
-                />
-
-                <TextField
-                  fullWidth
-                  label={`Arm Length (${unit})`}
+                  label={`Arm Length (${unit === "cm" ? "cm" : "in"})`}
                   name="armLength"
                   type="number"
                   value={formData.armLength}
@@ -336,7 +436,7 @@ export default function BikeSizingForm() {
 
                 <TextField
                   fullWidth
-                  label={`Torso Length (${unit})`}
+                  label={`Torso Length (${unit === "cm" ? "cm" : "in"})`}
                   name="torsoLength"
                   type="number"
                   value={formData.torsoLength}
@@ -352,7 +452,7 @@ export default function BikeSizingForm() {
                   size="large"
                   fullWidth
                   onClick={calculateSize}
-                  disabled={!formData.height}
+                  disabled={!hasHeight}
                   sx={{
                     backgroundColor: "#00d4ff",
                     color: "#000000",
