@@ -223,38 +223,10 @@ export function ShopFilters({ products, initialSize, initialCategory }: ShopFilt
             </button>
           </div>
 
-          {/* Size Filter */}
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[var(--theme-text-muted)] mr-1">Size:</span>
-            <button
-              onClick={() => setActiveSize('all')}
-              className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
-                activeSize === 'all'
-                  ? 'bg-[#00d4ff] text-black'
-                  : 'border border-[#00d4ff] text-[#00d4ff] hover:bg-[#00d4ff]/10'
-              }`}
-            >
-              All
-            </button>
-            {SIZE_CATEGORIES.map((size) => (
-              <button
-                key={size}
-                onClick={() => setActiveSize(size)}
-                className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
-                  activeSize === size
-                    ? 'bg-[#00d4ff] text-black'
-                    : 'border border-[#00d4ff] text-[#00d4ff] hover:bg-[#00d4ff]/10'
-                }`}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
         </div>
 
-        {/* Search and Sort Row */}
+        {/* Search, Size Filter and Sort Row */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
-          {/* Search and Sort */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             {/* Search Input */}
             <div className="relative w-full sm:w-64">
@@ -275,6 +247,23 @@ export function ShopFilters({ products, initialSize, initialCategory }: ShopFilt
                   <X className="w-4 h-4" />
                 </button>
               )}
+            </div>
+
+            {/* Size Filter Dropdown */}
+            <div className="relative w-full sm:w-36">
+              <select
+                value={activeSize}
+                onChange={(e) => setActiveSize(e.target.value as BikeSize)}
+                className="w-full appearance-none px-4 py-2 pr-10 bg-[var(--theme-bg-secondary)] border border-[var(--theme-border)] text-[var(--theme-text-primary)] text-sm focus:outline-none focus:border-[#00d4ff] transition-colors cursor-pointer"
+              >
+                <option value="all">All Sizes</option>
+                {SIZE_CATEGORIES.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--theme-text-muted)] pointer-events-none" />
             </div>
 
             {/* Sort Dropdown */}
