@@ -258,6 +258,39 @@ export default function TagPreview({ formData }: TagPreviewProps) {
             </Box>
           )}
 
+          {/* Size Tags */}
+          {tags.sizeTags.length > 0 && (
+            <Box>
+              <Typography
+                variant="caption"
+                sx={{
+                  color: "var(--theme-text-muted)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  fontSize: "0.65rem",
+                }}
+              >
+                Frame Size
+              </Typography>
+              <Box sx={{ display: "flex", gap: 0.5, flexWrap: "wrap", mt: 0.5 }}>
+                {tags.sizeTags.map((tag) => (
+                  <Chip
+                    key={tag}
+                    label={tag}
+                    size="small"
+                    sx={{
+                      backgroundColor: "rgba(103, 58, 183, 0.15)",
+                      color: "#673ab7",
+                      fontWeight: 500,
+                      fontSize: "0.75rem",
+                      borderRadius: 0,
+                    }}
+                  />
+                ))}
+              </Box>
+            </Box>
+          )}
+
           {/* Feature Tags */}
           {tags.featureTags.length > 0 && (
             <Box>

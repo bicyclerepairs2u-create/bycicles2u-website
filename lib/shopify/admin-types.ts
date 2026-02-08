@@ -19,6 +19,9 @@ export interface BikeUploadFormData {
   // Weight
   weight: string
 
+  // Frame size in cm (e.g. "54")
+  frameSize: string
+
   // Featured product flag
   isFeatured: boolean
 

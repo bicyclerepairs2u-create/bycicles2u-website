@@ -10,7 +10,7 @@ export const metadata = {
   description: 'Browse our collection of premium road bikes and triathlon bikes.',
 }
 
-async function ProductList() {
+async function ProductList({ initialSize, initialCategory }: { initialSize?: string; initialCategory?: string }) {
   if (!isShopifyConfigured()) {
     return (
       <div className="border border-[var(--theme-border)] bg-[var(--theme-bg-secondary)] p-8 text-center">
@@ -33,7 +33,7 @@ async function ProductList() {
 
   const products = await getProducts(50)
 
-  return <ShopFilters products={products} />
+  return <ShopFilters products={products} initialSize={initialSize} initialCategory={initialCategory} />
 }
 
 function ProductListSkeleton() {
@@ -53,7 +53,15 @@ function ProductListSkeleton() {
   )
 }
 
-export default function ShopPage() {
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ size?: string; category?: string }>
+}) {
+  const params = await searchParams
+  const initialSize = params.size
+  const initialCategory = params.category
+
   return (
     <main className="bg-[var(--theme-bg-primary)]">
       <Navigation />
@@ -93,7 +101,7 @@ export default function ShopPage() {
       <div className="min-h-screen">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <Suspense fallback={<ProductListSkeleton />}>
-            <ProductList />
+            <ProductList initialSize={initialSize} initialCategory={initialCategory} />
           </Suspense>
         </div>
       </div>

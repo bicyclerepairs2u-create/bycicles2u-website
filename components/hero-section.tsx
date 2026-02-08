@@ -1,6 +1,7 @@
 "use client"
 
 import { Box, Container, Typography, Button, Stack } from "@mui/material"
+import Link from "next/link"
 
 export default function HeroSection() {
   const handleScroll = (id: string) => {
@@ -179,9 +180,16 @@ export default function HeroSection() {
               opacity: 0,
             }}
           >
-            {["Road", "Triathlon", "Time Trial", "Gravel"].map((category) => (
+            {[
+              { label: "Road", slug: "road" },
+              { label: "Triathlon", slug: "triathlon" },
+              { label: "Time Trial", slug: "time-trial" },
+              { label: "Gravel", slug: "gravel" },
+            ].map((category) => (
               <Box
-                key={category}
+                key={category.slug}
+                component={Link}
+                href={`/shop?category=${category.slug}`}
                 sx={{
                   px: 2,
                   py: 0.75,
@@ -194,13 +202,14 @@ export default function HeroSection() {
                   backgroundColor: "rgba(0,0,0,0.3)",
                   transition: "all 0.2s ease",
                   cursor: "pointer",
+                  textDecoration: "none",
                   "&:hover": {
                     backgroundColor: "#00d4ff",
                     color: "#000000",
                   },
                 }}
               >
-                {category}
+                {category.label}
               </Box>
             ))}
           </Stack>
@@ -216,9 +225,10 @@ export default function HeroSection() {
             }}
           >
             <Button
+              component={Link}
+              href="/shop"
               variant="contained"
               size="large"
-              onClick={() => handleScroll("#bikes")}
               sx={{
                 backgroundColor: "#00d4ff",
                 color: "#000000",
@@ -229,6 +239,7 @@ export default function HeroSection() {
                 textTransform: "uppercase",
                 letterSpacing: "0.05em",
                 borderRadius: 0,
+                textDecoration: "none",
                 boxShadow: "0 4px 20px rgba(0, 212, 255, 0.4)",
                 "&:hover": {
                   backgroundColor: "#0099cc",

@@ -4,12 +4,16 @@ import { useState, useMemo } from 'react'
 import { ShopifyProduct } from '@/lib/shopify'
 import { ProductCard } from './product-card'
 import { Search, X, ChevronDown, Tag } from 'lucide-react'
+import { SIZE_CATEGORIES, SIZE_TAG_MAP, type SizeCategory } from '@/lib/bike-sizes'
 
-type BikeCategory = 'all' | 'road' | 'triathlon' | 'time-trial'
+type BikeCategory = 'all' | 'road' | 'triathlon' | 'time-trial' | 'gravel'
+type BikeSize = SizeCategory | 'all'
 type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc'
 
 interface ShopFiltersProps {
   products: ShopifyProduct[]
+  initialSize?: string
+  initialCategory?: string
 }
 
 const categories: { id: BikeCategory; label: string }[] = [
@@ -17,6 +21,7 @@ const categories: { id: BikeCategory; label: string }[] = [
   { id: 'road', label: 'Road' },
   { id: 'triathlon', label: 'Triathlon' },
   { id: 'time-trial', label: 'Time Trial' },
+  { id: 'gravel', label: 'Gravel' },
 ]
 
 const sortOptions: { id: SortOption; label: string }[] = [
@@ -38,8 +43,23 @@ function isOnSale(product: ShopifyProduct): boolean {
   return comparePrice > currentPrice
 }
 
-export function ShopFilters({ products }: ShopFiltersProps) {
-  const [activeCategory, setActiveCategory] = useState<BikeCategory>('all')
+const validCategories: BikeCategory[] = ['all', 'road', 'triathlon', 'time-trial', 'gravel']
+
+export function ShopFilters({ products, initialSize, initialCategory }: ShopFiltersProps) {
+  const resolvedInitialSize: BikeSize = (() => {
+    if (!initialSize) return 'all'
+    const upper = initialSize.toUpperCase() as SizeCategory
+    return SIZE_CATEGORIES.includes(upper) ? upper : 'all'
+  })()
+
+  const resolvedInitialCategory: BikeCategory = (() => {
+    if (!initialCategory) return 'all'
+    const lower = initialCategory.toLowerCase() as BikeCategory
+    return validCategories.includes(lower) ? lower : 'all'
+  })()
+
+  const [activeCategory, setActiveCategory] = useState<BikeCategory>(resolvedInitialCategory)
+  const [activeSize, setActiveSize] = useState<BikeSize>(resolvedInitialSize)
   const [searchQuery, setSearchQuery] = useState('')
   const [sortBy, setSortBy] = useState<SortOption>('featured')
   const [showOnSaleOnly, setShowOnSaleOnly] = useState(false)
@@ -94,10 +114,24 @@ export function ShopFilters({ products }: ShopFiltersProps) {
               titleLower.includes(' tt ') ||
               titleLower.includes(' tt')
             )
+          case 'gravel':
+            return (
+              productTypeLower.includes('gravel') ||
+              tagsLower.some((tag) => tag.includes('gravel')) ||
+              titleLower.includes('gravel')
+            )
           default:
             return true
         }
       })
+    }
+
+    // Filter by size
+    if (activeSize !== 'all') {
+      const sizeTag = SIZE_TAG_MAP[activeSize]
+      filtered = filtered.filter((product) =>
+        product.tags.some((tag) => tag.toLowerCase() === sizeTag)
+      )
     }
 
     // Filter by search query
@@ -143,7 +177,7 @@ export function ShopFilters({ products }: ShopFiltersProps) {
     }
 
     return sorted
-  }, [products, activeCategory, searchQuery, sortBy, showOnSaleOnly])
+  }, [products, activeCategory, activeSize, searchQuery, sortBy, showOnSaleOnly])
 
   return (
     <div className="space-y-8">
@@ -189,6 +223,37 @@ export function ShopFilters({ products }: ShopFiltersProps) {
             </button>
           </div>
 
+          {/* Size Filter */}
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-[var(--theme-text-muted)] mr-1">Size:</span>
+            <button
+              onClick={() => setActiveSize('all')}
+              className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                activeSize === 'all'
+                  ? 'bg-[#00d4ff] text-black'
+                  : 'border border-[#00d4ff] text-[#00d4ff] hover:bg-[#00d4ff]/10'
+              }`}
+            >
+              All
+            </button>
+            {SIZE_CATEGORIES.map((size) => (
+              <button
+                key={size}
+                onClick={() => setActiveSize(size)}
+                className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                  activeSize === size
+                    ? 'bg-[#00d4ff] text-black'
+                    : 'border border-[#00d4ff] text-[#00d4ff] hover:bg-[#00d4ff]/10'
+                }`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Search and Sort Row */}
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
           {/* Search and Sort */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             {/* Search Input */}
@@ -237,13 +302,15 @@ export function ShopFilters({ products }: ShopFiltersProps) {
           {filteredProducts.length} {filteredProducts.length === 1 ? 'bike' : 'bikes'} found
           {showOnSaleOnly && ' on sale'}
           {activeCategory !== 'all' && ` in ${categories.find(c => c.id === activeCategory)?.label}`}
+          {activeSize !== 'all' && ` in size ${activeSize}`}
           {searchQuery && ` matching "${searchQuery}"`}
           {sortBy !== 'featured' && ` · Sorted by ${sortOptions.find(s => s.id === sortBy)?.label.toLowerCase()}`}
         </span>
-        {(activeCategory !== 'all' || searchQuery || sortBy !== 'featured' || showOnSaleOnly) && (
+        {(activeCategory !== 'all' || activeSize !== 'all' || searchQuery || sortBy !== 'featured' || showOnSaleOnly) && (
           <button
             onClick={() => {
               setActiveCategory('all')
+              setActiveSize('all')
               setSearchQuery('')
               setSortBy('featured')
               setShowOnSaleOnly(false)
@@ -264,6 +331,7 @@ export function ShopFilters({ products }: ShopFiltersProps) {
           <button
             onClick={() => {
               setActiveCategory('all')
+              setActiveSize('all')
               setSearchQuery('')
               setSortBy('featured')
               setShowOnSaleOnly(false)

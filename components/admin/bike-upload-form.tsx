@@ -22,6 +22,7 @@ import {
 } from "@mui/material"
 import TagPreview from "./tag-preview"
 import ImageUpload from "./image-upload"
+import { getSizeFromFrame } from "@/lib/bike-sizes"
 import type {
   BikeUploadFormData,
   FeatureTag,
@@ -57,6 +58,7 @@ export default function BikeUploadForm() {
     groupsetType: "mechanical",
     brakeType: "disc-brakes",
     weight: "",
+    frameSize: "",
     isFeatured: false,
     features: [],
     customTags: "",
@@ -225,6 +227,7 @@ export default function BikeUploadForm() {
           groupsetType: "mechanical",
           brakeType: "disc-brakes",
           weight: "",
+          frameSize: "",
           isFeatured: false,
           features: [],
           customTags: "",
@@ -485,6 +488,27 @@ export default function BikeUploadForm() {
                   helperText="Bikes under 7.5kg get 'lightweight' tag"
                   sx={inputStyles}
                 />
+              </Box>
+
+              <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 3 }}>
+                <TextField
+                  fullWidth
+                  label="Frame Size"
+                  value={formData.frameSize}
+                  onChange={(e) => handleChange("frameSize", e.target.value)}
+                  disabled={isSubmitting}
+                  placeholder="e.g., 54"
+                  InputProps={{
+                    endAdornment: <InputAdornment position="end">cm</InputAdornment>,
+                  }}
+                  helperText={
+                    formData.frameSize && !isNaN(parseFloat(formData.frameSize))
+                      ? `Size: ${getSizeFromFrame(parseFloat(formData.frameSize))?.category ?? 'Unknown'}`
+                      : "Enter frame size for auto size tagging"
+                  }
+                  sx={inputStyles}
+                />
+                <Box />
               </Box>
 
               <FormControl>

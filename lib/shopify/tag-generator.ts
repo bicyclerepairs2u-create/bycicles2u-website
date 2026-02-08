@@ -2,6 +2,7 @@
 // Follows conventions from docs/SHOPIFY-PRODUCT-SETUP.md
 
 import type { BikeUploadFormData } from './admin-types'
+import { getSizeFromFrame } from '@/lib/bike-sizes'
 
 export interface GeneratedTags {
   categoryTags: string[]
@@ -9,6 +10,7 @@ export interface GeneratedTags {
   weightTags: string[]
   groupsetTags: string[]
   brakeTags: string[]
+  sizeTags: string[]
   featureTags: string[]
   specialTags: string[]
   customTags: string[]
@@ -92,7 +94,20 @@ export function generateTags(formData: Partial<BikeUploadFormData>): GeneratedTa
     brakeTags.push(formData.brakeType)
   }
 
-  // 6. Additional feature tags from checkboxes
+  // 6. Size tags from frame size
+  const sizeTags: string[] = []
+  if (formData.frameSize) {
+    const frameCm = parseFloat(formData.frameSize)
+    if (!isNaN(frameCm) && frameCm > 0) {
+      sizeTags.push(`frame-${Math.round(frameCm)}cm`)
+      const sizeMatch = getSizeFromFrame(frameCm)
+      if (sizeMatch) {
+        sizeTags.push(sizeMatch.tag)
+      }
+    }
+  }
+
+  // 7. Additional feature tags from checkboxes
   if (formData.features && formData.features.length > 0) {
     // Filter out tags already added by other selections
     const existingTags = new Set([...groupsetTags, ...weightTags])
@@ -128,6 +143,7 @@ export function generateTags(formData: Partial<BikeUploadFormData>): GeneratedTa
       ...weightTags,
       ...groupsetTags,
       ...brakeTags,
+      ...sizeTags,
       ...featureTags,
       ...specialTags,
       ...customTags,
@@ -140,6 +156,7 @@ export function generateTags(formData: Partial<BikeUploadFormData>): GeneratedTa
     weightTags,
     groupsetTags,
     brakeTags,
+    sizeTags,
     featureTags,
     specialTags,
     customTags,
@@ -165,6 +182,15 @@ export function generateDescription(formData: Partial<BikeUploadFormData>): stri
 
   // Add specifications section
   lines.push('Specifications:')
+
+  if (formData.frameSize) {
+    const frameCm = parseFloat(formData.frameSize)
+    if (!isNaN(frameCm)) {
+      const sizeMatch = getSizeFromFrame(frameCm)
+      const sizeLabel = sizeMatch ? ` (${sizeMatch.category})` : ''
+      lines.push(`- Frame Size: ${Math.round(frameCm)}cm${sizeLabel}`)
+    }
+  }
 
   if (formData.frameMaterial) {
     lines.push(

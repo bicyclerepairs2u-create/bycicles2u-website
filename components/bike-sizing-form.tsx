@@ -23,8 +23,10 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material"
+import Link from "next/link"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
+import { SIZE_DEFINITIONS, getSizeFromFrame, type SizeCategory } from "@/lib/bike-sizes"
 
 export default function BikeSizingForm() {
   const [unit, setUnit] = useState<"cm" | "inches">("cm")
@@ -37,6 +39,7 @@ export default function BikeSizingForm() {
   const [result, setResult] = useState<{
     frameSize: number
     sizeRange: string
+    sizeCategory: SizeCategory | null
     fitNotes: string
   } | null>(null)
 
@@ -82,31 +85,16 @@ export default function BikeSizingForm() {
     // Calculate road bike frame size using the standard formula
     const calculatedSize = inseamCm * 0.665
 
-    // Determine size range
+    // Determine size range from shared constants
+    const sizeMatch = getSizeFromFrame(calculatedSize)
     let sizeRange = ""
+    let sizeCategory: SizeCategory | null = null
     let fitNotes = ""
 
-    if (calculatedSize < 50) {
-      sizeRange = "47-49 cm (XXS)"
-      fitNotes = "Extra extra small frame. Suitable for riders under 160 cm."
-    } else if (calculatedSize < 52) {
-      sizeRange = "50-51 cm (XS)"
-      fitNotes = "Extra small frame. Suitable for riders 155-165 cm."
-    } else if (calculatedSize < 54) {
-      sizeRange = "52-53 cm (S)"
-      fitNotes = "Small frame. Suitable for riders 162-170 cm."
-    } else if (calculatedSize < 56) {
-      sizeRange = "54-55 cm (M)"
-      fitNotes = "Medium frame. Suitable for riders 170-178 cm."
-    } else if (calculatedSize < 58) {
-      sizeRange = "56-57 cm (L)"
-      fitNotes = "Large frame. Suitable for riders 178-185 cm."
-    } else if (calculatedSize < 60) {
-      sizeRange = "58-59 cm (XL)"
-      fitNotes = "Extra large frame. Suitable for riders 185-193 cm."
-    } else {
-      sizeRange = "60+ cm (XXL)"
-      fitNotes = "Extra extra large frame. Suitable for riders 193+ cm."
+    if (sizeMatch) {
+      sizeRange = `${sizeMatch.frameSizeRange} cm (${sizeMatch.category})`
+      sizeCategory = sizeMatch.category
+      fitNotes = sizeMatch.fitNotes
     }
 
     // Additional fit notes based on height vs inseam ratio
@@ -120,6 +108,7 @@ export default function BikeSizingForm() {
     setResult({
       frameSize: Math.round(calculatedSize),
       sizeRange,
+      sizeCategory,
       fitNotes,
     })
 
@@ -129,14 +118,14 @@ export default function BikeSizingForm() {
     }, 100)
   }
 
-  const sizeChart = [
-    { height: "155-165", inseam: "72-78", frameSize: "48-52", size: "XS" },
-    { height: "162-170", inseam: "77-81", frameSize: "52-53", size: "S" },
-    { height: "170-178", inseam: "80-84", frameSize: "54-55", size: "M" },
-    { height: "178-185", inseam: "83-87", frameSize: "56-57", size: "L" },
-    { height: "185-193", inseam: "86-92", frameSize: "58-59", size: "XL" },
-    { height: "193+", inseam: "91+", frameSize: "60+", size: "XXL" },
-  ]
+  const sizeChart = SIZE_DEFINITIONS
+    .filter((s) => s.category !== "XXS")
+    .map((s) => ({
+      height: s.heightRange,
+      inseam: s.inseamRange,
+      frameSize: s.frameSizeRange,
+      size: s.category,
+    }))
 
   // Theme-aware input styles
   const darkInputStyles = {
@@ -485,14 +474,39 @@ export default function BikeSizingForm() {
                     </Typography>
                   </Alert>
 
-                  <Box sx={{ mt: 3, textAlign: "center" }}>
+                  <Box sx={{ mt: 3, textAlign: "center", display: "flex", flexDirection: { xs: "column", sm: "row" }, gap: 2, justifyContent: "center" }}>
+                    {result.sizeCategory && (
+                      <Button
+                        component={Link}
+                        href={`/shop?size=${result.sizeCategory.toLowerCase()}`}
+                        variant="contained"
+                        size="large"
+                        sx={{
+                          backgroundColor: "#00d4ff",
+                          color: "#000000",
+                          fontWeight: 700,
+                          fontSize: "0.875rem",
+                          px: 4,
+                          py: 1.5,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.05em",
+                          borderRadius: 0,
+                          textDecoration: "none",
+                          "&:hover": {
+                            backgroundColor: "#0099cc",
+                          },
+                        }}
+                      >
+                        Shop Bikes in Your Size
+                      </Button>
+                    )}
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       size="large"
                       href="#contact"
                       sx={{
-                        backgroundColor: "#00d4ff",
-                        color: "#000000",
+                        borderColor: "#00d4ff",
+                        color: "#00d4ff",
                         fontWeight: 700,
                         fontSize: "0.875rem",
                         px: 4,
@@ -501,7 +515,9 @@ export default function BikeSizingForm() {
                         letterSpacing: "0.05em",
                         borderRadius: 0,
                         "&:hover": {
-                          backgroundColor: "#0099cc",
+                          borderColor: "#0099cc",
+                          color: "#0099cc",
+                          backgroundColor: "rgba(0, 212, 255, 0.05)",
                         },
                       }}
                       onClick={(e) => {
