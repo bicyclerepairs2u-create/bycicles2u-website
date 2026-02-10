@@ -26,7 +26,7 @@ import {
 import Link from "next/link"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
-import { SIZE_DEFINITIONS, getSizeFromFrame, type SizeCategory } from "@/lib/bike-sizes"
+import { SIZE_DEFINITIONS, getSizeFromFrame, type SizeCategory, type SizeDefinition } from "@/lib/bike-sizes"
 
 export default function BikeSizingForm() {
   const [unit, setUnit] = useState<"cm" | "inches">("cm")
@@ -122,15 +122,31 @@ export default function BikeSizingForm() {
       }
     }
 
-    // Calculate road bike frame size
-    // If inseam provided: use the precise formula (inseam × 0.665)
-    // If only height: estimate using height-based formula (height × 0.335 - 1)
-    const calculatedSize = inseamCm
-      ? inseamCm * 0.665
-      : heightCm * 0.335 - 1
+    let calculatedSize: number;
+    let sizeMatch: SizeDefinition | null;
 
-    // Determine size range from shared constants
-    const sizeMatch = getSizeFromFrame(calculatedSize)
+    if (inseamCm) {
+      // If inseam provided: use the precise formula (inseam × 0.665)
+      calculatedSize = inseamCm * 0.665;
+      sizeMatch = getSizeFromFrame(calculatedSize);
+    } else {
+      // If only height: estimate using height-based lookup
+      sizeMatch = SIZE_DEFINITIONS.find((s) => {
+        const [minHeightStr, maxHeightStr] = s.heightRange.split('-').map(str => str.replace(/[^0-9.]/g, ''));
+        const minHeight = parseFloat(minHeightStr);
+        const maxHeight = maxHeightStr ? parseFloat(maxHeightStr) : Infinity;
+
+        if (s.heightRange.startsWith('<')) {
+          return heightCm < minHeight;
+        } else if (s.heightRange.endsWith('+')) {
+          return heightCm >= minHeight;
+        } else {
+          return heightCm >= minHeight && heightCm <= maxHeight;
+        }
+      }) ?? null;
+      calculatedSize = sizeMatch ? sizeMatch.minFrame : 0; // Use minFrame as the calculated size
+    }
+
     let sizeRange = ""
     let sizeCategory: SizeCategory | null = null
     let fitNotes = ""
@@ -724,7 +740,7 @@ export default function BikeSizingForm() {
               {/* Important Notes */}
               <Paper
                 elevation={0}
-                sx={{
+              sx={{
                   p: 3,
                   borderRadius: 0,
                   backgroundColor: "rgba(0, 212, 255, 0.08)",
