@@ -18,13 +18,10 @@ import { ThemeToggle } from "@/components/theme-toggle"
 const navItems = [
   { label: "Home", href: "#home", type: "section" },
   { label: "Shop", href: "/shop", type: "page" },
-  { label: "Bikes", href: "#bikes", type: "section" },
-  { label: "Testimonials", href: "#testimonials", type: "section" },
-  { label: "Brands", href: "#brands", type: "section" },
-  { label: "Services & Pricing", href: "#services", type: "section" },
+  { label: "Sell Your Bike", href: "/sell-bike", type: "page" },
   { label: "Find Your Size", href: "/bike-sizing", type: "page" },
   { label: "First Bike Guide", href: "/first-bike", type: "page" },
-  { label: "Sell Your Bike", href: "/sell-bike", type: "page" },
+  { label: "Services & Pricing", href: "#services", type: "section" },
   { label: "Contact", href: "#contact", type: "section" },
 ]
 
