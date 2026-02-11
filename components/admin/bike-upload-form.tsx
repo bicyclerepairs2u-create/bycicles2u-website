@@ -673,7 +673,7 @@ export default function BikeUploadForm() {
             <ImageUpload
               images={images}
               onImagesChange={setImages}
-              maxImages={5}
+              maxImages={15}
               disabled={isSubmitting}
             />
 

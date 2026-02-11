@@ -14,7 +14,7 @@ interface ImageUploadProps {
 export default function ImageUpload({
   images,
   onImagesChange,
-  maxImages = 5,
+  maxImages = 15,
   disabled = false,
 }: ImageUploadProps) {
   const [dragOver, setDragOver] = useState(false)
