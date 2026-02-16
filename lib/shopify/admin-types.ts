@@ -110,6 +110,16 @@ export interface ProductCreateResponse {
   }
 }
 
+export interface InventoryItemUpdateResponse {
+  inventoryItemUpdate: {
+    inventoryItem: {
+      id: string
+      tracked: boolean
+    } | null
+    userErrors: { field: string[]; message: string }[]
+  }
+}
+
 export interface LocationsQueryResponse {
   locations: {
     edges: {

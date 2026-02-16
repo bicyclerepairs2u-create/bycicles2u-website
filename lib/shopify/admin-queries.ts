@@ -104,6 +104,22 @@ export const GET_LOCATIONS_QUERY = `
   }
 `
 
+// Mutation to enable inventory tracking on an item
+export const INVENTORY_ITEM_UPDATE_MUTATION = `
+  mutation inventoryItemUpdate($id: ID!, $input: InventoryItemInput!) {
+    inventoryItemUpdate(id: $id, input: $input) {
+      inventoryItem {
+        id
+        tracked
+      }
+      userErrors {
+        field
+        message
+      }
+    }
+  }
+`
+
 // Mutation to set inventory quantity
 export const INVENTORY_SET_QUANTITIES_MUTATION = `
   mutation inventorySetOnHandQuantities($input: InventorySetOnHandQuantitiesInput!) {

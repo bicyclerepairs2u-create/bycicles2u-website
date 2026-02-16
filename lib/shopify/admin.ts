@@ -9,6 +9,7 @@ import {
   GET_PUBLICATIONS_QUERY,
   PUBLISHABLE_PUBLISH_MUTATION,
   GET_LOCATIONS_QUERY,
+  INVENTORY_ITEM_UPDATE_MUTATION,
   INVENTORY_SET_QUANTITIES_MUTATION,
 } from './admin-queries'
 import type {
@@ -19,6 +20,7 @@ import type {
   PublishablePublishResponse,
   StagedUploadTarget,
   LocationsQueryResponse,
+  InventoryItemUpdateResponse,
   InventorySetQuantitiesResponse,
 } from './admin-types'
 
@@ -208,6 +210,25 @@ export async function getPrimaryLocationId(): Promise<string | null> {
   }
 }
 
+// Enable inventory tracking on an item (must be done before setting quantity)
+export async function enableInventoryTracking(
+  inventoryItemId: string
+): Promise<void> {
+  const data = await adminFetch<InventoryItemUpdateResponse>(
+    INVENTORY_ITEM_UPDATE_MUTATION,
+    {
+      id: inventoryItemId,
+      input: { tracked: true },
+    }
+  )
+
+  if (data.inventoryItemUpdate.userErrors.length > 0) {
+    throw new Error(
+      data.inventoryItemUpdate.userErrors.map((e) => e.message).join(', ')
+    )
+  }
+}
+
 // Set inventory quantity for an item at a location
 export async function setInventoryQuantity(
   inventoryItemId: string,
@@ -256,9 +277,10 @@ export async function createAndPublishProduct(
   if (variant?.id) {
     await updateVariantPrice(product.id, variant.id, price, compareAtPrice)
 
-    // Set inventory to 1 (each bike is unique/one-off)
+    // Enable inventory tracking and set stock to 1 (each bike is unique/one-off)
     const inventoryItemId = variant.inventoryItem?.id
     if (inventoryItemId) {
+      await enableInventoryTracking(inventoryItemId)
       const locationId = await getPrimaryLocationId()
       if (locationId) {
         await setInventoryQuantity(inventoryItemId, locationId, 1)
