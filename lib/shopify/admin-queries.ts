@@ -30,6 +30,9 @@ export const PRODUCT_CREATE_MUTATION = `
           edges {
             node {
               id
+              inventoryItem {
+                id
+              }
             }
           }
         }
@@ -83,6 +86,34 @@ export const GET_PUBLICATIONS_QUERY = `
           id
           name
         }
+      }
+    }
+  }
+`
+
+// Query to get the primary location ID (needed for inventory)
+export const GET_LOCATIONS_QUERY = `
+  query getLocations {
+    locations(first: 1) {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+`
+
+// Mutation to set inventory quantity
+export const INVENTORY_SET_QUANTITIES_MUTATION = `
+  mutation inventorySetOnHandQuantities($input: InventorySetOnHandQuantitiesInput!) {
+    inventorySetOnHandQuantities(input: $input) {
+      inventoryAdjustmentGroup {
+        id
+      }
+      userErrors {
+        field
+        message
       }
     }
   }

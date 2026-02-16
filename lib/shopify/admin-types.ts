@@ -99,9 +99,31 @@ export interface ProductCreateResponse {
         edges: {
           node: {
             id: string
+            inventoryItem?: {
+              id: string
+            }
           }
         }[]
       }
+    } | null
+    userErrors: { field: string[]; message: string }[]
+  }
+}
+
+export interface LocationsQueryResponse {
+  locations: {
+    edges: {
+      node: {
+        id: string
+      }
+    }[]
+  }
+}
+
+export interface InventorySetQuantitiesResponse {
+  inventorySetOnHandQuantities: {
+    inventoryAdjustmentGroup: {
+      id: string
     } | null
     userErrors: { field: string[]; message: string }[]
   }

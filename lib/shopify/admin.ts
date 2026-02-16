@@ -8,6 +8,8 @@ import {
   PRODUCT_VARIANT_UPDATE_MUTATION,
   GET_PUBLICATIONS_QUERY,
   PUBLISHABLE_PUBLISH_MUTATION,
+  GET_LOCATIONS_QUERY,
+  INVENTORY_SET_QUANTITIES_MUTATION,
 } from './admin-queries'
 import type {
   StagedUploadsCreateResponse,
@@ -16,6 +18,8 @@ import type {
   PublicationsQueryResponse,
   PublishablePublishResponse,
   StagedUploadTarget,
+  LocationsQueryResponse,
+  InventorySetQuantitiesResponse,
 } from './admin-types'
 
 // Generic fetch for Admin API (server-side only)
@@ -86,7 +90,7 @@ export async function createProduct(
   id: string
   handle: string
   title: string
-  variants?: { edges: { node: { id: string } }[] }
+  variants?: { edges: { node: { id: string; inventoryItem?: { id: string } } }[] }
 } | null> {
   const media = mediaUrls.map((url, index) => ({
     originalSource: url,
@@ -193,6 +197,46 @@ export async function updateVariantPrice(
   }
 }
 
+// Get the primary location ID for inventory management
+export async function getPrimaryLocationId(): Promise<string | null> {
+  try {
+    const data = await adminFetch<LocationsQueryResponse>(GET_LOCATIONS_QUERY)
+    return data.locations.edges[0]?.node.id || null
+  } catch (error) {
+    console.warn('Could not fetch locations:', error)
+    return null
+  }
+}
+
+// Set inventory quantity for an item at a location
+export async function setInventoryQuantity(
+  inventoryItemId: string,
+  locationId: string,
+  quantity: number
+): Promise<void> {
+  const data = await adminFetch<InventorySetQuantitiesResponse>(
+    INVENTORY_SET_QUANTITIES_MUTATION,
+    {
+      input: {
+        reason: 'correction',
+        setQuantities: [
+          {
+            inventoryItemId,
+            locationId,
+            quantity,
+          },
+        ],
+      },
+    }
+  )
+
+  if (data.inventorySetOnHandQuantities.userErrors.length > 0) {
+    throw new Error(
+      data.inventorySetOnHandQuantities.userErrors.map((e) => e.message).join(', ')
+    )
+  }
+}
+
 // Create product with media, set price, and publish
 export async function createAndPublishProduct(
   productInput: Record<string, unknown>,
@@ -208,9 +252,18 @@ export async function createAndPublishProduct(
   }
 
   // Get variant ID and update price (and compareAtPrice if provided)
-  if (product.variants?.edges?.[0]?.node?.id) {
-    const variantId = product.variants.edges[0].node.id
-    await updateVariantPrice(product.id, variantId, price, compareAtPrice)
+  const variant = product.variants?.edges?.[0]?.node
+  if (variant?.id) {
+    await updateVariantPrice(product.id, variant.id, price, compareAtPrice)
+
+    // Set inventory to 1 (each bike is unique/one-off)
+    const inventoryItemId = variant.inventoryItem?.id
+    if (inventoryItemId) {
+      const locationId = await getPrimaryLocationId()
+      if (locationId) {
+        await setInventoryQuantity(inventoryItemId, locationId, 1)
+      }
+    }
   }
 
   // Publish to Online Store

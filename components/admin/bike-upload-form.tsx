@@ -67,6 +67,7 @@ export default function BikeUploadForm() {
   const [images, setImages] = useState<File[]>([])
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle")
+  const [uploadProgress, setUploadProgress] = useState({ current: 0, total: 0 })
   const [submitResult, setSubmitResult] = useState<SubmitResult>({})
 
   // Theme-aware input styles
@@ -170,23 +171,34 @@ export default function BikeUploadForm() {
     setSubmitResult({})
 
     try {
-      // Step 1: Upload images
-      const imageFormData = new FormData()
-      images.forEach((image) => {
-        imageFormData.append("files", image)
-      })
+      // Step 1: Upload images individually to avoid body size limits
+      const imageUrls: string[] = []
+      setUploadProgress({ current: 0, total: images.length })
 
-      const uploadResponse = await fetch("/api/admin/upload-image", {
-        method: "POST",
-        body: imageFormData,
-      })
+      for (let i = 0; i < images.length; i++) {
+        setUploadProgress({ current: i + 1, total: images.length })
+        const imageFormData = new FormData()
+        imageFormData.append("files", images[i])
 
-      if (!uploadResponse.ok) {
-        const uploadError = await uploadResponse.json()
-        throw new Error(uploadError.error || "Failed to upload images")
+        const uploadResponse = await fetch("/api/admin/upload-image", {
+          method: "POST",
+          body: imageFormData,
+        })
+
+        if (!uploadResponse.ok) {
+          let errorMsg = `Failed to upload image ${i + 1}`
+          try {
+            const uploadError = await uploadResponse.json()
+            errorMsg = uploadError.error || errorMsg
+          } catch {
+            // Response wasn't JSON (e.g. "request entity too large")
+          }
+          throw new Error(errorMsg)
+        }
+
+        const { urls } = await uploadResponse.json()
+        imageUrls.push(...urls)
       }
-
-      const { urls: imageUrls } = await uploadResponse.json()
 
       // Step 2: Create product
       setSubmitStatus("creating-product")
@@ -201,8 +213,14 @@ export default function BikeUploadForm() {
       })
 
       if (!productResponse.ok) {
-        const productError = await productResponse.json()
-        throw new Error(productError.error || "Failed to create product")
+        let errorMsg = "Failed to create product"
+        try {
+          const productError = await productResponse.json()
+          errorMsg = productError.error || errorMsg
+        } catch {
+          // Response wasn't JSON
+        }
+        throw new Error(errorMsg)
       }
 
       const result = await productResponse.json()
@@ -778,7 +796,7 @@ export default function BikeUploadForm() {
                   <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                     <CircularProgress size={20} sx={{ color: "#000" }} />
                     {submitStatus === "uploading-images"
-                      ? "Uploading Images..."
+                      ? `Uploading Image ${uploadProgress.current}/${uploadProgress.total}...`
                       : "Creating Product..."}
                   </Box>
                 ) : (
