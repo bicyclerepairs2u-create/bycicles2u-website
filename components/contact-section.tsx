@@ -18,6 +18,7 @@ import {
   Link,
   Alert,
   CircularProgress,
+  FormHelperText,
 } from "@mui/material"
 
 export default function ContactSection() {
@@ -34,6 +35,91 @@ export default function ContactSection() {
   })
 
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [errorMessage, setErrorMessage] = useState<string>("")
+  const [image, setImage] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string>("")
+  const [imageError, setImageError] = useState<string>("")
+
+  const imageRequiredTypes = ["Bike Service", "Sell Bike"]
+
+  const compressImage = (file: File): Promise<File> => {
+    return new Promise((resolve) => {
+      const img = new Image()
+      const objectUrl = URL.createObjectURL(file)
+
+      img.onload = () => {
+        URL.revokeObjectURL(objectUrl)
+
+        const MAX_WIDTH = 1920
+        const MAX_HEIGHT = 1920
+        let { width, height } = img
+
+        if (width > MAX_WIDTH || height > MAX_HEIGHT) {
+          const ratio = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height)
+          width = Math.round(width * ratio)
+          height = Math.round(height * ratio)
+        }
+
+        const canvas = document.createElement("canvas")
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext("2d")
+        if (!ctx) {
+          resolve(file)
+          return
+        }
+        ctx.drawImage(img, 0, 0, width, height)
+
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              resolve(file)
+              return
+            }
+            const compressedFile = new File([blob], file.name.replace(/\.[^.]+$/, ".jpg"), {
+              type: "image/jpeg",
+              lastModified: Date.now(),
+            })
+            resolve(compressedFile)
+          },
+          "image/jpeg",
+          0.8
+        )
+      }
+
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl)
+        resolve(file)
+      }
+
+      img.src = objectUrl
+    })
+  }
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        setImageError("Image size must be less than 10MB")
+        return
+      }
+
+      const validTypes = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/heic", "image/heif"]
+      if (!file.type.startsWith("image/") && !validTypes.includes(file.type)) {
+        setImageError("Please upload an image file (JPG, PNG, WebP, or HEIC)")
+        return
+      }
+
+      const compressed = await compressImage(file)
+      setImage(compressed)
+      setImageError("")
+
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview)
+      }
+      setImagePreview(URL.createObjectURL(compressed))
+    }
+  }
 
   const handleChange = (e: any) => {
     setFormData({
@@ -45,15 +131,33 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
+    // Check if image is required for this inquiry type
+    if (imageRequiredTypes.includes(formData.inquiryType) && !image) {
+      setImageError("A photo is required for this inquiry type")
+      return
+    }
+
     setSubmitStatus("loading")
 
     try {
+      const formDataToSend = new FormData()
+      formDataToSend.append("name", formData.name)
+      formDataToSend.append("email", formData.email)
+      formDataToSend.append("phone", formData.phone)
+      formDataToSend.append("inquiryType", formData.inquiryType)
+      formDataToSend.append("serviceLevel", formData.serviceLevel)
+      formDataToSend.append("bikeType", formData.bikeType)
+      formDataToSend.append("bikeDetails", formData.bikeDetails)
+      formDataToSend.append("pickupNeeded", formData.pickupNeeded)
+      formDataToSend.append("message", formData.message)
+
+      if (image) {
+        formDataToSend.append("image", image)
+      }
+
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       })
 
       if (response.ok) {
@@ -72,19 +176,31 @@ export default function ContactSection() {
             pickupNeeded: "",
             message: "",
           })
+          if (imagePreview) {
+            URL.revokeObjectURL(imagePreview)
+          }
+          setImage(null)
+          setImagePreview("")
+          setImageError("")
+          setErrorMessage("")
           setSubmitStatus("idle")
         }, 3000)
       } else {
+        const data = await response.json().catch(() => null)
+        setErrorMessage(data?.error || "There was an error sending your inquiry. Please try again.")
         setSubmitStatus("error")
         setTimeout(() => {
           setSubmitStatus("idle")
+          setErrorMessage("")
         }, 5000)
       }
     } catch (error) {
       console.error("Error submitting form:", error)
+      setErrorMessage("Network error. Please check your connection and try again.")
       setSubmitStatus("error")
       setTimeout(() => {
         setSubmitStatus("idle")
+        setErrorMessage("")
       }, 5000)
     }
   }
@@ -131,6 +247,12 @@ export default function ContactSection() {
             {submitStatus === "success" && (
               <Alert severity="success" sx={{ mb: 3, borderRadius: "8px" }}>
                 Your message has been sent! We'll get back to you soon.
+              </Alert>
+            )}
+
+            {submitStatus === "error" && (
+              <Alert severity="error" sx={{ mb: 3, borderRadius: "8px" }}>
+                {errorMessage || "There was an error sending your inquiry. Please try again."}
               </Alert>
             )}
 
@@ -373,6 +495,83 @@ export default function ContactSection() {
                     }}
                   />
 
+                  {/* Image Upload */}
+                  {formData.inquiryType && (
+                    <Box>
+                      <Typography variant="subtitle2" sx={{ fontWeight: 600, color: "#212121", mb: 1 }}>
+                        Attach a Photo {imageRequiredTypes.includes(formData.inquiryType) ? "*" : "(Optional)"}
+                      </Typography>
+                      <Button
+                        variant="outlined"
+                        component="label"
+                        sx={{
+                          borderColor: imageError ? "#d32f2f" : "#0288d1",
+                          color: imageError ? "#d32f2f" : "#0288d1",
+                          fontWeight: 600,
+                          textTransform: "none",
+                          borderWidth: "2px",
+                          "&:hover": {
+                            borderWidth: "2px",
+                            borderColor: imageError ? "#d32f2f" : "#0277bd",
+                          },
+                        }}
+                      >
+                        <i className="fi fi-rr-camera" style={{ marginRight: "8px" }}></i>
+                        {image ? "Change Photo" : "Upload Photo"}
+                        <input
+                          type="file"
+                          hidden
+                          accept="image/*,.heic,.heif"
+                          onChange={handleImageChange}
+                        />
+                      </Button>
+                      {imageError && (
+                        <FormHelperText error sx={{ ml: 2 }}>
+                          {imageError}
+                        </FormHelperText>
+                      )}
+                      {!imageError && (
+                        <FormHelperText sx={{ ml: 2 }}>
+                          {imageRequiredTypes.includes(formData.inquiryType)
+                            ? "A photo of your bike is required for this inquiry type. Max 10MB."
+                            : "Attach a photo to help us understand your inquiry. Max 10MB."}
+                        </FormHelperText>
+                      )}
+
+                      {imagePreview && (
+                        <Box
+                          sx={{
+                            mt: 2,
+                            position: "relative",
+                            borderRadius: "8px",
+                            overflow: "hidden",
+                            maxWidth: "300px",
+                          }}
+                        >
+                          <img
+                            src={imagePreview}
+                            alt="Uploaded preview"
+                            style={{
+                              width: "100%",
+                              height: "auto",
+                              display: "block",
+                            }}
+                          />
+                          <Typography
+                            variant="caption"
+                            sx={{
+                              display: "block",
+                              mt: 1,
+                              color: "#757575",
+                            }}
+                          >
+                            {image?.name}
+                          </Typography>
+                        </Box>
+                      )}
+                    </Box>
+                  )}
+
                   <Button
                     type="submit"
                     variant="contained"
@@ -407,7 +606,7 @@ export default function ContactSection() {
                         }}
                       />
                     )}
-                    {submitStatus === "loading" ? "Sending..." : submitStatus === "success" ? "Sent!" : "Send Inquiry"}
+                    {submitStatus === "loading" ? "Sending your inquiry, this may take a moment..." : submitStatus === "success" ? "Sent!" : "Send Inquiry"}
                   </Button>
                 </Stack>
               </form>
