@@ -5,6 +5,7 @@ import { getProductByHandle, isShopifyConfigured, formatPrice } from '@/lib/shop
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
 import { AddToCartButton } from './add-to-cart-button'
+import { ProductImageGallery } from './product-image-gallery'
 import { ArrowLeft } from 'lucide-react'
 
 interface ProductPageProps {
@@ -75,49 +76,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Product Images */}
-            <div className="space-y-4">
-              <div
-                className="relative aspect-square overflow-hidden bg-[var(--theme-bg-secondary)] border border-[var(--theme-border)]"
-                style={{
-                  clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%)',
-                }}
-              >
-                {/* Corner accent */}
-                <div className="absolute top-0 right-0 w-24 h-1 bg-[#00d4ff] z-10" />
-                <div className="absolute top-0 right-0 w-1 h-20 bg-[#00d4ff] z-10" />
-
-                {product.featuredImage ? (
-                  <Image
-                    src={product.featuredImage.url}
-                    alt={product.featuredImage.altText || product.title}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                ) : (
-                  <div className="flex h-full items-center justify-center">
-                    <span className="text-[var(--theme-text-muted)]">No image available</span>
-                  </div>
-                )}
-              </div>
-              {images.length > 1 && (
-                <div className="grid grid-cols-4 gap-4">
-                  {images.slice(0, 4).map((image, index) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square overflow-hidden bg-[var(--theme-bg-secondary)] border border-[var(--theme-border)] hover:border-[#00d4ff]/50 transition-colors"
-                    >
-                      <Image
-                        src={image.url}
-                        alt={image.altText || `${product.title} ${index + 1}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <ProductImageGallery images={images} title={product.title} />
 
             {/* Product Info */}
             <div className="space-y-6">
