@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { getProductByHandle, isShopifyConfigured, formatPrice } from '@/lib/shopify'
 import Navigation from '@/components/navigation'
 import Footer from '@/components/footer'
-import { AddToCartButton } from './add-to-cart-button'
+import { EnquireButton } from './enquire-button'
 import { ProductImageGallery } from './product-image-gallery'
 import { ArrowLeft } from 'lucide-react'
 
@@ -113,9 +113,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 </div>
               )}
 
-              {product.availableForSale && firstVariant && (
-                <AddToCartButton variantId={firstVariant.id} />
-              )}
+              <EnquireButton
+                productTitle={product.title}
+                productPrice={formatPrice(product.priceRange.minVariantPrice)}
+              />
 
               {product.descriptionHtml && (
                 <div className="border-t border-[var(--theme-border)] pt-6">

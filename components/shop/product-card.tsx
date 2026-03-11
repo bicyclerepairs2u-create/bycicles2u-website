@@ -2,10 +2,9 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ShopifyProduct, formatPrice, getFirstVariant } from '@/lib/shopify'
-import { useCart } from '@/components/providers/cart-provider'
+import { ShopifyProduct, formatPrice } from '@/lib/shopify'
 import { useCompare } from '@/components/providers/compare-provider'
-import { ShoppingCart, Weight, Zap, Scale, Check, Star, Sparkles, Tag } from 'lucide-react'
+import { Weight, Zap, Scale, Check, Star, Sparkles, Tag } from 'lucide-react'
 
 interface ProductCardProps {
   product: ShopifyProduct
@@ -44,22 +43,12 @@ function getSaleInfo(product: ShopifyProduct) {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { addItem, isLoading } = useCart()
   const { addToCompare, removeFromCompare, isInCompare, canAddMore } = useCompare()
-  const firstVariant = getFirstVariant(product)
   const price = product.priceRange.minVariantPrice
   const inCompare = isInCompare(product.id)
   const featured = isFeatured(product)
   const newListing = isNewListing(product)
   const saleInfo = getSaleInfo(product)
-
-  const handleAddToCart = async (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if (firstVariant) {
-      await addItem(firstVariant.id)
-    }
-  }
 
   const handleToggleCompare = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -194,17 +183,6 @@ export function ProductCard({ product }: ProductCardProps) {
               >
                 <Scale className="w-4 h-4" />
               </button>
-              {/* Cart button */}
-              {product.availableForSale && firstVariant && (
-                <button
-                  onClick={handleAddToCart}
-                  disabled={isLoading}
-                  className="p-2.5 bg-[#00d4ff] text-black transition-all duration-200 hover:bg-[#0099cc] disabled:opacity-50"
-                  aria-label="Add to cart"
-                >
-                  <ShoppingCart className="w-4 h-4" />
-                </button>
-              )}
             </div>
           </div>
         </div>

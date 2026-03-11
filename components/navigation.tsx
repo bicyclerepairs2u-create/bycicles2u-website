@@ -10,9 +10,7 @@ import {
   MenuItem,
   Box,
   Container,
-  Badge,
 } from "@mui/material"
-import { useCart } from "@/components/providers/cart-provider"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 const navItems = [
@@ -29,8 +27,6 @@ export default function Navigation() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const router = useRouter()
-  const { cart, openCart } = useCart()
-
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -117,47 +113,6 @@ export default function Navigation() {
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             {/* Theme Toggle */}
             <ThemeToggle />
-
-            {/* Cart Button */}
-            <Box
-              component="button"
-              aria-label="open cart"
-              onClick={openCart}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 40,
-                height: 40,
-                color: "var(--theme-text-secondary)",
-                backgroundColor: "transparent",
-                border: "1px solid transparent",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-                "&:hover": {
-                  backgroundColor: "rgba(0, 212, 255, 0.1)",
-                  borderColor: "rgba(0, 212, 255, 0.3)",
-                  color: "#00d4ff",
-                },
-              }}
-            >
-              <Badge
-                badgeContent={cart?.totalQuantity || 0}
-                color="primary"
-                sx={{
-                  "& .MuiBadge-badge": {
-                    backgroundColor: "#00d4ff",
-                    color: "#000",
-                    fontWeight: 700,
-                    fontSize: "0.7rem",
-                    minWidth: 18,
-                    height: 18,
-                  },
-                }}
-              >
-                <i className="fi fi-rr-shopping-cart" style={{ fontSize: "1.25rem", display: "flex" }}></i>
-              </Badge>
-            </Box>
 
             {/* Hamburger Menu Button */}
             <Box
