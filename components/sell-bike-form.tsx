@@ -36,6 +36,7 @@ export default function SellBikeForm() {
   const [imagePreview, setImagePreview] = useState<string>("")
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [errorMessage, setErrorMessage] = useState<string>("")
 
   // Theme-aware input styles
   const inputStyles = {
@@ -79,30 +80,88 @@ export default function SellBikeForm() {
     }
   }
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const compressImage = (file: File): Promise<File> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+      const objectUrl = URL.createObjectURL(file)
+
+      img.onload = () => {
+        URL.revokeObjectURL(objectUrl)
+
+        const MAX_WIDTH = 1920
+        const MAX_HEIGHT = 1920
+        let { width, height } = img
+
+        if (width > MAX_WIDTH || height > MAX_HEIGHT) {
+          const ratio = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height)
+          width = Math.round(width * ratio)
+          height = Math.round(height * ratio)
+        }
+
+        const canvas = document.createElement("canvas")
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext("2d")
+        if (!ctx) {
+          resolve(file)
+          return
+        }
+        ctx.drawImage(img, 0, 0, width, height)
+
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              resolve(file)
+              return
+            }
+            const compressedFile = new File([blob], file.name.replace(/\.[^.]+$/, ".jpg"), {
+              type: "image/jpeg",
+              lastModified: Date.now(),
+            })
+            resolve(compressedFile)
+          },
+          "image/jpeg",
+          0.8
+        )
+      }
+
+      img.onerror = () => {
+        URL.revokeObjectURL(objectUrl)
+        resolve(file)
+      }
+
+      img.src = objectUrl
+    })
+  }
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
-      // Check file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        setErrors({ ...errors, image: "Image size must be less than 5MB" })
+      // Check file size (max 10MB raw, will be compressed before upload)
+      if (file.size > 10 * 1024 * 1024) {
+        setErrors({ ...errors, image: "Image size must be less than 10MB" })
         return
       }
 
-      // Check file type
-      if (!file.type.startsWith("image/")) {
-        setErrors({ ...errors, image: "Please upload an image file" })
+      // Check file type (including Apple HEIC/HEIF)
+      const validTypes = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/heic", "image/heif"]
+      if (!file.type.startsWith("image/") && !validTypes.includes(file.type)) {
+        setErrors({ ...errors, image: "Please upload an image file (JPG, PNG, WebP, or HEIC)" })
         return
       }
 
-      setImage(file)
+      // Compress the image before storing
+      const compressed = await compressImage(file)
+      setImage(compressed)
       setErrors({ ...errors, image: "" })
 
-      // Create preview
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string)
+      // Revoke old preview URL
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview)
       }
-      reader.readAsDataURL(file)
+
+      // Create preview using object URL (memory efficient)
+      setImagePreview(URL.createObjectURL(compressed))
     }
   }
 
@@ -172,21 +231,30 @@ export default function SellBikeForm() {
             condition: "",
             description: "",
           })
+          if (imagePreview) {
+            URL.revokeObjectURL(imagePreview)
+          }
           setImage(null)
           setImagePreview("")
           setSubmitStatus("idle")
+          setErrorMessage("")
         }, 3000)
       } else {
+        const data = await response.json().catch(() => null)
+        setErrorMessage(data?.error || "There was an error processing your submission. Please try again.")
         setSubmitStatus("error")
         setTimeout(() => {
           setSubmitStatus("idle")
+          setErrorMessage("")
         }, 5000)
       }
     } catch (error) {
       console.error("Error submitting form:", error)
+      setErrorMessage("Network error. Please check your connection and try again.")
       setSubmitStatus("error")
       setTimeout(() => {
         setSubmitStatus("idle")
+        setErrorMessage("")
       }, 5000)
     }
   }
@@ -315,7 +383,7 @@ export default function SellBikeForm() {
           {/* Error Message */}
           {submitStatus === "error" && (
             <Alert severity="error" sx={{ mb: 4, borderRadius: 0, backgroundColor: "rgba(244, 67, 54, 0.1)", border: "1px solid #f44336", color: "#f44336" }}>
-              There was an error processing your submission. Please try again.
+              {errorMessage || "There was an error processing your submission. Please try again."}
             </Alert>
           )}
 
@@ -506,9 +574,8 @@ export default function SellBikeForm() {
                     <input
                       type="file"
                       hidden
-                      accept="image/*"
+                      accept="image/*,.heic,.heif"
                       onChange={handleImageChange}
-                      required
                     />
                   </Button>
                   {errors.image && (
@@ -518,7 +585,7 @@ export default function SellBikeForm() {
                   )}
                   {!errors.image && (
                     <FormHelperText sx={{ ml: 2 }}>
-                      Maximum file size: 5MB. Accepted formats: JPG, PNG
+                      Maximum file size: 10MB. Accepted formats: JPG, PNG, WebP, HEIC. Images are automatically optimised.
                     </FormHelperText>
                   )}
                 </Box>
@@ -593,7 +660,7 @@ export default function SellBikeForm() {
                       }}
                     />
                   )}
-                  {submitStatus === "loading" ? "Submitting..." : submitStatus === "success" ? "Submitted!" : "Submit Bike Listing"}
+                  {submitStatus === "loading" ? "Sending your listing, this may take a moment..." : submitStatus === "success" ? "Submitted!" : "Submit Bike Listing"}
                 </Button>
 
                 <Typography variant="caption" sx={{ color: "var(--theme-text-muted)", textAlign: "center", mt: 2 }}>

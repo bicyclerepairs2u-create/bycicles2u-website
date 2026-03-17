@@ -1,5 +1,17 @@
 import { NextRequest, NextResponse } from "next/server"
+import { after } from "next/server"
 import nodemailer from "nodemailer"
+
+const VALID_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+  "image/heic",
+  "image/heif",
+]
+
+const MAX_FILE_SIZE = 4.5 * 1024 * 1024 // 4.5MB (Vercel serverless limit)
 
 export async function POST(request: NextRequest) {
   try {
@@ -35,14 +47,30 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Create nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD,
-      },
-    })
+    // Validate image files if provided
+    for (const image of images) {
+      if (image.size > MAX_FILE_SIZE) {
+        return NextResponse.json(
+          { error: "Image is too large. Maximum size is 4.5MB." },
+          { status: 413 }
+        )
+      }
+
+      if (!VALID_IMAGE_TYPES.includes(image.type)) {
+        return NextResponse.json(
+          { error: "Invalid image format. Please upload a JPG, PNG, WebP, or HEIC file." },
+          { status: 400 }
+        )
+      }
+    }
+
+    // Pre-read image buffers before responding (can't read FormData after response)
+    const imageAttachments = await Promise.all(
+      images.map(async (image, index) => ({
+        filename: `photo_${index + 1}_${image.name}`,
+        content: Buffer.from(await image.arrayBuffer()),
+      }))
+    )
 
     // Prepare email content
     const emailSubject = `${inquiryType} Inquiry - ${name}`
@@ -64,36 +92,43 @@ Message:
 ${message}
     `.trim()
 
-    // Prepare email options
-    const mailOptions: any = {
-      from: process.env.GMAIL_USER,
-      to: process.env.GMAIL_USER,
-      replyTo: email,
-      subject: emailSubject,
-      text: emailBody,
-    }
+    // Send email in the background after responding to client
+    after(async () => {
+      try {
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_APP_PASSWORD,
+          },
+        })
 
-    // Add image attachments if provided
-    if (images.length > 0) {
-      mailOptions.attachments = await Promise.all(
-        images.map(async (image, index) => ({
-          filename: `photo_${index + 1}_${image.name}`,
-          content: Buffer.from(await image.arrayBuffer()),
-        }))
-      )
-    }
+        const mailOptions: nodemailer.SendMailOptions = {
+          from: process.env.GMAIL_USER,
+          to: process.env.GMAIL_USER,
+          replyTo: email,
+          subject: emailSubject,
+          text: emailBody,
+        }
 
-    // Send email
-    await transporter.sendMail(mailOptions)
+        if (imageAttachments.length > 0) {
+          mailOptions.attachments = imageAttachments
+        }
+
+        await transporter.sendMail(mailOptions)
+      } catch (error) {
+        console.error("Error sending contact email:", error)
+      }
+    })
 
     return NextResponse.json(
-      { message: "Email sent successfully" },
+      { message: "Inquiry received successfully" },
       { status: 200 }
     )
   } catch (error) {
-    console.error("Error sending email:", error)
+    console.error("Error processing contact submission:", error)
     return NextResponse.json(
-      { error: "Failed to send email" },
+      { error: "Failed to process your inquiry. Please try again." },
       { status: 500 }
     )
   }

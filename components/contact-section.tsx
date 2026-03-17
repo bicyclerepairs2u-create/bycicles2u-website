@@ -37,6 +37,7 @@ export default function ContactSection() {
   const [images, setImages] = useState<UploadedImage[]>([])
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
   const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [errorMessage, setErrorMessage] = useState<string>("")
 
   const handleChange = (e: any) => {
     setFormData({
@@ -105,19 +106,25 @@ export default function ContactSection() {
             message: "",
           })
           setImages([])
+          setErrorMessage("")
           setSubmitStatus("idle")
         }, 3000)
       } else {
+        const data = await response.json().catch(() => null)
+        setErrorMessage(data?.error || "There was an error sending your inquiry. Please try again.")
         setSubmitStatus("error")
         setTimeout(() => {
           setSubmitStatus("idle")
+          setErrorMessage("")
         }, 5000)
       }
     } catch (error) {
       console.error("Error submitting form:", error)
+      setErrorMessage("Network error. Please check your connection and try again.")
       setSubmitStatus("error")
       setTimeout(() => {
         setSubmitStatus("idle")
+        setErrorMessage("")
       }, 5000)
     }
   }
@@ -240,6 +247,12 @@ export default function ContactSection() {
                 }}
               >
                 Your message has been sent! We'll get back to you soon.
+              </Alert>
+            )}
+
+            {submitStatus === "error" && (
+              <Alert severity="error" sx={{ mb: 3, borderRadius: "8px" }}>
+                {errorMessage || "There was an error sending your inquiry. Please try again."}
               </Alert>
             )}
 
@@ -575,7 +588,7 @@ export default function ContactSection() {
                         }}
                       />
                     )}
-                    {submitStatus === "loading" ? "Sending..." : submitStatus === "success" ? "Sent!" : "Send Inquiry"}
+                    {submitStatus === "loading" ? "Sending your inquiry, this may take a moment..." : submitStatus === "success" ? "Sent!" : "Send Inquiry"}
                   </Button>
                 </Stack>
               </form>
