@@ -26,7 +26,17 @@ export async function POST(request: NextRequest) {
     const year = formData.get("year") as string
     const condition = formData.get("condition") as string
     const description = formData.get("description") as string
-    const image = formData.get("image") as File | null
+
+    // Extract all images
+    const images: File[] = []
+    let imageIndex = 0
+    while (formData.has(`image_${imageIndex}`)) {
+      const image = formData.get(`image_${imageIndex}`) as File
+      if (image) {
+        images.push(image)
+      }
+      imageIndex++
+    }
 
     // Validate required fields
     if (
@@ -45,12 +55,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate image file
-    let imageBuffer: Buffer | null = null
-    let imageFilename: string | null = null
-
-    if (image) {
-      // Validate file size
+    // Validate image files if provided
+    for (const image of images) {
       if (image.size > MAX_FILE_SIZE) {
         return NextResponse.json(
           { error: "Image is too large. Maximum size is 4.5MB." },
@@ -58,17 +64,21 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      // Validate MIME type
       if (!VALID_IMAGE_TYPES.includes(image.type)) {
         return NextResponse.json(
           { error: "Invalid image format. Please upload a JPG, PNG, WebP, or HEIC file." },
           { status: 400 }
         )
       }
-
-      imageBuffer = Buffer.from(await image.arrayBuffer())
-      imageFilename = image.name
     }
+
+    // Pre-read image buffers before responding (can't read FormData after response)
+    const imageAttachments = await Promise.all(
+      images.map(async (image, index) => ({
+        filename: `bike_photo_${index + 1}_${image.name}`,
+        content: Buffer.from(await image.arrayBuffer()),
+      }))
+    )
 
     // Prepare email content
     const emailSubject = `Bike Sale Submission: ${bikeBrand} ${bikeModel}`
@@ -109,13 +119,8 @@ ${description}
           text: emailBody,
         }
 
-        if (imageBuffer && imageFilename) {
-          mailOptions.attachments = [
-            {
-              filename: imageFilename,
-              content: imageBuffer,
-            },
-          ]
+        if (imageAttachments.length > 0) {
+          mailOptions.attachments = imageAttachments
         }
 
         await transporter.sendMail(mailOptions)

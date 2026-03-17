@@ -2,7 +2,7 @@
 
 import Navigation from "@/components/navigation"
 import HeroSection from "@/components/hero-section"
-import BikeShowcase from "@/components/bike-showcase"
+import FeaturedBikes from "@/components/featured-bikes"
 import Testimonials from "@/components/testimonials"
 import BrandsSection from "@/components/brands-section"
 import ServicesSection from "@/components/services-section"
@@ -14,7 +14,7 @@ export default function Home() {
     <main>
       <Navigation />
       <HeroSection />
-      <BikeShowcase />
+      <FeaturedBikes />
       <Testimonials />
       <BrandsSection />
       <ServicesSection />

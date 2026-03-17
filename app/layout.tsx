@@ -3,6 +3,11 @@ import type { Metadata } from "next"
 import { Roboto } from "next/font/google"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
+import { CartProvider } from "@/components/providers/cart-provider"
+import { CompareProvider } from "@/components/providers/compare-provider"
+import { CartDrawer } from "@/components/shop/cart-drawer"
+import { CompareDrawer } from "@/components/shop/compare-drawer"
+import { ThemeProvider } from "@/components/theme-provider"
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -25,11 +30,26 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={roboto.className}>
+    <html lang="en" className={roboto.className} suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css" />
       </head>
-      <body>{children}</body>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <CartProvider>
+            <CompareProvider>
+              {children}
+              <CartDrawer />
+              <CompareDrawer />
+            </CompareProvider>
+          </CartProvider>
+        </ThemeProvider>
+      </body>
       <Analytics/>
     </html>
   )
