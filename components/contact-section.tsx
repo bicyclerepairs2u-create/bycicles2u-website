@@ -536,7 +536,7 @@ export default function ContactSection() {
                     images={images}
                     onChange={handleImagesChange}
                     maxImages={5}
-                    maxSizeMB={5}
+                    maxSizeMB={10}
                     error={errors.image}
                     required={formData.inquiryType === "Bike Service" || formData.inquiryType === "Custom Build"}
                     label={

@@ -20,6 +20,7 @@ import {
 } from "@mui/material"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
+import { compressImage } from "@/lib/compress-image"
 
 export default function SellBikeForm() {
   const [formData, setFormData] = useState({
@@ -80,60 +81,6 @@ export default function SellBikeForm() {
     }
   }
 
-  const compressImage = (file: File): Promise<File> => {
-    return new Promise((resolve, reject) => {
-      const img = new Image()
-      const objectUrl = URL.createObjectURL(file)
-
-      img.onload = () => {
-        URL.revokeObjectURL(objectUrl)
-
-        const MAX_WIDTH = 1920
-        const MAX_HEIGHT = 1920
-        let { width, height } = img
-
-        if (width > MAX_WIDTH || height > MAX_HEIGHT) {
-          const ratio = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height)
-          width = Math.round(width * ratio)
-          height = Math.round(height * ratio)
-        }
-
-        const canvas = document.createElement("canvas")
-        canvas.width = width
-        canvas.height = height
-        const ctx = canvas.getContext("2d")
-        if (!ctx) {
-          resolve(file)
-          return
-        }
-        ctx.drawImage(img, 0, 0, width, height)
-
-        canvas.toBlob(
-          (blob) => {
-            if (!blob) {
-              resolve(file)
-              return
-            }
-            const compressedFile = new File([blob], file.name.replace(/\.[^.]+$/, ".jpg"), {
-              type: "image/jpeg",
-              lastModified: Date.now(),
-            })
-            resolve(compressedFile)
-          },
-          "image/jpeg",
-          0.8
-        )
-      }
-
-      img.onerror = () => {
-        URL.revokeObjectURL(objectUrl)
-        resolve(file)
-      }
-
-      img.src = objectUrl
-    })
-  }
-
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
@@ -150,8 +97,17 @@ export default function SellBikeForm() {
         return
       }
 
-      // Compress the image before storing
-      const compressed = await compressImage(file)
+      // Compress the image before storing — rejects if the browser can't decode it (e.g. HEIC on Chrome)
+      let compressed: File
+      try {
+        compressed = await compressImage(file)
+      } catch (err) {
+        setErrors({
+          ...errors,
+          image: err instanceof Error ? err.message : "Could not process this image. Please try another photo.",
+        })
+        return
+      }
       setImage(compressed)
       setErrors({ ...errors, image: "" })
 
