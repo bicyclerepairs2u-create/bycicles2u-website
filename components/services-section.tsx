@@ -353,6 +353,32 @@ export default function ServicesSection() {
                 >
                   * All labour for additional parts included in service price
                 </Typography>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    display: "block",
+                    mt: 1,
+                    textAlign: "center",
+                    fontStyle: "italic",
+                    color: "var(--theme-text-muted)",
+                    fontSize: "0.75rem",
+                  }}
+                >
+                  * Additional labour charged at $80 per hour
+                </Typography>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    display: "block",
+                    mt: 1,
+                    textAlign: "center",
+                    fontStyle: "italic",
+                    color: "var(--theme-text-muted)",
+                    fontSize: "0.75rem",
+                  }}
+                >
+                  * All prices exclude GST
+                </Typography>
 
                 {/* Additional Services */}
                 <Box sx={{ mt: 5 }}>

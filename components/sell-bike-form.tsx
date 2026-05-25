@@ -208,7 +208,7 @@ export default function SellBikeForm() {
       formDataToSend.append("description", formData.description)
 
       if (image) {
-        formDataToSend.append("image", image)
+        formDataToSend.append("image_0", image)
       }
 
       const response = await fetch("/api/sell-bike", {
