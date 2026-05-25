@@ -1,8 +1,10 @@
 "use client"
 
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Box, Typography, IconButton, CircularProgress } from "@mui/material"
 import { X, Upload, Image as ImageIcon, GripVertical } from "lucide-react"
+
+const MAX_FILE_SIZE_MB = 20
 
 interface ImageUploadProps {
   images: File[]
@@ -19,68 +21,66 @@ export default function ImageUpload({
 }: ImageUploadProps) {
   const [dragOver, setDragOver] = useState(false)
   const [previews, setPreviews] = useState<string[]>([])
+  const [uploadError, setUploadError] = useState<string>("")
 
-  // Generate previews when images change
-  const generatePreviews = useCallback((files: File[]) => {
-    const newPreviews: string[] = []
-    files.forEach((file) => {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        newPreviews.push(e.target?.result as string)
-        if (newPreviews.length === files.length) {
-          setPreviews([...newPreviews])
-        }
-      }
-      reader.readAsDataURL(file)
-    })
-    if (files.length === 0) {
-      setPreviews([])
+  // Derive previews from images via object URLs. Revoked on cleanup so stale callbacks
+  // from a previous render can't overwrite the current preview list.
+  useEffect(() => {
+    const urls = images.map((file) => URL.createObjectURL(file))
+    setPreviews(urls)
+    return () => {
+      urls.forEach((url) => URL.revokeObjectURL(url))
     }
-  }, [])
+  }, [images])
+
+  const addFiles = useCallback(
+    (selected: File[]) => {
+      setUploadError("")
+      const accepted: File[] = []
+      let lastError = ""
+      for (const file of selected) {
+        if (!file.type.startsWith("image/")) {
+          lastError = `Skipped "${file.name}" — not an image file`
+          continue
+        }
+        if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+          lastError = `Skipped "${file.name}" — over ${MAX_FILE_SIZE_MB}MB`
+          continue
+        }
+        accepted.push(file)
+      }
+      if (lastError) setUploadError(lastError)
+      if (accepted.length === 0) return
+
+      onImagesChange([...images, ...accepted].slice(0, maxImages))
+    },
+    [images, maxImages, onImagesChange],
+  )
 
   const handleDrop = useCallback(
     (e: React.DragEvent) => {
       e.preventDefault()
       setDragOver(false)
-
       if (disabled) return
-
-      const droppedFiles = Array.from(e.dataTransfer.files).filter((file) =>
-        file.type.startsWith("image/")
-      )
-
-      const newImages = [...images, ...droppedFiles].slice(0, maxImages)
-      onImagesChange(newImages)
-      generatePreviews(newImages)
+      addFiles(Array.from(e.dataTransfer.files))
     },
-    [images, maxImages, onImagesChange, generatePreviews, disabled]
+    [addFiles, disabled],
   )
 
   const handleFileSelect = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (disabled) return
-
-      const selectedFiles = Array.from(e.target.files || []).filter((file) =>
-        file.type.startsWith("image/")
-      )
-
-      const newImages = [...images, ...selectedFiles].slice(0, maxImages)
-      onImagesChange(newImages)
-      generatePreviews(newImages)
-
-      // Reset input
+      addFiles(Array.from(e.target.files || []))
       e.target.value = ""
     },
-    [images, maxImages, onImagesChange, generatePreviews, disabled]
+    [addFiles, disabled],
   )
 
   const removeImage = useCallback(
     (index: number) => {
-      const newImages = images.filter((_, i) => i !== index)
-      onImagesChange(newImages)
-      generatePreviews(newImages)
+      onImagesChange(images.filter((_, i) => i !== index))
     },
-    [images, onImagesChange, generatePreviews]
+    [images, onImagesChange],
   )
 
   const moveImage = useCallback(
@@ -92,9 +92,8 @@ export default function ImageUpload({
       newImages.splice(toIndex, 0, movedImage)
 
       onImagesChange(newImages)
-      generatePreviews(newImages)
     },
-    [images, onImagesChange, generatePreviews]
+    [images, onImagesChange],
   )
 
   return (
@@ -169,9 +168,22 @@ export default function ImageUpload({
           variant="caption"
           sx={{ color: "var(--theme-text-muted)" }}
         >
-          Max {maxImages} images. First image will be the featured image.
+          Max {maxImages} images, {MAX_FILE_SIZE_MB}MB each. First image will be the featured image.
         </Typography>
       </Box>
+
+      {uploadError && (
+        <Typography
+          variant="caption"
+          sx={{
+            display: "block",
+            mt: 1,
+            color: "#f44336",
+          }}
+        >
+          {uploadError}
+        </Typography>
+      )}
 
       {/* Image Previews */}
       {images.length > 0 && (

@@ -11,6 +11,7 @@ import {
   Paper,
 } from "@mui/material"
 import { Trash2 } from "lucide-react"
+import { compressImage } from "@/lib/compress-image"
 
 export interface UploadedImage {
   file: File
@@ -43,12 +44,11 @@ export default function ImageUpload({
   const cameraInputRef = useRef<HTMLInputElement>(null)
   const [uploadError, setUploadError] = useState<string>("")
 
-  const handleFileSelect = (files: FileList | null, source: "upload" | "camera") => {
+  const handleFileSelect = async (files: FileList | null, source: "upload" | "camera") => {
     if (!files) return
 
     setUploadError("")
 
-    const newImages: UploadedImage[] = []
     const filesArray = Array.from(files)
 
     // Check if adding these files would exceed max images
@@ -57,38 +57,51 @@ export default function ImageUpload({
       return
     }
 
+    // Validate each file up front. Skip invalid ones (and surface an error) but keep going with the valid files.
+    const validFiles: File[] = []
+    let lastError = ""
     for (const file of filesArray) {
-      // Check file size
       if (file.size > maxSizeMB * 1024 * 1024) {
-        setUploadError(`Image size must be less than ${maxSizeMB}MB`)
+        lastError = `Image size must be less than ${maxSizeMB}MB`
         continue
       }
-
-      // Check file type
       if (!file.type.startsWith("image/")) {
-        setUploadError("Please upload image files only")
+        lastError = "Please upload image files only"
         continue
       }
-
-      // Create preview
-      const reader = new FileReader()
-      const id = `${Date.now()}-${Math.random()}`
-
-      reader.onloadend = () => {
-        newImages.push({
-          file,
-          preview: reader.result as string,
-          id,
-        })
-
-        // Once all files are processed, update parent
-        if (newImages.length === filesArray.length) {
-          onChange([...images, ...newImages])
-        }
-      }
-
-      reader.readAsDataURL(file)
+      validFiles.push(file)
     }
+    if (lastError) setUploadError(lastError)
+    if (validFiles.length === 0) return
+
+    // Compress in parallel so we stay under the 4.5MB Vercel body limit and Gmail-friendly JPG.
+    let compressedFiles: File[]
+    try {
+      compressedFiles = await Promise.all(validFiles.map((f) => compressImage(f)))
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Could not process one of the images.")
+      return
+    }
+
+    // Build previews. Promise.all waits for every reader so we don't drop files on partial completion.
+    const newImages = await Promise.all(
+      compressedFiles.map(
+        (file) =>
+          new Promise<UploadedImage>((resolve) => {
+            const reader = new FileReader()
+            reader.onloadend = () => {
+              resolve({
+                file,
+                preview: reader.result as string,
+                id: `${Date.now()}-${Math.random()}`,
+              })
+            }
+            reader.readAsDataURL(file)
+          }),
+      ),
+    )
+
+    onChange([...images, ...newImages])
   }
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
