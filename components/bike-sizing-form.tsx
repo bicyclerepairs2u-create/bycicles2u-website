@@ -144,7 +144,7 @@ export default function BikeSizingForm() {
           return heightCm >= minHeight && heightCm <= maxHeight;
         }
       }) ?? null;
-      calculatedSize = sizeMatch ? sizeMatch.minFrame : 0; // Use minFrame as the calculated size
+      calculatedSize = sizeMatch ? sizeMatch.typicalFrame : 0; // Representative frame size for this category
     }
 
     let sizeRange = ""

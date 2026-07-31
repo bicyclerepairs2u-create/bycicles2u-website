@@ -7,6 +7,7 @@ export interface SizeDefinition {
   category: SizeCategory
   minFrame: number    // inclusive lower bound in cm
   maxFrame: number    // exclusive upper bound in cm (Infinity for XXL)
+  typicalFrame: number // representative frame size in cm (midpoint of frameSizeRange), for height-only estimates
   heightRange: string
   inseamRange: string
   frameSizeRange: string
@@ -22,7 +23,8 @@ export const SIZE_DEFINITIONS: SizeDefinition[] = [
     heightRange: '<155',
     inseamRange: '<72',
     frameSizeRange: '47-49',
-    fitNotes: 'Extra extra small frame. Suitable for riders under 160 cm.',
+    fitNotes: 'Extra extra small frame. Suitable for riders under 155 cm.',
+    typicalFrame: 48,
     tag: 'size-xxs',
   },
   {
@@ -33,6 +35,7 @@ export const SIZE_DEFINITIONS: SizeDefinition[] = [
     inseamRange: '72-78',
     frameSizeRange: '48-52',
     fitNotes: 'Extra small frame. Suitable for riders 155-165 cm.',
+    typicalFrame: 50,
     tag: 'size-xs',
   },
   {
@@ -43,6 +46,7 @@ export const SIZE_DEFINITIONS: SizeDefinition[] = [
     inseamRange: '77-81',
     frameSizeRange: '52-53',
     fitNotes: 'Small frame. Suitable for riders 162-170 cm.',
+    typicalFrame: 52.5,
     tag: 'size-s',
   },
   {
@@ -53,6 +57,7 @@ export const SIZE_DEFINITIONS: SizeDefinition[] = [
     inseamRange: '80-84',
     frameSizeRange: '54-55',
     fitNotes: 'Medium frame. Suitable for riders 170-178 cm.',
+    typicalFrame: 54.5,
     tag: 'size-m',
   },
   {
@@ -63,6 +68,7 @@ export const SIZE_DEFINITIONS: SizeDefinition[] = [
     inseamRange: '83-87',
     frameSizeRange: '56-57',
     fitNotes: 'Large frame. Suitable for riders 178-185 cm.',
+    typicalFrame: 56.5,
     tag: 'size-l',
   },
   {
@@ -73,6 +79,7 @@ export const SIZE_DEFINITIONS: SizeDefinition[] = [
     inseamRange: '86-92',
     frameSizeRange: '58-59',
     fitNotes: 'Extra large frame. Suitable for riders 185-193 cm.',
+    typicalFrame: 58.5,
     tag: 'size-xl',
   },
   {
@@ -83,6 +90,7 @@ export const SIZE_DEFINITIONS: SizeDefinition[] = [
     inseamRange: '91+',
     frameSizeRange: '60+',
     fitNotes: 'Extra extra large frame. Suitable for riders 193+ cm.',
+    typicalFrame: 61,
     tag: 'size-xxl',
   },
 ]
