@@ -7,7 +7,7 @@ const logoFrameSx = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  width: { xs: "260px", md: "340px" },
+  width: { xs: "220px", md: "300px" },
   height: { xs: "120px", md: "150px" },
   position: "relative",
   transition: "all 0.3s ease",
@@ -137,9 +137,9 @@ export default function BrandsSection() {
         <Box
           sx={{
             display: "flex",
-            gap: 10,
+            gap: { xs: 1.5, md: 2 },
             py: 4,
-            animation: "scroll 35s linear infinite",
+            animation: "scroll 20s linear infinite",
             "@keyframes scroll": {
               "0%": {
                 transform: "translateX(0)",
