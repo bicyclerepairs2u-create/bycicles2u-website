@@ -334,6 +334,7 @@ export default function ContactSection() {
                         }}
                       >
                         <MenuItem value="Bike Service">Bike Service / Repair</MenuItem>
+                        <MenuItem value="Bike Fit">Bike Fit</MenuItem>
                         <MenuItem value="Custom Build">Custom Build</MenuItem>
                         <MenuItem value="Bike Purchase">Buy a Bike</MenuItem>
                         <MenuItem value="Sell Bike">Sell My Bike</MenuItem>
@@ -343,6 +344,41 @@ export default function ContactSection() {
                   </Box>
 
                   {/* Service Level (show only for Bike Service) */}
+                  {formData.inquiryType === "Bike Fit" && (
+                    <FormControl fullWidth sx={darkInputStyles}>
+                      <InputLabel>Preferred Fit</InputLabel>
+                      <Select
+                        name="serviceLevel"
+                        value={formData.serviceLevel}
+                        onChange={handleChange}
+                        label="Preferred Fit"
+                        MenuProps={{
+                          PaperProps: {
+                            sx: {
+                              backgroundColor: "var(--theme-bg-secondary)",
+                              border: "1px solid var(--theme-border)",
+                              "& .MuiMenuItem-root": {
+                                color: "var(--theme-text-secondary)",
+                                "&:hover": {
+                                  backgroundColor: "rgba(0, 212, 255, 0.1)",
+                                },
+                                "&.Mui-selected": {
+                                  backgroundColor: "rgba(0, 212, 255, 0.15)",
+                                },
+                              },
+                            },
+                          },
+                        }}
+                      >
+                        <MenuItem value="Basic Bike Fit ($99, free with purchase)">Basic Bike Fit - $99 (free with a bike)</MenuItem>
+                        <MenuItem value="Comprehensive Road Bike Fit ($199, $159 with purchase)">Comprehensive Road Fit - $199</MenuItem>
+                        <MenuItem value="Race & TT Bike Fit ($299, $239 with purchase)">Race & TT Fit - $299</MenuItem>
+                        <MenuItem value="Pre-purchase sizing ($79)">Pre-purchase sizing - $79</MenuItem>
+                        <MenuItem value="Not Sure">Not Sure - Need Advice</MenuItem>
+                      </Select>
+                    </FormControl>
+                  )}
+
                   {formData.inquiryType === "Bike Service" && (
                     <FormControl fullWidth sx={darkInputStyles}>
                       <InputLabel>Preferred Service Level</InputLabel>
@@ -369,10 +405,9 @@ export default function ContactSection() {
                           },
                         }}
                       >
-                        <MenuItem value="Basic ($59)">Basic Service - $59</MenuItem>
-                        <MenuItem value="Standard ($119)">Standard Service - $119</MenuItem>
-                        <MenuItem value="Deluxe ($159)">Deluxe Service - $159 (Popular)</MenuItem>
-                        <MenuItem value="Ultimate ($299)">Ultimate Service - $299</MenuItem>
+                        <MenuItem value="Standard ($169)">Standard Service - $169</MenuItem>
+                        <MenuItem value="Deluxe ($249)">Deluxe Service - $249</MenuItem>
+                        <MenuItem value="Ultimate ($499)">Ultimate Service - $499</MenuItem>
                         <MenuItem value="Not Sure">Not Sure - Need Advice</MenuItem>
                       </Select>
                     </FormControl>
@@ -456,7 +491,7 @@ export default function ContactSection() {
                         }}
                       >
                         <MenuItem value="No - Drop off myself">No - I'll drop off myself</MenuItem>
-                        <MenuItem value="Yes - Pickup ($29)">Yes - Pickup & Delivery ($29)</MenuItem>
+                        <MenuItem value="Yes - Pickup ($39)">Yes - Pickup & Return ($39)</MenuItem>
                         <MenuItem value="Yes - On-site ($39)">Yes - On-site Service ($39)</MenuItem>
                       </Select>
                     </FormControl>
@@ -782,7 +817,7 @@ export default function ContactSection() {
                   Our Services
                 </Typography>
                 <Stack spacing={2}>
-                  {["Bike Service & Repairs", "Custom Builds", "Bike Sales (Pre-Owned)", "Pickup & Delivery"].map((service) => (
+                  {["Bike Service & Repairs", "Bike Fitting", "Custom Builds", "Bike Sales (Pre-Owned)", "Pickup & Return"].map((service) => (
                     <Box
                       key={service}
                       sx={{

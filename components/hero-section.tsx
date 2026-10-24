@@ -166,6 +166,30 @@ export default function HeroSection() {
             Sydney's first and only bike store dedicated to pre-owned and professionally refurbished road, triathlon, and gravel bikes.
           </Typography>
 
+          <Box
+            sx={{
+              mb: 4,
+              maxWidth: "560px",
+              mx: { xs: "auto", md: 0 },
+              p: 2,
+              border: "1px solid rgba(0, 212, 255, 0.45)",
+              backgroundColor: "rgba(0, 0, 0, 0.45)",
+              animation: "fadeInUp 0.6s ease-out forwards",
+              animationDelay: "0.7s",
+              opacity: 0,
+            }}
+          >
+            <Typography sx={{ color: "#00d4ff", fontWeight: 800, fontSize: "0.75rem", letterSpacing: "0.12em", textTransform: "uppercase", mb: 1 }}>
+              Servicing is road bike only. No e-bikes.
+            </Typography>
+            <Typography sx={{ color: "#ffffff", fontSize: "0.95rem", lineHeight: 1.6 }}>
+              Every bike bought from Bicycles2U includes a free Basic Bike Fit.{" "}
+              <Link href="/bike-fit" style={{ color: "#00d4ff", fontWeight: 700 }}>
+                See bike fitting
+              </Link>
+            </Typography>
+          </Box>
+
           {/* Category Tags */}
           <Stack
             direction="row"

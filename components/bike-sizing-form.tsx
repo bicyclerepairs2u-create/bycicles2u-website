@@ -286,7 +286,10 @@ export default function BikeSizingForm() {
                 mx: "auto",
               }}
             >
-              Use our bike sizing calculator to determine the perfect frame size for your road or triathlon bike
+              Use our bike sizing calculator to determine the perfect frame size for your road or triathlon bike.
+              For a hands-on check before you buy, book a{" "}
+              <a href="/bike-fit" style={{ color: "#00d4ff" }}>$79 pre-purchase sizing consultation</a>
+              . The fee is credited if you buy a road bike from us within 30 days.
             </Typography>
           </Box>
 

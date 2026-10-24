@@ -118,6 +118,21 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 productPrice={formatPrice(product.priceRange.minVariantPrice)}
               />
 
+              <div className="border border-[#00d4ff]/40 bg-[#00d4ff]/10 px-4 py-3 space-y-2">
+                <p className="text-sm font-semibold text-[var(--theme-text-primary)]">
+                  Every bike bought from Bicycles2U includes a free Basic Bike Fit.
+                </p>
+                <p className="text-sm text-[var(--theme-text-secondary)]">
+                  <Link href="/bike-fit" className="text-[#00d4ff] font-semibold hover:underline">
+                    Bike fitting packages
+                  </Link>
+                  {" · "}
+                  <Link href="/warranty" className="text-[#00d4ff] font-semibold hover:underline">
+                    Warranty
+                  </Link>
+                </p>
+              </div>
+
               {product.descriptionHtml && (
                 <div className="border-t border-[var(--theme-border)] pt-6">
                   <h2 className="mb-4 text-sm font-bold text-[var(--theme-text-primary)] uppercase tracking-wider">
