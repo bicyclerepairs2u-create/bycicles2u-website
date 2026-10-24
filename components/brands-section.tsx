@@ -2,6 +2,33 @@
 
 import { Box, Container, Typography } from "@mui/material"
 
+const logoFrameSx = {
+  flex: "0 0 auto",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: { xs: "220px", md: "300px" },
+  height: { xs: "120px", md: "150px" },
+  position: "relative",
+  transition: "all 0.3s ease",
+  "&:hover": {
+    transform: "scale(1.05)",
+  },
+}
+
+const logoImageSx = {
+  maxWidth: { xs: "220px", md: "300px" },
+  maxHeight: { xs: "100px", md: "130px" },
+  objectFit: "contain",
+  filter: "grayscale(100%) brightness(0.7) contrast(1.2)",
+  opacity: 0.5,
+  transition: "all 0.4s ease",
+  "&:hover": {
+    filter: "grayscale(0%) brightness(1)",
+    opacity: 1,
+  },
+}
+
 const brands = [
   { name: "Shimano", logo: "/shimano-logo-grayscale.jpg" },
   { name: "SRAM", logo: "/sram-logo-grayscale.jpg" },
@@ -110,9 +137,9 @@ export default function BrandsSection() {
         <Box
           sx={{
             display: "flex",
-            gap: 10,
+            gap: { xs: 1.5, md: 2 },
             py: 4,
-            animation: "scroll 35s linear infinite",
+            animation: "scroll 20s linear infinite",
             "@keyframes scroll": {
               "0%": {
                 transform: "translateX(0)",
@@ -128,76 +155,14 @@ export default function BrandsSection() {
         >
           {/* First set of logos */}
           {brands.map((brand, index) => (
-            <Box
-              key={`first-${index}`}
-              sx={{
-                flex: "0 0 auto",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "200px",
-                height: "80px",
-                position: "relative",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "scale(1.05)",
-                },
-              }}
-            >
-              <Box
-                component="img"
-                src={brand.logo}
-                alt={brand.name}
-                sx={{
-                  maxWidth: "160px",
-                  maxHeight: "70px",
-                  objectFit: "contain",
-                  filter: "grayscale(100%) brightness(0.7) contrast(1.2)",
-                  opacity: 0.5,
-                  transition: "all 0.4s ease",
-                  "&:hover": {
-                    filter: "grayscale(0%) brightness(1)",
-                    opacity: 1,
-                  },
-                }}
-              />
+            <Box key={`first-${index}`} sx={logoFrameSx}>
+              <Box component="img" src={brand.logo} alt={brand.name} sx={logoImageSx} />
             </Box>
           ))}
           {/* Duplicate set for seamless loop */}
           {brands.map((brand, index) => (
-            <Box
-              key={`second-${index}`}
-              sx={{
-                flex: "0 0 auto",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: "200px",
-                height: "80px",
-                position: "relative",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "scale(1.05)",
-                },
-              }}
-            >
-              <Box
-                component="img"
-                src={brand.logo}
-                alt={brand.name}
-                sx={{
-                  maxWidth: "160px",
-                  maxHeight: "70px",
-                  objectFit: "contain",
-                  filter: "grayscale(100%) brightness(0.7) contrast(1.2)",
-                  opacity: 0.5,
-                  transition: "all 0.4s ease",
-                  "&:hover": {
-                    filter: "grayscale(0%) brightness(1)",
-                    opacity: 1,
-                  },
-                }}
-              />
+            <Box key={`second-${index}`} sx={logoFrameSx}>
+              <Box component="img" src={brand.logo} alt="" sx={logoImageSx} />
             </Box>
           ))}
         </Box>

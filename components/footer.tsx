@@ -158,6 +158,8 @@ export default function Footer() {
                 { label: "Bikes", href: "#bikes", type: "scroll" },
                 { label: "Reviews", href: "#testimonials", type: "scroll" },
                 { label: "Find Your Size", href: "/bike-sizing", type: "link" },
+                { label: "Bike Fit", href: "/bike-fit", type: "link" },
+                { label: "Warranty", href: "/warranty", type: "link" },
               ].map((item) => (
                 <Link
                   key={item.label}
@@ -333,6 +335,20 @@ export default function Footer() {
             >
               © {new Date().getFullYear()} Bicycles2U. All rights reserved.
             </Typography>
+            <Link
+              href="/warranty"
+              sx={{
+                color: "var(--theme-text-muted)",
+                textDecoration: "none",
+                fontSize: "0.75rem",
+                letterSpacing: "0.05em",
+                "&:hover": {
+                  color: "#00d4ff",
+                },
+              }}
+            >
+              Warranty
+            </Link>
             <Link
               href="/tos"
               sx={{

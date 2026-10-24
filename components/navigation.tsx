@@ -18,8 +18,10 @@ const navItems = [
   { label: "Shop", href: "/shop", type: "page" },
   { label: "Sell Your Bike", href: "/sell-bike", type: "page" },
   { label: "Find Your Size", href: "/bike-sizing", type: "page" },
+  { label: "Bike Fit", href: "/bike-fit", type: "page" },
   { label: "First Bike Guide", href: "/first-bike", type: "page" },
   { label: "Services & Pricing", href: "#services", type: "section" },
+  { label: "Warranty", href: "/warranty", type: "page" },
   { label: "Contact", href: "#contact", type: "section" },
 ]
 

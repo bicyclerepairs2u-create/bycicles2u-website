@@ -151,7 +151,7 @@ export default function TermsOfService() {
                 mb: 4,
               }}
             >
-              Last updated: January 30, 2026
+              Last updated: October 20, 2026
             </Typography>
 
             <Divider sx={{ mb: 4, borderColor: "var(--theme-border)" }} />
@@ -176,10 +176,11 @@ export default function TermsOfService() {
               </Typography>
               <Box sx={{ pl: 2, mb: 2 }}>
                 {[
-                  "Bike repairs and servicing (Basic, Standard, Deluxe, and Ultimate service packages)",
+                  "Bike repairs and servicing (Standard, Deluxe, and Ultimate service packages)",
+                  "Professional road, race and time-trial bike fitting",
                   "Custom bike builds and modifications",
                   "Sale of second-hand road bikes",
-                  "Bike sizing consultations",
+                  "Pre-purchase bike sizing consultations",
                 ].map((item, idx) => (
                   <Box key={idx} sx={listItemStyle}>
                     <Box sx={{ width: "4px", height: "4px", backgroundColor: "#00d4ff", mt: 1.2, flexShrink: 0 }} />
@@ -228,10 +229,9 @@ export default function TermsOfService() {
               </Typography>
               <Box sx={{ pl: 2, mb: 2 }}>
                 {[
-                  { label: "Basic Service ($59)", desc: "Clean bike, lube chain, gears and brakes check" },
-                  { label: "Standard Service ($119)", desc: "Basic + full bike clean, wheel truing, brake pads check" },
-                  { label: "Deluxe Service ($159)", desc: "Standard + drivetrain deep clean, cable replacement, bearing check" },
-                  { label: "Ultimate Service ($299)", desc: "Deluxe + full strip down, bearing service, frame polish" },
+                  { label: "Standard Service ($169)", desc: "Safety inspection, gears, brakes, torque check, chain lube and wear measurements. Includes GST." },
+                  { label: "Deluxe Service ($249)", desc: "Standard, plus drivetrain clean, minor wheel truing, hub adjustment, detailed wash and minor component replacement labour." },
+                  { label: "Ultimate Service ($499)", desc: "Deluxe, plus hydraulic brake bleeding, a full strip for deep cleaning, and serviceable bearings cleaned and regreased." },
                 ].map((item, idx) => (
                   <Box key={idx} sx={listItemStyle}>
                     <Box sx={{ width: "4px", height: "4px", backgroundColor: "#00d4ff", mt: 1.2, flexShrink: 0 }} />
@@ -242,7 +242,7 @@ export default function TermsOfService() {
                 ))}
               </Box>
               <Typography variant="body1" sx={bodyStyle}>
-                Additional parts and labor required beyond the scope of the selected service package will be quoted separately and require approval before proceeding.
+                All advertised service prices include GST. Replacement parts and consumables are charged separately unless otherwise specified. Additional labour outside the selected package is quoted and approved before work proceeds. Workshop labour beyond a package is $110 per hour. Bikes left more than 14 days after the ready notification incur storage of $5 per calendar day from day 15.
               </Typography>
             </Box>
 
@@ -330,36 +330,10 @@ export default function TermsOfService() {
                 Second-Hand Bikes
               </Typography>
               <Typography variant="body1" sx={bodyStyle}>
-                Bicycles2U offers warranties on second-hand bikes purchased through us, subject to the terms outlined below.
+                Second-hand bicycles purchased from Bicycles2U are covered by the carbon warranty and bike warranty published at{" "}
+                <Link href="/warranty" sx={{ color: "#00d4ff" }}>/warranty</Link>.
+                That warranty covers genuine structural carbon faults and major mechanical faults that were present at sale and not disclosed. It includes a 2-week adjustment period after purchase. It does not cover crash or impact damage, normal wear, consumables, or faults caused by misuse or lack of maintenance. Nothing in these terms removes rights under the Australian Consumer Law.
               </Typography>
-
-              <Typography variant="body1" sx={{ ...bodyStyle, fontWeight: 600, color: "var(--theme-text-primary)" }}>
-                Carbon Fibre Frame Warranty
-              </Typography>
-              <Typography variant="body1" sx={bodyStyle}>
-                For your peace of mind, any cracks discovered in a carbon fibre frame after purchase will be covered under our warranty. We will provide either a replacement bike or a full refund at our discretion. This warranty does <strong>not</strong> cover cracks resulting from neglect, misuse, or any incident involving a collision or crash.
-              </Typography>
-
-              <Typography variant="body1" sx={{ ...bodyStyle, fontWeight: 600, color: "var(--theme-text-primary)" }}>
-                Mechanical Parts Warranty
-              </Typography>
-              <Typography variant="body1" sx={bodyStyle}>
-                All mechanical components on second-hand road bikes are covered by a <strong>6-month</strong> warranty from the date of purchase. This warranty will be voided if damage results from neglect or improper use, including but not limited to:
-              </Typography>
-              <Box sx={{ pl: 2, mb: 2 }}>
-                {[
-                  "Shifting under load, resulting in bent or broken derailleurs and hangers",
-                  "Fitting of third-party components without installation by a professional mechanic",
-                  "Improper fitment of wheels or general mishandling of the bike",
-                ].map((item, idx) => (
-                  <Box key={idx} sx={listItemStyle}>
-                    <Box sx={{ width: "4px", height: "4px", backgroundColor: "#ff6b6b", mt: 1.2, flexShrink: 0 }} />
-                    <Typography variant="body1" sx={{ color: "var(--theme-text-secondary)", lineHeight: 1.8 }}>
-                      {item}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
 
               <Typography
                 variant="h6"
@@ -450,7 +424,7 @@ export default function TermsOfService() {
               <Box sx={{ pl: 2, mb: 2 }}>
                 {[
                   "Providing accurate information about bike history and issues",
-                  "Collecting bikes within 14 days of service completion notification",
+                  "Collecting bikes within 14 calendar days of the ready notification. From day 15, storage is $5 per calendar day (including GST), payable on collection",
                   "Payment in full at time of collection",
                   "Removing all personal items from bikes before drop-off",
                 ].map((item, idx) => (
@@ -463,7 +437,7 @@ export default function TermsOfService() {
                 ))}
               </Box>
               <Typography variant="body1" sx={bodyStyle}>
-                Bikes not collected within 30 days may be subject to storage fees of $10 per day.
+                Bikes remaining uncollected after the 14-day collection period incur the storage fee described above until they are collected.
               </Typography>
             </Box>
 
